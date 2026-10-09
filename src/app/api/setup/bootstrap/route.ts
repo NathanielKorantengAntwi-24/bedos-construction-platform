@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { errorResponse, ApiError } from "@/server/http/api-error";
 import { parseJson } from "@/server/http/parse-json";
@@ -70,9 +70,12 @@ export async function POST(request: Request) {
       throw new ApiError("Invalid email address.", 400);
     }
 
-    const { data: invitation, error: invitationError } =
-      await admin.auth.admin.inviteUserByEmail(email);
 
+    const { data: invitation, error: invitationError } =
+      await admin.auth.admin.inviteUserByEmail(email, {
+        redirectTo:
+          "https://bedos-construction-platform.vercel.app/auth/callback?next=/auth/set-password",
+      });
     if (invitationError || !invitation.user) {
       throw new ApiError(
         invitationError?.message ?? "Unable to invite administrator.",
