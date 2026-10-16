@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { getUserContext } from "@/server/auth/get-user-context";
-import { createOrder } from "@/features/orders/order.service";
-import type { CreateOrderInput } from "@/features/orders/order.types";
+import { createOrder, listCustomerOrders } from "@/features/orders/order.service";
+import { validateCreateOrderInput } from "@/features/orders/validate-create-order";
 import { parseJson } from "@/server/http/parse-json";
-import { listCustomerOrders } from "@/features/orders/order.service";
+import { errorResponse } from "@/server/http/api-error";
+
 
 export async function POST(request: Request) {
   try {
@@ -26,7 +27,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await parseJson<CreateOrderInput>(request);
+    const rawBody = await parseJson<unknown>(request);
+    const body = validateCreateOrderInput(rawBody);
 
     const order = await createOrder(context.user.id, body);
 
@@ -35,12 +37,7 @@ export async function POST(request: Request) {
       { status: 201 },
     );
   } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Internal server error" },
-      { status: 400 },
-    );
+    return errorResponse(error);
   }
 }
 

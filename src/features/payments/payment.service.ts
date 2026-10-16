@@ -1,15 +1,17 @@
+
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ApiError } from "@/server/http/api-error";
 import type { Payment } from "./payment.types";
-import { paystackRequest } from "@/lib/paystack/client";
+import {
+  paystackRequest,
+  PaystackRequestError,
+} from "@/lib/paystack/client";
 import type {
   PaystackInitializeResponse,
   PaystackVerifyResponse,
 } from "@/lib/paystack/paystack.types";
 import { createNotification } from "@/features/notifications/notification.service";
-
-
 
 const PAYMENT_SELECT = `
   id,
@@ -107,109 +109,179 @@ export async function initializePayment(
   reference: string;
 }> {
   const supabase = createAdminClient();
+  const reference = `BEDOS-${orderId}-${crypto.randomUUID()}`;
 
-  const { data: order, error: orderError } = await supabase
-    .from("orders")
-    .select(`
-      id,
-      customer_id,
-      total_amount,
-      currency,
-      status
-    `)
-    .eq("id", orderId)
-    .eq("customer_id", customerId)
-    .single();
+  const { data: reservationData, error: reservationError } =
+    await supabase.rpc("reserve_payment_attempt", {
+      p_order_id: orderId,
+      p_customer_id: customerId,
+      p_provider_reference: reference,
+    });
 
-  if (orderError || !order) {
-    throw new ApiError("Order not found", 404);
+  if (reservationError) {
+    const message = reservationError.message ?? "";
+
+    if (message.includes("Order not found")) {
+      throw new ApiError("Order not found", 404);
+    }
+
+    if (message.includes("Only pending orders can be paid")) {
+      throw new ApiError("Only pending orders can be paid", 400);
+    }
+
+    if (message.includes("already been paid")) {
+      throw new ApiError("This order has already been paid", 409);
+    }
+
+    if (message.includes("already in progress")) {
+      throw new ApiError(
+        "A payment is already in progress for this order",
+        409,
+      );
+    }
+
+    if (
+      message.includes("Order amount must be positive") ||
+      message.includes("Order currency is required")
+    ) {
+      throw new ApiError(
+        "The order amount or currency is invalid for payment",
+        400,
+      );
+    }
+
+    console.error("Payment reservation RPC failed:", {
+      code: reservationError.code,
+    });
+
+    throw new ApiError("Failed to reserve payment attempt", 500);
   }
 
-  if (order.status !== "pending") {
+  const reservedPayment = (Array.isArray(reservationData)
+    ? reservationData[0]
+    : reservationData) as Payment | null;
+
+  if (!reservedPayment) {
+    throw new ApiError("Failed to reserve payment attempt", 500);
+  }
+
+  const amount = Number(reservedPayment.amount);
+  const currency = reservedPayment.currency;
+  const amountInSubunit = Math.round(amount * 100);
+
+  if (
+    !Number.isFinite(amount) ||
+    amount <= 0 ||
+    !Number.isSafeInteger(amountInSubunit) ||
+    amountInSubunit <= 0 ||
+    Math.abs(amount * 100 - amountInSubunit) > 1e-7 ||
+    typeof currency !== "string" ||
+    currency.trim() === ""
+  ) {
+    console.error("Reserved payment contains invalid amount or currency:", {
+      paymentId: reservedPayment.id,
+    });
+
+    throw new ApiError("The order amount or currency is invalid for payment", 400);
+  }
+  let paystackResponse: PaystackInitializeResponse;
+
+  try {
+    paystackResponse =
+      await paystackRequest<PaystackInitializeResponse>(
+        "/transaction/initialize",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: customerEmail,
+            amount: amountInSubunit,
+            currency,
+            reference,
+            metadata: {
+              order_id: reservedPayment.order_id,
+              customer_id: reservedPayment.customer_id,
+            },
+          }),
+        },
+      );
+  } catch (error) {
+    if (
+      error instanceof PaystackRequestError &&
+      !error.outcomeUnknown
+    ) {
+      const { error: updateError } = await supabase
+        .from("payments")
+        .update({ status: "failed" })
+        .eq("id", reservedPayment.id)
+        .eq("status", "processing");
+
+      if (updateError) {
+        console.error(
+          "Failed to update rejected payment attempt:",
+          updateError,
+        );
+      }
+
+      if (error.code === "configuration") {
+        console.error("Paystack configuration error:", error);
+
+        throw new ApiError(
+          "Payment service is temporarily unavailable",
+          500,
+        );
+      }
+
+      console.error("Paystack rejected payment initialization:", {
+        paymentId: reservedPayment.id,
+        code: error.code,
+      });
+
+      throw new ApiError(
+        "Paystack could not initialize this payment. Please try again.",
+        502,
+      );
+    }
+
+    console.error(
+      "Paystack initialization outcome is uncertain; payment attempt retained for reconciliation.",
+      error,
+    );
+
     throw new ApiError(
-      "Only pending orders can be paid",
-      400,
+      "Payment initialization could not be confirmed. Please contact support before trying again.",
+      503,
     );
   }
 
-  if (Number(order.total_amount) <= 0) {
-  throw new ApiError(
-    "Order amount must be greater than zero",
-    400,
-  );
-}
-  const {
-    data: existingPayments,
-    error: existingPaymentError,
-  } = await supabase
+  if (
+    paystackResponse.reference !== reference ||
+    typeof paystackResponse.authorization_url !== "string" ||
+    paystackResponse.authorization_url.trim() === "" ||
+    typeof paystackResponse.access_code !== "string" ||
+    paystackResponse.access_code.trim() === ""
+  ) {
+    console.error(
+      "Paystack initialization returned an invalid response",
+      { paymentId: reservedPayment.id },
+    );
+
+    throw new ApiError(
+      "Payment initialization could not be confirmed. Please contact support before trying again.",
+      503,
+    );
+  }
+
+  const { data: payment, error: paymentUpdateError } = await supabase
     .from("payments")
-    .select("id, status")
-    .eq("order_id", orderId)
-    .in("status", ["pending", "processing", "paid"]);
-
-  if (existingPaymentError) {
-    throw new ApiError(existingPaymentError.message, 500);
-  }
-
-  const paidPayment = existingPayments?.find(
-    (payment) => payment.status === "paid",
-  );
-
-  if (paidPayment) {
-    throw new ApiError(
-      "This order has already been paid",
-      409,
-    );
-  }
-
-  if (existingPayments && existingPayments.length > 0) {
-    throw new ApiError(
-      "A payment is already in progress for this order",
-      409,
-    );
-  }
-
-  const reference = `BEDOS-${order.id}-${Date.now()}`;
-
-  const amountInSubunit = Math.round(
-    Number(order.total_amount) * 100,
-  );
-
-  const paystackResponse =
-    await paystackRequest<PaystackInitializeResponse>(
-      "/transaction/initialize",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email: customerEmail,
-          amount: amountInSubunit,
-          currency: order.currency,
-          reference,
-          metadata: {
-            order_id: order.id,
-            customer_id: order.customer_id,
-          },
-        }),
-      },
-    );
-
-  const { data: payment, error: paymentError } = await supabase
-    .from("payments")
-    .insert({
-      order_id: order.id,
-      customer_id: order.customer_id,
-      provider: "paystack",
-      provider_reference: paystackResponse.reference,
-      amount: order.total_amount,
-      currency: order.currency,
-      status: "pending",
-    })
+    .update({ status: "pending" })
+    .eq("id", reservedPayment.id)
+    .eq("status", "processing")
     .select(PAYMENT_SELECT)
     .single();
 
-  if (paymentError || !payment) {
+  if (paymentUpdateError || !payment) {
     throw new ApiError(
-      paymentError?.message ?? "Failed to create payment record",
+      "Paystack initialization may have succeeded, but the payment record needs reconciliation.",
       500,
     );
   }
@@ -218,7 +290,7 @@ export async function initializePayment(
     payment: payment as Payment,
     authorization_url: paystackResponse.authorization_url,
     access_code: paystackResponse.access_code,
-    reference: paystackResponse.reference,
+    reference,
   };
 }
 
@@ -229,16 +301,25 @@ export async function verifyPayment(
   const supabase = createAdminClient();
 
   const { data: payment, error: paymentError } = await supabase
-    .from("payments")
-    .select(PAYMENT_SELECT)
-    .eq("provider", "paystack")
-    .eq("provider_reference", reference)
-    .eq("customer_id", customerId)
-    .single();
+  .from("payments")
+  .select(PAYMENT_SELECT)
+  .eq("provider", "paystack")
+  .eq("provider_reference", reference)
+  .eq("customer_id", customerId)
+  .maybeSingle();
 
-  if (paymentError || !payment) {
-    throw new ApiError("Payment not found", 404);
-  }
+if (paymentError) {
+  console.error(
+    "Failed to load payment for verification:",
+    paymentError,
+  );
+
+  throw new ApiError("Failed to load payment", 500);
+}
+
+if (!payment) {
+  throw new ApiError("Payment not found", 404);
+}
 
   const paystackResponse =
     await paystackRequest<PaystackVerifyResponse>(
@@ -259,11 +340,17 @@ export async function verifyPayment(
     );
   }
 
-  const expectedAmount = Math.round(
-    Number(payment.amount) * 100,
-  );
+  const paymentAmount = Number(payment.amount);
+  const amountInSubunit = Math.round(paymentAmount * 100);
 
-  if (paystackResponse.amount !== expectedAmount) {
+  if (
+    !Number.isFinite(paymentAmount) ||
+    paymentAmount <= 0 ||
+    !Number.isSafeInteger(amountInSubunit) ||
+    amountInSubunit <= 0 ||
+    Math.abs(paymentAmount * 100 - amountInSubunit) > 1e-7 ||
+    paystackResponse.amount !== amountInSubunit
+  ) {
     throw new ApiError("Payment amount mismatch", 400);
   }
 
@@ -271,23 +358,23 @@ export async function verifyPayment(
     throw new ApiError("Payment currency mismatch", 400);
   }
 
-    if (payment.status === "paid") {
-  return payment as Payment;
-}
 
   const { data: confirmation, error: confirmationError } =
     await supabase.rpc("confirm_payment_and_order", {
       p_payment_id: payment.id,
       p_customer_id: payment.customer_id,
       p_paid_at:
-        paystackResponse.paid_at ??
-        new Date().toISOString(),
+        paystackResponse.paid_at ?? new Date().toISOString(),
     });
 
   if (confirmationError || !confirmation?.[0]) {
+    console.error("Payment confirmation RPC failed:", {
+      code: confirmationError?.code,
+      hasResult: Boolean(confirmation?.[0]),
+    });
+
     throw new ApiError(
-      confirmationError?.message ??
-        "Failed to confirm payment and order",
+      "Failed to confirm payment and order",
       500,
     );
   }
@@ -324,15 +411,24 @@ export async function processPaystackWebhookPayment(
   const supabase = createAdminClient();
 
   const { data: payment, error: paymentError } = await supabase
-    .from("payments")
-    .select(PAYMENT_SELECT)
-    .eq("provider", "paystack")
-    .eq("provider_reference", reference)
-    .single();
+  .from("payments")
+  .select(PAYMENT_SELECT)
+  .eq("provider", "paystack")
+  .eq("provider_reference", reference)
+  .maybeSingle();
 
-  if (paymentError || !payment) {
-    throw new ApiError("Payment not found", 404);
-  }
+if (paymentError) {
+  console.error(
+    "Failed to load payment for Paystack webhook:",
+    paymentError,
+  );
+
+  throw new ApiError("Failed to load payment", 500);
+}
+
+if (!payment) {
+  throw new ApiError("Payment not found", 404);
+}
 
   const paystackResponse =
     await paystackRequest<PaystackVerifyResponse>(
@@ -353,11 +449,17 @@ export async function processPaystackWebhookPayment(
     );
   }
 
-  const expectedAmount = Math.round(
-    Number(payment.amount) * 100,
-  );
+  const paymentAmount = Number(payment.amount);
+  const amountInSubunit = Math.round(paymentAmount * 100);
 
-  if (paystackResponse.amount !== expectedAmount) {
+  if (
+    !Number.isFinite(paymentAmount) ||
+    paymentAmount <= 0 ||
+    !Number.isSafeInteger(amountInSubunit) ||
+    amountInSubunit <= 0 ||
+    Math.abs(paymentAmount * 100 - amountInSubunit) > 1e-7 ||
+    paystackResponse.amount !== amountInSubunit
+  ) {
     throw new ApiError("Payment amount mismatch", 400);
   }
 
@@ -365,30 +467,30 @@ export async function processPaystackWebhookPayment(
     throw new ApiError("Payment currency mismatch", 400);
   }
 
-  if (payment.status === "paid") {
-    return payment as Payment;
-  }
 
   const { data: confirmation, error: confirmationError } =
     await supabase.rpc("confirm_payment_and_order", {
       p_payment_id: payment.id,
       p_customer_id: payment.customer_id,
       p_paid_at:
-        paystackResponse.paid_at ??
-        new Date().toISOString(),
+        paystackResponse.paid_at ?? new Date().toISOString(),
     });
 
   if (confirmationError || !confirmation?.[0]) {
+    console.error("Payment confirmation RPC failed:", {
+      code: confirmationError?.code,
+      hasResult: Boolean(confirmation?.[0]),
+    });
+
     throw new ApiError(
-      confirmationError?.message ??
-        "Failed to confirm payment and order",
+      "Failed to confirm payment and order",
       500,
     );
   }
 
   const confirmedPayment = confirmation[0];
 
-   try {
+  try {
     await createNotification({
       recipient_id: payment.customer_id,
       notification_type: "order_confirmed",
