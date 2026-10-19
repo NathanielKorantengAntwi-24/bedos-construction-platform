@@ -42,10 +42,41 @@ export async function createNotification(
     .select(NOTIFICATION_SELECT)
     .single();
 
-  if (error || !data) {
-    throw new Error(
-      error?.message ?? "Failed to create notification"
-    );
+  if (error) {
+    const isDuplicateOrderConfirmation =
+      error.code === "23505" &&
+      error.message.includes(
+        "notifications_one_order_confirmed_per_order"
+      ) &&
+      input.notification_type === "order_confirmed" &&
+      input.related_entity_type === "order" &&
+      Boolean(input.related_entity_id);
+
+    if (isDuplicateOrderConfirmation) {
+      const { data: existing, error: lookupError } = await supabase
+        .from("notifications")
+        .select(NOTIFICATION_SELECT)
+        .eq("recipient_id", input.recipient_id)
+        .eq("notification_type", "order_confirmed")
+        .eq("related_entity_type", "order")
+        .eq("related_entity_id", input.related_entity_id)
+        .maybeSingle();
+
+      if (lookupError || !existing) {
+        throw new Error(
+          lookupError?.message ??
+            "Existing order confirmation notification could not be loaded"
+        );
+      }
+
+      return existing as Notification;
+    }
+
+    throw new Error(error.message);
+  }
+
+  if (!data) {
+    throw new Error("Failed to create notification");
   }
 
   return data as Notification;

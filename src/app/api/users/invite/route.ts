@@ -68,7 +68,9 @@ export async function POST(request: Request) {
         role_id: role.id,
         updated_at: new Date().toISOString(),
       })
-      .eq("id", invitedUser.id);
+      .eq("id", invitedUser.id)
+      .select("id")
+      .single();
 
     if (profileError) {
       await admin.auth.admin.deleteUser(invitedUser.id);

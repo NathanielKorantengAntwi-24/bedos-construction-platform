@@ -32,15 +32,22 @@ function getPaystackSecretKey(): string {
   return secretKey;
 }
 
-export async function paystackRequest<T>(
+async function requestPaystackEnvelope<T>(
   path: string,
   options: RequestInit = {},
-): Promise<T> {
+): Promise<{ data: T; meta: unknown }> {
   const secretKey = getPaystackSecretKey();
   const timeoutSignal = AbortSignal.timeout(PAYSTACK_TIMEOUT_MS);
   const signal = options.signal
     ? AbortSignal.any([options.signal, timeoutSignal])
     : timeoutSignal;
+
+  const headers = new Headers(options.headers);
+  headers.set("Authorization", `Bearer ${secretKey}`);
+
+  if (!headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
 
   let response: Response;
 
@@ -48,11 +55,7 @@ export async function paystackRequest<T>(
     response = await fetch(`${PAYSTACK_BASE_URL}${path}`, {
       ...options,
       signal,
-      headers: {
-        Authorization: `Bearer ${secretKey}`,
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
+      headers,
       cache: "no-store",
     });
   } catch {
@@ -67,6 +70,7 @@ export async function paystackRequest<T>(
     status?: boolean;
     message?: string;
     data?: T;
+    meta?: unknown;
   };
 
   try {
@@ -79,6 +83,17 @@ export async function paystackRequest<T>(
     );
   }
 
+  if (
+    data === null ||
+    typeof data !== "object" ||
+    Array.isArray(data)
+  ) {
+    throw new PaystackRequestError(
+      "Paystack returned an invalid response structure",
+      true,
+      "response",
+    );
+  }
   if (!response.ok) {
     // A server error or timeout can occur after Paystack has
     // received a request, so its outcome may be uncertain.
@@ -102,6 +117,14 @@ export async function paystackRequest<T>(
     );
   }
 
+  if (data.status !== true) {
+    throw new PaystackRequestError(
+      "Paystack response did not confirm success",
+      true,
+      "response",
+    );
+  }
+
   if (data.data === undefined) {
     throw new PaystackRequestError(
       "Paystack response did not contain transaction data",
@@ -110,5 +133,27 @@ export async function paystackRequest<T>(
     );
   }
 
-  return data.data;
+  return { data: data.data, meta: data.meta };
+}
+
+/**
+ * Existing Paystack callers continue to receive only response data.
+ */
+export async function paystackRequest<T>(
+  path: string,
+  options: RequestInit = {},
+): Promise<T> {
+  const response = await requestPaystackEnvelope<T>(path, options);
+  return response.data;
+}
+
+/**
+ * For endpoints where response metadata is needed.
+ * Metadata remains unknown until validated by the caller.
+ */
+export async function paystackRequestWithMeta<T>(
+  path: string,
+  options: RequestInit = {},
+): Promise<{ data: T; meta: unknown }> {
+  return requestPaystackEnvelope<T>(path, options);
 }

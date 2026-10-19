@@ -2,16 +2,13 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ApiError } from "@/server/http/api-error";
-import type { Payment } from "./payment.types";
+import { lookupExistingPaystackRefund } from "@/lib/paystack/refund-lookup";
+import type { Payment, PaymentRefund, PaymentRefundStatus } from "./payment.types";
 import {
   paystackRequest,
   PaystackRequestError,
 } from "@/lib/paystack/client";
-import type {
-  PaystackInitializeResponse,
-  PaystackVerifyResponse,
-} from "@/lib/paystack/paystack.types";
-import { createNotification } from "@/features/notifications/notification.service";
+import type { PaystackCreateRefundResponse, PaystackInitializeResponse, PaystackRefundStatus, PaystackVerifyResponse } from "@/lib/paystack/paystack.types";
 
 const PAYMENT_SELECT = `
   id,
@@ -381,22 +378,6 @@ if (!payment) {
 
   const confirmedPayment = confirmation[0];
 
-  try {
-    await createNotification({
-      recipient_id: payment.customer_id,
-      notification_type: "order_confirmed",
-      title: "Order confirmed",
-      message: `Your order ${confirmedPayment.order_number} has been confirmed.`,
-      channel: "in_app",
-      related_entity_type: "order",
-      related_entity_id: confirmedPayment.order_id,
-    });
-  } catch (notificationError) {
-    console.error(
-      "Failed to create order confirmation notification:",
-      notificationError,
-    );
-  }
 
   return {
     ...payment,
@@ -490,26 +471,600 @@ if (!payment) {
 
   const confirmedPayment = confirmation[0];
 
-  try {
-    await createNotification({
-      recipient_id: payment.customer_id,
-      notification_type: "order_confirmed",
-      title: "Order confirmed",
-      message: `Your order ${confirmedPayment.order_number} has been confirmed.`,
-      channel: "in_app",
-      related_entity_type: "order",
-      related_entity_id: confirmedPayment.order_id,
-    });
-  } catch (notificationError) {
-    console.error(
-      "Failed to create order confirmation notification:",
-      notificationError,
-    );
-  }
 
   return {
     ...payment,
     status: confirmedPayment.payment_status,
     paid_at: confirmedPayment.paid_at,
   } as Payment;
+}
+
+
+type RefundStatusUpdate =
+  Exclude<PaymentRefundStatus, "initiating" | "processed">;
+
+type RefundStatusUpdateInput = {
+  status: RefundStatusUpdate;
+  amountSubunit: number;
+  currency: string;
+  providerStatus: PaystackRefundStatus | null;
+  providerRefundId: string | null;
+  failureCode: string | null;
+};
+
+async function persistPaymentRefundStatus(
+  admin: ReturnType<typeof createAdminClient>,
+  refund: PaymentRefund,
+  input: RefundStatusUpdateInput,
+): Promise<PaymentRefund> {
+  const { data, error } = await admin.rpc(
+    "update_payment_refund_status",
+    {
+      p_provider_transaction_reference:
+        refund.provider_transaction_reference,
+      p_status: input.status,
+      p_amount_subunit: input.amountSubunit,
+      p_currency: input.currency,
+      p_provider_status: input.providerStatus,
+      p_provider_refund_id: input.providerRefundId,
+      p_failure_code: input.failureCode,
+    },
+  );
+
+  const row = Array.isArray(data) ? data[0] : data;
+
+  if (error || !row) {
+    console.error("Refund status update failed:", {
+      refundId: refund.id,
+      code: error?.code,
+    });
+
+    throw new ApiError(
+      "Refund status could not be recorded; reconciliation is required",
+      503,
+    );
+  }
+
+  return row as PaymentRefund;
+}
+
+function mapPaystackRefundStatus(
+  status: PaystackRefundStatus,
+): RefundStatusUpdate {
+  switch (status) {
+    case "pending":
+      return "pending";
+    case "processing":
+      return "processing";
+    case "needs-attention":
+      return "needs_attention";
+    case "failed":
+      return "failed";
+    case "processed":
+      throw new ApiError(
+        "Processed refunds must use the atomic completion operation",
+        500,
+      );
+  }
+}
+
+function isValidPaystackRefundStatus(
+  value: unknown,
+): value is PaystackRefundStatus {
+  return (
+    value === "pending" ||
+    value === "processing" ||
+    value === "needs-attention" ||
+    value === "processed" ||
+    value === "failed"
+  );
+}
+
+export async function initiatePaymentRefund(
+  paymentId: string,
+  initiatedBy: string,
+  reason: string,
+): Promise<PaymentRefund> {
+  const admin = createAdminClient();
+
+  const { data: reservationData, error: reservationError } =
+    await admin.rpc("reserve_payment_refund", {
+      p_payment_id: paymentId,
+      p_initiated_by: initiatedBy,
+      p_reason: reason,
+    });
+
+  if (reservationError) {
+    const message = reservationError.message ?? "";
+    const normalizedMessage = message.toLowerCase();
+
+    if (normalizedMessage.includes("refund record already exists")) {
+      throw new ApiError(
+        "A refund attempt already exists. Reconcile it before retrying.",
+        409,
+      );
+    }
+
+    if (normalizedMessage.includes("permission is required")) {
+      throw new ApiError(
+        "An active administrator or finance permission is required",
+        403,
+      );
+    }
+
+    if (
+      normalizedMessage.includes("payment not found") ||
+      normalizedMessage.includes("paystack payment not found")
+    ) {
+      throw new ApiError("Payment not found", 404);
+    }
+
+    if (
+      normalizedMessage.includes("only verified paid payments") ||
+      normalizedMessage.includes("not eligible") ||
+      normalizedMessage.includes("mismatch") ||
+      normalizedMessage.includes("cannot be refunded")
+    ) {
+      throw new ApiError(
+        "Payment or order is not eligible for a refund",
+        409,
+      );
+    }
+
+    console.error("Refund reservation failed:", {
+      code: reservationError.code,
+    });
+
+    throw new ApiError("Unable to reserve the refund", 500);
+  }
+
+  const reservedRow = Array.isArray(reservationData)
+    ? reservationData[0]
+    : reservationData;
+
+  if (!reservedRow) {
+    throw new ApiError("Unable to reserve the refund", 500);
+  }
+
+  const refund = reservedRow as PaymentRefund;
+  const amount = Number(refund.amount);
+  const amountSubunit = Math.round(amount * 100);
+
+  if (
+    !Number.isFinite(amount) ||
+    amount <= 0 ||
+    !Number.isSafeInteger(amountSubunit) ||
+    amountSubunit <= 0 ||
+    Math.abs(amount * 100 - amountSubunit) > 1e-7
+  ) {
+    console.error("Refund amount is invalid:", {
+      refundId: refund.id,
+    });
+
+    throw new ApiError(
+      "Refund amount is invalid; manual reconciliation is required",
+      503,
+    );
+  }
+
+  let response: PaystackCreateRefundResponse;
+
+  try {
+    response = await paystackRequest<PaystackCreateRefundResponse>(
+      "/refund",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          transaction: refund.provider_transaction_reference,
+          merchant_note: `Bedos refund record ${refund.id}`,
+        }),
+      },
+    );
+  } catch (error) {
+    const isKnownPaystackError =
+      error instanceof PaystackRequestError;
+
+    const status: RefundStatusUpdate =
+      isKnownPaystackError && !error.outcomeUnknown
+        ? "rejected"
+        : "outcome_unknown";
+
+    try {
+      await persistPaymentRefundStatus(admin, refund, {
+        status,
+        amountSubunit,
+        currency: refund.currency,
+        providerStatus: null,
+        providerRefundId: null,
+        failureCode: isKnownPaystackError
+          ? error.code
+          : "unknown_error",
+      });
+    } catch {
+      console.error("Refund error state requires reconciliation:", {
+        refundId: refund.id,
+      });
+    }
+
+    if (status === "rejected") {
+      throw new ApiError(
+        "Paystack did not accept the refund request. The original payment remains paid.",
+        502,
+      );
+    }
+
+    throw new ApiError(
+      "The refund outcome is uncertain. Do not retry; reconcile with Paystack first.",
+      503,
+    );
+  }
+
+  const responseMatches =
+    Number.isSafeInteger(response.id) &&
+    response.id > 0 &&
+    isValidPaystackRefundStatus(response.status) &&
+    response.transaction?.reference ===
+      refund.provider_transaction_reference &&
+    response.transaction?.amount === amountSubunit &&
+    response.transaction?.currency === refund.currency &&
+    response.amount === amountSubunit &&
+    response.currency === refund.currency;
+
+  if (!responseMatches) {
+    try {
+      await persistPaymentRefundStatus(admin, refund, {
+        status: "outcome_unknown",
+        amountSubunit,
+        currency: refund.currency,
+        providerStatus: null,
+        providerRefundId: null,
+        failureCode: "response_mismatch",
+      });
+    } catch {
+      console.error("Mismatched refund response needs reconciliation:", {
+        refundId: refund.id,
+      });
+    }
+
+    throw new ApiError(
+      "Paystack returned a response that could not be matched to the refund. Reconciliation is required.",
+      503,
+    );
+  }
+
+  const providerRefundId = String(response.id);
+
+  if (response.status === "processed") {
+    const { data, error } = await admin.rpc(
+      "complete_payment_refund",
+      {
+        p_provider_transaction_reference:
+          refund.provider_transaction_reference,
+        p_provider_refund_id: providerRefundId,
+        p_amount_subunit: response.amount,
+        p_currency: response.currency,
+      },
+    );
+
+    const row = Array.isArray(data) ? data[0] : data;
+
+    if (error || !row) {
+      console.error("Processed refund needs reconciliation:", {
+        refundId: refund.id,
+        code: error?.code,
+      });
+
+      throw new ApiError(
+        "Paystack processed the refund, but Bedos could not complete its database update. Reconciliation is required.",
+        503,
+      );
+    }
+
+    return row as PaymentRefund;
+  }
+
+  return persistPaymentRefundStatus(admin, refund, {
+    status: mapPaystackRefundStatus(response.status),
+    amountSubunit,
+    currency: response.currency,
+    providerStatus: response.status,
+    providerRefundId,
+    failureCode: null,
+  });
+}
+
+export type PaystackRefundWebhookEvent =
+  | "refund.pending"
+  | "refund.processing"
+  | "refund.needs-attention"
+  | "refund.failed"
+  | "refund.processed";
+
+type PaystackRefundWebhookInput = {
+  event: PaystackRefundWebhookEvent;
+  transactionReference: string;
+  amountSubunit: number;
+  currency: string;
+  providerStatus: PaystackRefundStatus;
+};
+
+const REFUND_EVENT_STATUS: Record<
+  PaystackRefundWebhookEvent,
+  PaystackRefundStatus
+> = {
+  "refund.pending": "pending",
+  "refund.processing": "processing",
+  "refund.needs-attention": "needs-attention",
+  "refund.failed": "failed",
+  "refund.processed": "processed",
+};
+
+export async function processPaystackRefundWebhook(
+  input: PaystackRefundWebhookInput,
+): Promise<PaymentRefund> {
+  if (
+    !input.transactionReference.trim() ||
+    !Number.isSafeInteger(input.amountSubunit) ||
+    input.amountSubunit <= 0 ||
+    !input.currency.trim()
+  ) {
+    throw new ApiError("Invalid refund webhook details", 400);
+  }
+
+  if (REFUND_EVENT_STATUS[input.event] !== input.providerStatus) {
+    throw new ApiError(
+      "Refund event and provider status do not match",
+      400,
+    );
+  }
+
+  const admin = createAdminClient();
+
+  const { data: refundData, error: refundError } = await admin
+    .from("payment_refunds")
+    .select("*")
+    .eq(
+      "provider_transaction_reference",
+      input.transactionReference,
+    )
+    .maybeSingle();
+
+  if (refundError) {
+    console.error("Failed to load refund webhook record:", {
+      code: refundError.code,
+    });
+
+    throw new ApiError("Unable to load refund record", 500);
+  }
+
+  if (!refundData) {
+    throw new ApiError("Refund not found", 404);
+  }
+
+  const refund = refundData as PaymentRefund;
+
+  if (input.event === "refund.processed") {
+    if (input.currency !== refund.currency) {
+      throw new ApiError(
+        "Refund currency mismatch; reconciliation required",
+        503,
+      );
+    }
+
+    let verifiedRefund: Awaited<
+      ReturnType<typeof lookupExistingPaystackRefund>
+    >;
+
+    try {
+      verifiedRefund = await lookupExistingPaystackRefund(
+        refund.provider_transaction_reference,
+        {
+          refundId: refund.id,
+          amountSubunit: input.amountSubunit,
+          currency: refund.currency,
+          providerRefundId: refund.provider_refund_id,
+        },
+      );
+    } catch {
+      throw new ApiError(
+        "Unable to verify Paystack refund identity; reconciliation required",
+        503,
+      );
+    }
+
+    if (
+      !verifiedRefund ||
+      verifiedRefund.status !== "processed" ||
+      !Number.isSafeInteger(verifiedRefund.id) ||
+      (verifiedRefund.id as number) <= 0
+    ) {
+      throw new ApiError(
+        "Processed Paystack refund could not be verified; reconciliation required",
+        503,
+      );
+    }
+
+    const { data, error } = await admin.rpc(
+      "complete_payment_refund",
+      {
+        p_provider_transaction_reference:
+          input.transactionReference,
+        p_provider_refund_id: String(verifiedRefund.id),
+        p_amount_subunit: input.amountSubunit,
+        p_currency: input.currency,
+      },
+    );
+
+    const row = Array.isArray(data) ? data[0] : data;
+
+    if (error || !row) {
+      console.error("Processed refund webhook needs reconciliation:", {
+        refundId: refund.id,
+        code: error?.code,
+      });
+
+      throw new ApiError(
+        "Unable to complete refund atomically; reconciliation is required",
+        500,
+      );
+    }
+
+    return row as PaymentRefund;
+  }
+
+  const mappedStatus = mapPaystackRefundStatus(input.providerStatus);
+
+  return persistPaymentRefundStatus(admin, refund, {
+    status: mappedStatus,
+    amountSubunit: input.amountSubunit,
+    currency: input.currency,
+    providerStatus: input.providerStatus,
+    providerRefundId: null,
+    failureCode: null,
+  });
+}
+
+
+export async function reconcileExistingPaymentRefund(
+  refundId: string,
+): Promise<PaymentRefund> {
+  const admin = createAdminClient();
+
+  const { data, error } = await admin
+    .from("payment_refunds")
+    .select("*")
+    .eq("id", refundId)
+    .maybeSingle();
+
+  if (error) {
+    throw new ApiError("Unable to load refund record", 500);
+  }
+
+  if (!data) {
+    throw new ApiError("Refund not found", 404);
+  }
+
+  const refund = data as PaymentRefund;
+
+  const amount = Number(refund.amount);
+  const amountSubunit = Math.round(amount * 100);
+
+  if (
+    !Number.isFinite(amount) ||
+    amount <= 0 ||
+    !Number.isSafeInteger(amountSubunit) ||
+    amountSubunit <= 0 ||
+    Math.abs(amount * 100 - amountSubunit) > 1e-7
+  ) {
+    throw new ApiError(
+      "Invalid refund amount; manual reconciliation required",
+      503,
+    );
+  }
+
+  if (refund.status === "processed") {
+    const { data: completed, error: completionError } =
+      await admin.rpc("complete_payment_refund", {
+        p_provider_transaction_reference:
+          refund.provider_transaction_reference,
+        p_provider_refund_id: refund.provider_refund_id,
+        p_amount_subunit: amountSubunit,
+        p_currency: refund.currency,
+      });
+
+    const row = Array.isArray(completed)
+      ? completed[0]
+      : completed;
+
+    if (completionError || !row) {
+      throw new ApiError(
+        "Processed refund requires manual reconciliation",
+        503,
+      );
+    }
+
+    return row as PaymentRefund;
+  }
+
+  if (
+    refund.status === "failed" ||
+    refund.status === "rejected"
+  ) {
+    throw new ApiError(
+      "Failed or rejected refund requires manual review",
+      409,
+    );
+  }
+
+  let match: Awaited<
+    ReturnType<typeof lookupExistingPaystackRefund>
+  >;
+
+  try {
+    match = await lookupExistingPaystackRefund(
+      refund.provider_transaction_reference,
+      {
+        refundId: refund.id,
+        amountSubunit,
+        currency: refund.currency,
+        providerRefundId: refund.provider_refund_id,
+      },
+    );
+  } catch {
+    throw new ApiError(
+      "Paystack refund lookup could not be verified; manual reconciliation required",
+      503,
+    );
+  }
+
+  if (!match) {
+    throw new ApiError(
+      "No matching Paystack refund found. Do not retry; manual review required.",
+      409,
+    );
+  }
+
+  const providerStatus = match.status;
+
+  if (!isValidPaystackRefundStatus(providerStatus)) {
+    throw new ApiError(
+      "Invalid Paystack refund status",
+      503,
+    );
+  }
+
+  const providerRefundId = String(match.id);
+
+  if (providerStatus === "processed") {
+    const { data: completed, error: completionError } =
+      await admin.rpc("complete_payment_refund", {
+        p_provider_transaction_reference:
+          refund.provider_transaction_reference,
+        p_provider_refund_id: providerRefundId,
+        p_amount_subunit: amountSubunit,
+        p_currency: refund.currency,
+      });
+
+    const row = Array.isArray(completed)
+      ? completed[0]
+      : completed;
+
+    if (completionError || !row) {
+      throw new ApiError(
+        "Refund completion failed; manual reconciliation required",
+        503,
+      );
+    }
+
+    return row as PaymentRefund;
+  }
+
+  return persistPaymentRefundStatus(admin, refund, {
+    status: mapPaystackRefundStatus(providerStatus),
+    amountSubunit,
+    currency: refund.currency,
+    providerStatus,
+    providerRefundId,
+    failureCode: null,
+  });
 }

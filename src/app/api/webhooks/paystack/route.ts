@@ -1,8 +1,12 @@
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { ApiError } from "@/server/http/api-error";
-import { processPaystackWebhookPayment } from "@/features/payments/payment.service";
-
+import {
+  processPaystackRefundWebhook,
+  processPaystackWebhookPayment,
+} from "@/features/payments/payment.service";
+import type { PaystackRefundWebhookEvent } from "@/features/payments/payment.service";
+import type { PaystackRefundStatus } from "@/lib/paystack/paystack.types";
 
 function verifyPaystackSignature(
   rawBody: string,
@@ -14,7 +18,6 @@ function verifyPaystackSignature(
     throw new Error("Paystack secret key is not configured");
   }
 
-  // A SHA-512 HMAC digest is represented by 128 hexadecimal characters.
   if (!/^[a-fA-F0-9]{128}$/.test(signature)) {
     return false;
   }
@@ -36,15 +39,15 @@ function verifyPaystackSignature(
   );
 }
 
-
-
 type PaystackWebhookPayload = {
   event: string;
   data?: {
     reference?: string;
     status?: string;
-    amount?: number;
+    amount?: number | string;
     currency?: string;
+    transaction_reference?: string;
+    refund_reference?: string | null;
   };
 };
 
@@ -86,12 +89,49 @@ function isPaystackWebhookPayload(
       typeof data.status === "string") &&
     (data.amount === undefined ||
       (typeof data.amount === "number" &&
-        Number.isFinite(data.amount))) &&
+        Number.isFinite(data.amount)) ||
+      typeof data.amount === "string") &&
     (data.currency === undefined ||
-      typeof data.currency === "string")
+      typeof data.currency === "string") &&
+    (data.transaction_reference === undefined ||
+      typeof data.transaction_reference === "string") &&
+    (data.refund_reference === undefined ||
+      data.refund_reference === null ||
+      typeof data.refund_reference === "string")
   );
 }
 
+const REFUND_EVENT_STATUS: Record<
+  PaystackRefundWebhookEvent,
+  PaystackRefundStatus
+> = {
+  "refund.pending": "pending",
+  "refund.processing": "processing",
+  "refund.needs-attention": "needs-attention",
+  "refund.failed": "failed",
+  "refund.processed": "processed",
+};
+
+function parseSubunitAmount(
+  value: number | string | undefined,
+): number | null {
+  let amount: number;
+
+  if (typeof value === "number") {
+    amount = value;
+  } else if (
+    typeof value === "string" &&
+    /^[0-9]+$/.test(value)
+  ) {
+    amount = Number(value);
+  } else {
+    return null;
+  }
+
+  return Number.isSafeInteger(amount) && amount > 0
+    ? amount
+    : null;
+}
 
 export async function POST(request: Request) {
   try {
@@ -106,39 +146,77 @@ export async function POST(request: Request) {
 
     const rawBody = await request.text();
 
-    const isValid = verifyPaystackSignature(
-      rawBody,
-      signature,
-    );
-
-    if (!isValid) {
+    if (!verifyPaystackSignature(rawBody, signature)) {
       return NextResponse.json(
         { error: "Invalid Paystack signature" },
         { status: 401 },
       );
     }
 
+    let parsedPayload: unknown;
 
-let parsedPayload: unknown;
+    try {
+      parsedPayload = JSON.parse(rawBody);
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid webhook payload" },
+        { status: 400 },
+      );
+    }
 
-try {
-  parsedPayload = JSON.parse(rawBody);
-} catch {
-  return NextResponse.json(
-    { error: "Invalid webhook payload" },
-    { status: 400 },
-  );
-}
+    if (!isPaystackWebhookPayload(parsedPayload)) {
+      return NextResponse.json(
+        { error: "Invalid webhook payload" },
+        { status: 400 },
+      );
+    }
 
-if (!isPaystackWebhookPayload(parsedPayload)) {
-  return NextResponse.json(
-    { error: "Invalid webhook payload" },
-    { status: 400 },
-  );
-}
+    const payload = parsedPayload;
 
-const payload = parsedPayload;
+    if (payload.event.startsWith("refund.")) {
+      if (
+        !Object.prototype.hasOwnProperty.call(
+          REFUND_EVENT_STATUS,
+          payload.event,
+        )
+      ) {
+        return NextResponse.json(
+          { error: "Unsupported refund event" },
+          { status: 400 },
+        );
+      }
 
+      const event =
+        payload.event as PaystackRefundWebhookEvent;
+      const data = payload.data;
+      const expectedStatus = REFUND_EVENT_STATUS[event];
+      const amountSubunit = parseSubunitAmount(data?.amount);
+      const transactionReference = data?.transaction_reference;
+      const currency = data?.currency;
+
+      if (
+        !data ||
+        data.status !== expectedStatus ||
+        !transactionReference?.trim() ||
+        amountSubunit === null ||
+        !currency?.trim()
+      ) {
+        return NextResponse.json(
+          { error: "Invalid refund webhook details" },
+          { status: 400 },
+        );
+      }
+
+      await processPaystackRefundWebhook({
+        event,
+        transactionReference,
+        amountSubunit,
+        currency,
+        providerStatus: expectedStatus,
+      });
+
+      return NextResponse.json({ received: true });
+    }
 
     if (payload.event !== "charge.success") {
       return NextResponse.json({ received: true });
@@ -153,7 +231,7 @@ const payload = parsedPayload;
       );
     }
 
-       try {
+    try {
       await processPaystackWebhookPayment(reference);
     } catch (error) {
       if (
@@ -166,7 +244,10 @@ const payload = parsedPayload;
           reference,
         );
 
-        return NextResponse.json({ error: "Payment not found; retry later" }, { status: 500 });
+        return NextResponse.json(
+          { error: "Payment not found; retry later" },
+          { status: 500 },
+        );
       }
 
       throw error;
