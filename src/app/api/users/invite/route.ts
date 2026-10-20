@@ -14,12 +14,36 @@ type InviteUserRequest = {
 export async function POST(request: Request) {
   try {
     const context = await requirePermission("users.manage");
-    const body = await parseJson<InviteUserRequest>(request);
+    const parsed = await parseJson<unknown>(request);
 
-    const email = body.email?.trim().toLowerCase();
-    const fullName = body.full_name?.trim();
-    const phone = body.phone?.trim() || null;
-    const roleId = body.role_id?.trim();
+    if (
+      typeof parsed !== "object" ||
+      parsed === null ||
+      Array.isArray(parsed)
+    ) {
+      throw new ApiError("Request body must be an object.", 400);
+    }
+
+    const body = parsed as InviteUserRequest;
+
+    if (
+      typeof body.email !== "string" ||
+      typeof body.full_name !== "string" ||
+      typeof body.role_id !== "string" ||
+      (body.phone !== undefined &&
+        body.phone !== null &&
+        typeof body.phone !== "string")
+    ) {
+      throw new ApiError("Invalid invitation details.", 400);
+    }
+
+    const email = body.email.trim().toLowerCase();
+    const fullName = body.full_name.trim();
+    const phone =
+      typeof body.phone === "string"
+        ? body.phone.trim() || null
+        : null;
+    const roleId = body.role_id.trim();
 
     if (!email || !fullName || !roleId) {
       throw new ApiError(
@@ -28,8 +52,13 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!email.includes("@")) {
-      throw new ApiError("Invalid email address.", 400);
+    if (
+      email.length > 254 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+      fullName.length > 200 ||
+      (phone !== null && phone.length > 40)
+    ) {
+      throw new ApiError("Invalid invitation details.", 400);
     }
 
     const admin = createAdminClient();
