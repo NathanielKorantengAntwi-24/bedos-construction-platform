@@ -11,7 +11,23 @@ export async function POST(request: Request) {
   try {
     const body = await parseJson<LoginRequest>(request);
 
-    if (!body.email || !body.password) {
+    if (
+      typeof body !== "object" ||
+      body === null ||
+      Array.isArray(body)
+    ) {
+      return NextResponse.json(
+        { error: "Request body must be an object" },
+        { status: 400 },
+      );
+    }
+
+    if (
+      typeof body.email !== "string" ||
+      typeof body.password !== "string" ||
+      !body.email.trim() ||
+      !body.password
+    ) {
       return NextResponse.json(
         {
           error: "Email and password are required",

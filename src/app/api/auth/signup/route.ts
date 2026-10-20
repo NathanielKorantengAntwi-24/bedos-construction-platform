@@ -12,13 +12,47 @@ type SignupRequest = {
 
 export async function POST(request: Request) {
   try {
-    const body = await parseJson<SignupRequest>(request);
+    const parsed = await parseJson<unknown>(request);
 
-    if (!body.email || !body.password || !body.full_name) {
+    if (
+      typeof parsed !== "object" ||
+      parsed === null ||
+      Array.isArray(parsed)
+    ) {
+      return NextResponse.json(
+        { error: "Request body must be an object" },
+        { status: 400 },
+      );
+    }
+
+    const body = parsed as SignupRequest;
+
+    if (
+      typeof body.email !== "string" ||
+      typeof body.password !== "string" ||
+      typeof body.full_name !== "string" ||
+      !body.email.trim() ||
+      !body.password ||
+      !body.full_name.trim()
+    ) {
       return NextResponse.json(
         {
           error: "Email, password, and full name are required",
         },
+        { status: 400 },
+      );
+    }
+
+    if (
+      body.email.length > 254 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email.trim()) ||
+      body.full_name.trim().length > 200 ||
+      (body.phone !== undefined &&
+        (typeof body.phone !== "string" ||
+          body.phone.trim().length > 40))
+    ) {
+      return NextResponse.json(
+        { error: "Invalid registration details" },
         { status: 400 },
       );
     }

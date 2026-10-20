@@ -13,6 +13,10 @@ export default function InvitationHandler() {
       if (hash.includes("access_token=")) {
         const params = new URLSearchParams(hash.substring(1));
 
+        if (params.get("type") !== "invite") {
+          return;
+        }
+
         const accessToken = params.get("access_token");
         const refreshToken = params.get("refresh_token");
 
@@ -38,13 +42,7 @@ export default function InvitationHandler() {
         }
       }
 
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
 
-      if (session) {
-        window.location.href = "/auth/set-password";
-      }
     };
 
     handleInvitation();
