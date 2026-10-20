@@ -101,4 +101,52 @@ describe("Authentication callback", () => {
       "https://bedos-construction-platform.vercel.app/",
     );
   });
+
+  it("shows recovery instructions when a reset code is missing", async () => {
+    const response = await GET(
+      callbackRequest(undefined, "/auth/set-password"),
+    );
+
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe(
+      "https://bedos-construction-platform.vercel.app/auth/recovery-error",
+    );
+    expect(mocks.createClient).not.toHaveBeenCalled();
+  });
+
+  it("shows recovery instructions when a reset code is invalid", async () => {
+    mocks.exchangeCodeForSession.mockResolvedValue({
+      error: { message: "Code expired" },
+    });
+
+    const response = await GET(
+      callbackRequest("expired-code", "/auth/set-password"),
+    );
+
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe(
+      "https://bedos-construction-platform.vercel.app/auth/recovery-error",
+    );
+  });
+
+  it("rejects a redirect destination containing a backslash", async () => {
+    const response = await GET(
+      callbackRequest("valid-code", "/\\malicious.example"),
+    );
+
+    expect(response.headers.get("location")).toBe(
+      "https://bedos-construction-platform.vercel.app/",
+    );
+  });
+
+  it("preserves safe internal callback destinations", async () => {
+    const response = await GET(
+      callbackRequest("valid-code", "/auth/set-password"),
+    );
+
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe(
+      "https://bedos-construction-platform.vercel.app/auth/set-password",
+    );
+  });
 });

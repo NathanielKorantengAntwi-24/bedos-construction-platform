@@ -6,14 +6,31 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
   const next = searchParams.get("next");
 
-  // Only allow safe, internal redirect paths.
-  const destination =
-    next && next.startsWith("/") && !next.startsWith("//")
+  // Reject protocol-relative and backslash-based redirects.
+  const requestedPath =
+    next &&
+    next.startsWith("/") &&
+    !next.startsWith("//") &&
+    !next.includes("\\")
       ? next
       : "/";
 
+  const candidateUrl = new URL(requestedPath, origin);
+
+  const destination =
+    candidateUrl.origin === origin
+      ? candidateUrl.pathname + candidateUrl.search + candidateUrl.hash
+      : "/";
+
+  const isRecoveryCallback = next === "/auth/set-password";
+  const recoveryErrorUrl = new URL("/auth/recovery-error", origin);
+
   if (!code) {
-    return NextResponse.redirect(`${origin}/?error=missing_auth_code`);
+    return NextResponse.redirect(
+      isRecoveryCallback
+        ? recoveryErrorUrl
+        : `${origin}/?error=missing_auth_code`,
+    );
   }
 
   const supabase = await createClient();
@@ -22,7 +39,9 @@ export async function GET(request: Request) {
 
   if (error) {
     return NextResponse.redirect(
-      `${origin}/?error=auth_callback_failed`,
+      isRecoveryCallback
+        ? recoveryErrorUrl
+        : `${origin}/?error=auth_callback_failed`,
     );
   }
 

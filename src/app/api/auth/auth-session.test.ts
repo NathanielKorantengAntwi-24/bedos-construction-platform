@@ -76,4 +76,36 @@ describe("Authentication sessions and logout", () => {
 
     expect(response.status).toBe(500);
   });
+
+  it("rejects suspended accounts on profile access", async () => {
+    mocks.getUserContext.mockResolvedValue({
+      user: { id: "suspended-customer" },
+      profile: {
+        id: "suspended-customer",
+        account_status: "suspended",
+      },
+      role: { name: "customer" },
+    });
+
+    const response = await getMe();
+    const body = await response.json();
+
+    expect(response.status).toBe(403);
+    expect(body.error).toBe("Account is not active");
+  });
+
+  it("rejects accounts that are not active", async () => {
+    mocks.getUserContext.mockResolvedValue({
+      user: { id: "pending-customer" },
+      profile: {
+        id: "pending-customer",
+        account_status: "pending",
+      },
+      role: { name: "customer" },
+    });
+
+    const response = await getMe();
+
+    expect(response.status).toBe(403);
+  });
 });
