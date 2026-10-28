@@ -16,7 +16,7 @@ vi.mock("@/server/auth/require-permission", () => ({
 import { POST } from "./route";
 
 describe("staff invitation security", () => {
-  it("rejects invitation when the staff profile is missing", async () => {
+  it("rejects invitation without deleting the Auth account when the profile is missing", async () => {
     const invitedId = "10000000-0000-4000-8000-000000000999";
     const deleteUser = vi.fn().mockResolvedValue({ error: null });
 
@@ -60,6 +60,10 @@ describe("staff invitation security", () => {
       from,
       auth: {
         admin: {
+          createUser: vi.fn().mockResolvedValue({
+            data: { user: { id: invitedId } },
+            error: null,
+          }),
           inviteUserByEmail: vi.fn().mockResolvedValue({
             data: { user: { id: invitedId } },
             error: null,
@@ -83,7 +87,7 @@ describe("staff invitation security", () => {
     );
 
     expect(response.status).toBe(500);
-    expect(deleteUser).toHaveBeenCalledWith(invitedId);
+    expect(deleteUser).not.toHaveBeenCalled();
   });
 
   it("assigns the intended staff role successfully", async () => {
@@ -103,6 +107,11 @@ describe("staff invitation security", () => {
 
     updateProfile.mockReturnValue({ eq: updateEq });
 
+    const authorizeInvitation = vi.fn().mockResolvedValue({
+      data: "40000000-0000-4000-8000-000000000001",
+      error: null,
+    });
+
     const from = vi.fn((table: string) => {
       if (table === "roles") {
         return {
@@ -121,12 +130,6 @@ describe("staff invitation security", () => {
         return { update: updateProfile };
       }
 
-      if (table === "audit_logs") {
-        return {
-          insert: async () => ({ error: null }),
-        };
-      }
-
       throw new Error("Unexpected table: " + table);
     });
 
@@ -136,8 +139,13 @@ describe("staff invitation security", () => {
 
     mocks.adminClient.mockReturnValue({
       from,
+      rpc: authorizeInvitation,
       auth: {
         admin: {
+          createUser: vi.fn().mockResolvedValue({
+            data: { user: { id: invitedId } },
+            error: null,
+          }),
           inviteUserByEmail: vi.fn().mockResolvedValue({
             data: { user: { id: invitedId } },
             error: null,
@@ -160,9 +168,29 @@ describe("staff invitation security", () => {
     );
     expect(response.status).toBe(201);
     expect(updateProfile).toHaveBeenCalledWith(
-      expect.objectContaining({ role_id: roleId }),
+      expect.objectContaining({ role_id: roleId, account_status: "inactive" }),
     );
     expect(updateEq).toHaveBeenCalledWith("id", invitedId);
+
+    expect(authorizeInvitation).toHaveBeenCalledTimes(2);
+    expect(authorizeInvitation).toHaveBeenNthCalledWith(
+      1,
+      "bedos_authorize_staff_invitation",
+      {
+        p_user_id: invitedId,
+        p_invited_by: "test-admin",
+        p_approved_role_id: roleId,
+      },
+    );
+
+    expect(authorizeInvitation).toHaveBeenNthCalledWith(
+      2,
+      "bedos_record_staff_invitation_password_baseline",
+      { p_user_id: invitedId },
+    );
+
+    expect(from).not.toHaveBeenCalledWith("staff_invitations");
+    expect(from).not.toHaveBeenCalledWith("audit_logs");
     expect(deleteUser).not.toHaveBeenCalled();
   });
 });

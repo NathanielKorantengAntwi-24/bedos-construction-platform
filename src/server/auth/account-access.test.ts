@@ -72,6 +72,36 @@ describe("Account restrictions and permissions", () => {
     expect(mocks.createClient).not.toHaveBeenCalled();
   });
 
+  it("rejects inactive privileged accounts before permission lookup", async () => {
+    mocks.getUserContext.mockResolvedValue({
+      ...activeUser,
+      profile: {
+        ...activeUser.profile,
+        account_status: "inactive",
+      },
+      role: { name: "administrator" },
+    });
+
+    mocks.eq.mockResolvedValue({
+      data: [{ permissions: { name: "users.manage" } }],
+      error: null,
+    });
+
+    await expect(requireRole(["administrator"]))
+      .rejects.toMatchObject({
+        status: 403,
+        message: "Account is not active",
+      });
+
+    await expect(requirePermission("users.manage"))
+      .rejects.toMatchObject({
+        status: 403,
+        message: "Account is not active",
+      });
+
+    expect(mocks.createClient).not.toHaveBeenCalled();
+    expect(mocks.eq).not.toHaveBeenCalled();
+  });
   it("allows an authorized role", async () => {
     await expect(requireRole(["customer"]))
       .resolves.toEqual(activeUser);

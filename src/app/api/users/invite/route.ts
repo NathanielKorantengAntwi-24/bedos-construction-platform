@@ -77,17 +77,38 @@ export async function POST(request: Request) {
       throw new ApiError("Invalid role.", 400);
     }
 
-    const { data: invitation, error: invitationError } =
-      await admin.auth.admin.inviteUserByEmail(email);
-
-    if (invitationError || !invitation.user) {
+    if (
+      !["content_manager", "finance", "sales_customer_service"].includes(
+        role.name,
+      )
+    ) {
       throw new ApiError(
-        invitationError?.message ?? "Unable to invite user.",
+        "Role is not eligible for staff invitation.",
         400,
       );
     }
 
-    const invitedUser = invitation.user;
+    const { data: created, error: createError } =
+      await admin.auth.admin.createUser({
+        email,
+        user_metadata: {
+          full_name: fullName,
+          phone,
+          bedos_staff_onboarding_pending: true,
+        },
+      });
+
+    if (createError) {
+      if (createError.code === "email_exists") {
+        throw new ApiError("Account already exists.", 409);
+      }
+
+      throw new ApiError("Unable to create invited user.", 500);
+    }
+
+    if (!created.user) {
+      throw new ApiError("Unable to create invited user.", 500);
+    }
 
     const { error: profileError } = await admin
       .from("profiles")
@@ -95,40 +116,83 @@ export async function POST(request: Request) {
         full_name: fullName,
         phone,
         role_id: role.id,
+        account_status: "inactive",
         updated_at: new Date().toISOString(),
       })
-      .eq("id", invitedUser.id)
+      .eq("id", created.user.id)
       .select("id")
       .single();
 
     if (profileError) {
-      await admin.auth.admin.deleteUser(invitedUser.id);
-
+      // Do not send an invitation when profile configuration fails.
+      // Preserve the newly created Auth account for controlled recovery.
       throw new ApiError(
         "Unable to configure invited user.",
         500,
       );
     }
 
-    const { error: auditError } = await admin
-      .from("audit_logs")
-      .insert({
-        actor_id: context.user.id,
-        action: "user_invited",
-        entity_type: "user",
-        entity_id: invitedUser.id,
-        description: `Invited user ${email} with role ${role.name}.`,
-        metadata: {
-          email,
-          full_name: fullName,
-          phone,
-          role_id: role.id,
-          role_name: role.name,
-        },
+    // Atomically create the invitation approval and audit record.
+    const { data: invitationRecordId, error: authorizationError } =
+      await admin.rpc("bedos_authorize_staff_invitation", {
+        p_user_id: created.user.id,
+        p_invited_by: context.user.id,
+        p_approved_role_id: role.id,
       });
 
-    if (auditError) {
-      console.error("Failed to write invitation audit log:", auditError);
+    if (authorizationError || !invitationRecordId) {
+      console.error(
+        "Failed to authorize staff invitation:",
+        authorizationError ?? "No invitation record returned",
+      );
+
+      // Preserve the inactive Auth account for controlled recovery.
+      // Do not dispatch an invitation without database authorization.
+      throw new ApiError(
+        "Unable to authorize staff invitation.",
+        500,
+      );
+    }
+
+    const { data: invitation, error: invitationError } =
+      await admin.auth.admin.inviteUserByEmail(email);
+
+    if (invitationError || !invitation?.user) {
+      throw new ApiError(
+        invitationError?.message ?? "Unable to invite user.",
+        400,
+      );
+    }
+
+    if (invitation.user.id !== created.user.id) {
+      console.error("Staff invitation Auth user ID mismatch");
+
+      throw new ApiError(
+        "Invitation identity verification failed.",
+        500,
+      );
+    }
+
+    const invitedUser = invitation.user;
+
+    // Capture the invited user's credential state AFTER Supabase sends the
+    // invitation. A populated Auth password hash is not proof of onboarding.
+    // The staff member must subsequently change their password before
+    // administrator activation can succeed.
+    const { data: baselineId, error: baselineError } = await admin.rpc(
+      "bedos_record_staff_invitation_password_baseline",
+      { p_user_id: invitedUser.id },
+    );
+
+    if (baselineError || baselineId !== invitationRecordId) {
+      console.error(
+        "Staff invitation password baseline failed",
+        baselineError ?? "Invitation baseline ID mismatch",
+      );
+      throw new ApiError(
+        "Unable to finalize staff invitation securely.",
+        500,
+      );
     }
 
     return NextResponse.json(
