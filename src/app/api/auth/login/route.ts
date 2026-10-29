@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { parseJson } from "@/server/http/parse-json";
+import { errorResponse } from "@/server/http/api-error";
 
 type LoginRequest = {
   email: string;
@@ -116,13 +117,6 @@ export async function POST(request: Request) {
       message: "Login successful",
     });
   } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      {
-        error: "Internal server error",
-      },
-      { status: 500 },
-    );
+    return errorResponse(error);
   }
 }

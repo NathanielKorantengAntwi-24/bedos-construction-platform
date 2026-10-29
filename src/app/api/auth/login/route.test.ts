@@ -76,6 +76,42 @@ describe("Customer login API", () => {
     expect(mocks.createClient).not.toHaveBeenCalled();
   });
 
+  it("rejects malformed JSON before contacting authentication", async () => {
+    const response = await POST(
+      new Request("http://localhost/api/auth/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: "{",
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({
+      error: "Invalid JSON request body",
+    });
+    expect(mocks.createClient).not.toHaveBeenCalled();
+    expect(mocks.signInWithPassword).not.toHaveBeenCalled();
+  });
+
+  it("keeps unexpected authentication errors private", async () => {
+    const failure = new Error("Private infrastructure details");
+    const consoleSpy = vi.spyOn(console, "error")
+      .mockImplementation(() => {});
+    mocks.createClient.mockRejectedValue(failure);
+
+    try {
+      const response = await POST(
+        loginRequest({ email: "customer@example.com", password: "password123" }),
+      );
+
+      expect(response.status).toBe(500);
+      expect(await response.json()).toEqual({ error: "Internal server error" });
+      expect(consoleSpy).toHaveBeenCalledWith(failure);
+    } finally {
+      consoleSpy.mockRestore();
+    }
+  });
+
   it("allows valid customer login", async () => {
     mocks.signInWithPassword.mockResolvedValue({
       data: {
