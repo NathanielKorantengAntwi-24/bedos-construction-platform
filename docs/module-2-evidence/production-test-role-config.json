@@ -1,0 +1,14 @@
+{
+  "origin": "https://bedos-construction-platform.vercel.app",
+  "project_ref": "zjdqomckldeipigqqfqm",
+  "roles": [
+    {
+      "id": "a55d72da-c436-4f1c-9e86-0ea060ce3861",
+      "name": "administrator"
+    },
+    {
+      "id": "64f7cae6-ee52-4f1a-9990-f7b02d331dde",
+      "name": "content_manager"
+    }
+  ]
+}

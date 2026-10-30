@@ -1,6 +1,6 @@
 # Module 2 existing staff workflow correction
 
-Date: 30 October 2026. Status: implemented and verified locally; not committed or deployed. Module 2 remains open.
+Date: 30 October 2026. Status: deployed as 6fbb9b6 with user approval; production administrator workflow verification pending. Module 2 remains open.
 
 ## Module objective
 
@@ -45,12 +45,14 @@ npm run build
 
 No database migration, schema change, dependency or permission change is required for this patch. Normal PKCE customer signup/recovery remains under its existing callback. Valid invitation and role restrictions are preserved. Invalid role IDs now return 400 before DB lookup; invitation provider failure classification deliberately changes from 400 with provider text to safe 502.
 
-Production release needs explicit approval for commit/push/deployment and dedicated staff verification. Before release, verify the existing non-secret BEDOS_APP_ORIGIN is set to https://bedos-construction-platform.vercel.app in production; its current deployed value has not been inspected. Do not infer it is missing, or change credentials/access controls to bypass administrator authorization. No production settings or records changed during these local fixes.
+The user approved commit/push/deployment and dedicated production staff verification. Commit 6fbb9b6 was pushed to master and Vercel reported successful deployment. No database migration or production Auth setting change was made for this patch. Twelve anonymous/invalid production HTTP checks passed at 2026-10-30T01:35:14.113Z; these do not establish administrator-success behavior.
+
+The deployed BEDOS_APP_ORIGIN value remains unverified. The user-run scripts/Test-ProductionStaffRecovery.ps1 authenticates the existing administrator privately and probes a nonexistent invitation before creating any staff fixture. HTTP 409 passes this configuration preflight; HTTP 503 stops for configuration review. Do not bypass administrator authorization or infer a missing setting without that evidence.
 
 ## Completion status and remaining work
 
-This bounded correction is locally verified; entire Module 2 is not complete. Remaining work includes production administrator-success verification, broader account-management API contracts, safe handling of partial invite setup failures, and least-privilege review of unused audit table grants. These are tracked in MODULE_2_AUDIT.md. New account-management routes are not included in this patch.
+This bounded correction is locally verified and deployed; entire Module 2 is not complete. Remaining work includes production administrator-success verification, broader account-management API contracts, safe handling of partial invite setup failures, and least-privilege review of unused audit table grants. These are tracked in MODULE_2_AUDIT.md. New account-management routes are not included in this patch.
 
 ## Next step
 
-Obtain production release approval, verify the existing trusted-origin configuration, then deploy and test with an authorized administrator session and dedicated staff fixtures. Continue Module 2 contract work only within agreed scope; Module 3 stays deferred.
+Run scripts/Test-ProductionStaffRecovery.ps1 with private administrator authentication. Follow its Chrome email instructions for separate dedicated staff accounts, then enter the new staff password privately when prompted. The script records sanitized results and exact fixture identities, checks normal logout status, and leaves fixtures for independent audit and controlled deactivation. Never paste passwords, email links or cookies into chat. Review retained fixtures immediately after the run. Continue Module 2 contract work only within agreed scope; Module 3 stays deferred.
