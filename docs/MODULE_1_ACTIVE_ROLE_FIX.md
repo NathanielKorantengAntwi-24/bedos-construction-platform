@@ -1,6 +1,6 @@
 # Module 1 active account role helper correction
 
-Verified locally on 30 October 2026. Production unchanged. Module 1 remains open.
+Verified locally and in production on 30 October 2026. Migration applied. Module 1 remains open for Auth configuration review.
 
 ## Objective and acceptance criteria
 
@@ -37,12 +37,22 @@ powershell.exe -NoProfile -File .\scripts\Test-ActiveAccountRoleHelper.ps1
 
 ## Completion status and remaining issues
 
-Local correction verified and ready for review. Not committed, pushed or applied to production. No real accounts or business data changed. Role-helper migration affects shared authorization; representative service policy behavior is tested, but not every one of the 47 dependent policies end to end. Remaining Module 1 Auth configuration/security acceptance work is recorded in MODULE_1_VERIFICATION_STATUS.md.
+Correction committed and pushed as 851f81b and applied to production with explicit user approval. No real accounts or business data changed. Role-helper migration affects shared authorization; representative service policy behavior is tested, but not every one of the 47 dependent policies end to end. Remaining Module 1 Auth configuration/security acceptance work is recorded in MODULE_1_VERIFICATION_STATUS.md.
 
 ## Production release approach
 
-After explicit production approval: capture current function definition/owner/ACL, verify target and migration history, apply the reviewed migration once, verify active and restricted dedicated fixtures plus function metadata and backend compatibility, and record the applied migration. A Vercel deployment alone does not apply this SQL. Do not use db push blindly or replay unrelated migrations. Preserve prior definition for recovery without silently reverting security behavior.
+Completed with explicit approval: captured the production definition/owner/ACL, checked migration history and a dry run, applied the single pending migration, then verified the corrected helper and representative RLS using rollback-only synthetic fixtures. A Vercel deployment alone does not apply this SQL. Do not use db push blindly or replay unrelated migrations. Preserve prior definition for recovery without silently reverting security behavior.
 
 ## Next task
 
-Obtain approval for production release of this exact migration. Keep Module 1 active until production verification and remaining Auth settings review are recorded. Do not start another module implementation.
+Production release is verified. Review the remaining Auth settings and acceptance requirements before Module 1 closure. Do not start another module implementation.
+
+## Production release evidence
+
+- Migration commit: 851f81b, pushed to origin/master.
+- Linked target verified: zjdqomckldeipigqqfqm. Dry run listed exactly 20261029000000_restrict_role_lookup_to_active_accounts.sql. CLI applied only that migration and recorded it once.
+- Prior function definition, owner and ACL saved before application; after-state comparison confirmed identical function OID/owner/ACL and anon/authenticated/service-role EXECUTE privileges. Function remains SQL STABLE SECURITY DEFINER with empty search_path and active-account predicate.
+- Production regression: 49 assertions passed with synthetic fixtures inside a transaction followed by ROLLBACK. Independent cleanup query returned zero synthetic Auth users and zero synthetic services.
+- Production HTTP smoke checks: all 12 anonymous/invalid-input checks passed at 00:16 UTC on 30 October 2026. This smoke pass does not repeat user-assisted successful password login.
+- Release evidence files: release-evidence/role-helper-before.json, role-helper-after.json and role-helper-production-tests.json. No passwords, tokens or real customer rows are included.
+- This SQL migration does not require a frontend change. A Vercel push alone would not have applied it; production migration was performed explicitly through the linked database CLI.
