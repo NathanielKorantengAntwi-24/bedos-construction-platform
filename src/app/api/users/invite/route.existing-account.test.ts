@@ -52,7 +52,7 @@ describe("Staff invitation configuration failure", () => {
             eq: () => ({
               maybeSingle: async () => ({
                 data: {
-                  id: "test-role",
+                  id: "20000000-0000-4000-8000-000000000001",
                   name: "finance",
                 },
                 error: null,
@@ -106,7 +106,7 @@ describe("Staff invitation configuration failure", () => {
         body: JSON.stringify({
           email: "staff@example.invalid",
           full_name: "Existing Staff",
-          role_id: "test-role",
+          role_id: "20000000-0000-4000-8000-000000000001",
         }),
       }),
     );

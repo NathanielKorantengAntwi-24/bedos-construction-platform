@@ -1,4 +1,4 @@
-﻿import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   adminClient: vi.fn(),
@@ -54,7 +54,7 @@ describe("Staff creation duplicate-account protection", () => {
             eq: () => ({
               maybeSingle: async () => ({
                 data: {
-                  id: "finance-role",
+                  id: "20000000-0000-4000-8000-000000000001",
                   name: "finance",
                 },
                 error: null,
@@ -98,7 +98,7 @@ describe("Staff creation duplicate-account protection", () => {
         body: JSON.stringify({
           email: "existing@example.invalid",
           full_name: "Existing Customer",
-          role_id: "finance-role",
+          role_id: "20000000-0000-4000-8000-000000000001",
         }),
       }),
     );

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   adminClient: vi.fn(),
@@ -90,6 +90,44 @@ describe("staff invitation retry authorization and audit", () => {
     mocks.permission.mockResolvedValue({ user: { id: actorId } });
   });
 
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("rejects malformed user IDs before touching privileged services", async () => {
+    const response = await POST(request(), { params: Promise.resolve({ id: "not-a-uuid" }) });
+    expect(response.status).toBe(400);
+    expect(mocks.adminClient).not.toHaveBeenCalled();
+  });
+
+  it("requires explicit trusted origin configuration outside the lab", async () => {
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://project.supabase.co");
+    const response = await POST(request(), { params: Promise.resolve({ id: userId }) });
+    expect(response.status).toBe(503);
+    expect(mocks.adminClient).not.toHaveBeenCalled();
+  });
+
+  it.each(["invalid", "https://bedos.example/path", "https://user:pass@bedos.example", "http://attacker.example"])(
+    "rejects invalid configured origin %s before preparing a retry", async (origin) => {
+      vi.stubEnv("BEDOS_APP_ORIGIN", origin);
+      const response = await POST(request(), { params: Promise.resolve({ id: userId }) });
+      expect(response.status).toBe(503);
+      expect(mocks.adminClient).not.toHaveBeenCalled();
+    },
+  );
+
+  it("does not trust request headers for the recovery destination", async () => {
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://project.supabase.co");
+    vi.stubEnv("BEDOS_APP_ORIGIN", "https://bedos.example/");
+    const { resetPasswordForEmail } = setup("recovery");
+    const hostileRequest = new Request("https://attacker.example/api/users/id/retry-invitation", {
+      method: "POST", headers: { host: "attacker.example" },
+    });
+    const response = await POST(hostileRequest, { params: Promise.resolve({ id: userId }) });
+    expect(response.status).toBe(202);
+    expect(resetPasswordForEmail).toHaveBeenCalledWith(email, { redirectTo: "https://bedos.example/" });
+  });
+
   it("does not touch the admin client for unauthenticated requests", async () => {
     mocks.permission.mockRejectedValue(new ApiError("Unauthorized", 401));
     const response = await POST(request(), { params: Promise.resolve({ id: userId }) });
@@ -113,7 +151,7 @@ describe("staff invitation retry authorization and audit", () => {
     const response = await POST(request(), { params: Promise.resolve({ id: userId }) });
     expect(response.status).toBe(202);
     expect(resetPasswordForEmail).toHaveBeenCalledWith(email, {
-      redirectTo: "http://127.0.0.1:3000/auth/set-password",
+      redirectTo: "http://127.0.0.1:3000/",
     });
     expect(inviteUserByEmail).not.toHaveBeenCalled();
     expect(operations).toEqual(["prepare", "lookup", "send-recovery", "finish"]);

@@ -1,52 +1,51 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function InvitationHandler() {
+  const router = useRouter();
   useEffect(() => {
-    const supabase = createClient();
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const type = params.get("type");
+    if (type !== "invite" && type !== "recovery") return;
 
-    const handleInvitation = async () => {
-      const hash = window.location.hash;
+    const accessToken = params.get("access_token");
+    const refreshToken = params.get("refresh_token");
 
-      if (hash.includes("access_token=")) {
-        const params = new URLSearchParams(hash.substring(1));
+    // Admin-initiated emails carry implicit credentials. Remove them before
+    // initializing our PKCE browser client, then explicitly verify the session.
+    window.history.replaceState({}, document.title, window.location.pathname);
+    if (!accessToken || !refreshToken) {
+      router.replace("/auth/recovery-error");
+      return;
+    }
 
-        if (params.get("type") !== "invite") {
-          return;
-        }
-
-        const accessToken = params.get("access_token");
-        const refreshToken = params.get("refresh_token");
-
-        if (accessToken && refreshToken) {
-          const { error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
+    const establishSession = async () => {
+      try {
+        const supabase = createClient();
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        if (error) {
+          console.error("Staff onboarding session rejected", {
+            code: error.code,
+            status: error.status,
           });
-
-          if (error) {
-            console.error("Invitation session error:", error);
-            return;
-          }
-
-          window.history.replaceState(
-            {},
-            document.title,
-            window.location.pathname,
-          );
-
-          window.location.href = "/auth/set-password";
+          router.replace("/auth/recovery-error");
           return;
         }
+        router.replace("/auth/set-password");
+      } catch {
+        console.error("Staff onboarding session could not be established");
+        router.replace("/auth/recovery-error");
       }
-
-
     };
 
-    handleInvitation();
-  }, []);
+    void establishSession();
+  }, [router]);
 
   return null;
 }

@@ -11,3 +11,6 @@ Backend completion proceeds one module at a time. Frontend development has not s
 - release-evidence/: sanitized committed production/local verification records.
 
 Next: Module 2 Users, Staff and RBAC audit and reconciliation of existing completion evidence. No new module implementation should begin until its scope is inspected and agreed.
+
+- MODULE_2_AUDIT.md: current Module 2 scope, source/production audit, evidence, gaps and proposed implementation step.
+- MODULE_2_WORKFLOW_FIX.md: current locally verified correction scope and production release prerequisites.

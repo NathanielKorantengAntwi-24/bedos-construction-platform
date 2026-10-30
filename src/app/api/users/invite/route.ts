@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       typeof body.phone === "string"
         ? body.phone.trim() || null
         : null;
-    const roleId = body.role_id.trim();
+    const roleId = body.role_id.trim().toLowerCase();
 
     if (!email || !fullName || !roleId) {
       throw new ApiError(
@@ -59,6 +59,10 @@ export async function POST(request: Request) {
       (phone !== null && phone.length > 40)
     ) {
       throw new ApiError("Invalid invitation details.", 400);
+    }
+
+    if (!/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/.test(roleId)) {
+      throw new ApiError("Invalid role ID.", 400);
     }
 
     const admin = createAdminClient();
@@ -158,9 +162,13 @@ export async function POST(request: Request) {
       await admin.auth.admin.inviteUserByEmail(email);
 
     if (invitationError || !invitation?.user) {
+      console.error("Staff invitation email dispatch failed", {
+        code: invitationError?.code,
+        status: invitationError?.status,
+      });
       throw new ApiError(
-        invitationError?.message ?? "Unable to invite user.",
-        400,
+        "Unable to send staff invitation.",
+        502,
       );
     }
 

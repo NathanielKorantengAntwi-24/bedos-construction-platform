@@ -27,7 +27,7 @@ function request(body: unknown): Request {
 const valid = {
   email: "staff@example.com",
   full_name: "Test Staff",
-  role_id: "test-role-id",
+  role_id: "20000000-0000-4000-8000-000000000001",
 };
 
 async function expectInvalid(bodies: unknown[]) {
@@ -76,6 +76,13 @@ describe("Staff invitation input validation", () => {
       { ...valid, email: "a".repeat(250) + "@x.io" },
       { ...valid, full_name: "a".repeat(201) },
       { ...valid, phone: "1".repeat(41) },
+    ]);
+  });
+
+  it("rejects malformed role UUIDs before constructing a privileged client", async () => {
+    await expectInvalid([
+      { ...valid, role_id: "not-a-uuid" },
+      { ...valid, role_id: "20000000-0000-4000-8000-00000000000Z" },
     ]);
   });
 

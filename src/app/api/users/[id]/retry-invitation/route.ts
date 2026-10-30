@@ -97,7 +97,9 @@ export async function POST(_request: Request, { params }: RouteParams) {
       } else {
         const { error: recoveryError } =
           await admin.auth.resetPasswordForEmail(prepared.email, {
-            redirectTo: `${origin}/auth/set-password`,
+            // Server-initiated recovery has no browser PKCE verifier. The home
+            // Auth handler verifies its implicit session before password setup.
+            redirectTo: `${origin}/`,
           });
         if (recoveryError) {
           throw new Error("Supabase password recovery request failed");

@@ -26,7 +26,7 @@ describe("staff invitation security", () => {
           select: () => ({
             eq: () => ({
               maybeSingle: async () => ({
-                data: { id: "test-role", name: "finance" },
+                data: { id: "20000000-0000-4000-8000-000000000001", name: "finance" },
                 error: null,
               }),
             }),
@@ -81,7 +81,7 @@ describe("staff invitation security", () => {
         body: JSON.stringify({
           email: "staff@example.invalid",
           full_name: "Test Finance Staff",
-          role_id: "test-role",
+          role_id: "20000000-0000-4000-8000-000000000001",
         }),
       }),
     );

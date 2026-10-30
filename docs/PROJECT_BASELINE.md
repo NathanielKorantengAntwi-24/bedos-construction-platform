@@ -63,7 +63,7 @@ Statuses below are evidence classifications, not newly granted completion:
 | No. | Module | Baseline status |
 | --- | --- | --- |
 | 1 | Authentication and Account Management | Complete for agreed backend scope; verified 30 October 2026; see MODULE_1_COMPLETION_REPORT.md |
-| 2 | Users, Staff and RBAC | Completion claimed by HEAD; closure evidence reconciliation pending |
+| 2 | Users, Staff and RBAC | In progress: current audit in MODULE_2_AUDIT.md; existing workflow tested, recovery/admin-management gaps identified |
 | 3 | Services and Service Categories | CRUD inspected; audit findings below; proposed next implementation module |
 | 4 | Properties Management | Files inventoried; detailed audit pending |
 | 5 | Property Media | Files inventoried; security audit pending |
@@ -190,3 +190,10 @@ Module 1 security closure blocker found: live get_user_role helper ignores accou
 ## Current stopping point 30 October 2026
 
 Module 1 COMPLETE for agreed backend scope. Final user-assisted production confirmation flow passed five checks and independently verified expected confirmed customer. Final disposable credential regression passed, including old-password rejection; fixture removed. Authoritative closure/limitations: MODULE_1_COMPLETION_REPORT.md. Next module: Module 2 Users, Staff and RBAC audit and completion-evidence reconciliation. Do not restart Module 1 or skip directly to Module 3 based on the old Module 2 commit subject. Backend-only development remains in effect.
+
+
+30 October 2026 Module 2 started at user's instruction. Read-only production catalogue/RPC parity and permissions reviewed; 53 existing staff/RBAC tests passed. Actual local Auth/RPC baseline passed 31 assertions and cleaned synthetic fixtures. No application or production changes. Existing confirmed-staff recovery integration, validation/error handling and missing broader management contracts require work. See MODULE_2_AUDIT.md for bounded proposed first implementation step; Module 3 deferred.
+
+30 October 2026 Module 2 approved first-step fixes implemented locally. Existing staff recovery integration, UUID validation and safe provider errors corrected; 192 application tests and 117 local Auth/RPC/SMTP assertions passed. Test fixtures removed. Current report: MODULE_2_WORKFLOW_FIX.md. Await build/release review and production approval. Entire Module 2 remains open; missing management API contracts are not silently implemented.
+
+Module 2 first-step final verification: production build including TypeScript passed after navigation change; focused lint passed with zero warnings. Workflow patch remains local and uncommitted; production unchanged. Release approval is next; Module 2 stays open.

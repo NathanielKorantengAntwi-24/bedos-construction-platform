@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-30T00:59:18.133Z",
+  "scope": "Existing local staff SQL and Auth baseline; isolated lab and local SMTP only. No production calls or application/schema changes. Passwords, hashes, links and tokens excluded.",
+  "results": [
+    {
+      "name": "actor synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "actor expected role exists",
+      "pass": true
+    },
+    {
+      "name": "actor fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "normal synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "normal expected role exists",
+      "pass": true
+    },
+    {
+      "name": "normal fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "activation denied before email setup",
+      "pass": true
+    },
+    {
+      "name": "local invitation email has guarded Auth link",
+      "pass": true
+    },
+    {
+      "name": "local invitation verification returned a session",
+      "pass": true
+    },
+    {
+      "name": "invitation session belongs to expected staff",
+      "pass": true
+    },
+    {
+      "name": "activation denied before actual password change",
+      "pass": true
+    },
+    {
+      "name": "invited staff sets own password",
+      "pass": true
+    },
+    {
+      "name": "activation succeeds after trusted onboarding",
+      "pass": true
+    },
+    {
+      "name": "duplicate activation rejected",
+      "pass": true
+    },
+    {
+      "name": "retry synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "retry expected role exists",
+      "pass": true
+    },
+    {
+      "name": "retry fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "unconfirmed retry selects invitation method",
+      "pass": true
+    },
+    {
+      "name": "retried Auth invitation preserves identity",
+      "pass": true
+    },
+    {
+      "name": "retry outcome audited",
+      "pass": true
+    },
+    {
+      "name": "local invitation email has guarded Auth link",
+      "pass": true
+    },
+    {
+      "name": "local invitation verification returned a session",
+      "pass": true
+    },
+    {
+      "name": "invitation session belongs to expected staff",
+      "pass": true
+    },
+    {
+      "name": "resent invitation alone cannot satisfy password-change proof",
+      "pass": true
+    },
+    {
+      "name": "only synthetic local fixtures removed",
+      "pass": true
+    }
+  ]
+}

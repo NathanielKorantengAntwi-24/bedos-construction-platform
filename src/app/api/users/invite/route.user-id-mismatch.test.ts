@@ -65,7 +65,7 @@ describe("Staff invitation identity protection", () => {
             eq: () => ({
               maybeSingle: async () => ({
                 data: {
-                  id: "finance-role",
+                  id: "20000000-0000-4000-8000-000000000001",
                   name: "finance",
                 },
                 error: null,
@@ -106,7 +106,7 @@ describe("Staff invitation identity protection", () => {
         body: JSON.stringify({
           email: "staff@example.invalid",
           full_name: "Test Staff",
-          role_id: "finance-role",
+          role_id: "20000000-0000-4000-8000-000000000001",
         }),
       }),
     );
@@ -119,7 +119,7 @@ describe("Staff invitation identity protection", () => {
       {
         p_user_id: createdId,
         p_invited_by: "administrator-id",
-        p_approved_role_id: "finance-role",
+        p_approved_role_id: "20000000-0000-4000-8000-000000000001",
       },
     );
 
@@ -132,7 +132,7 @@ describe("Staff invitation identity protection", () => {
     expect(updateProfile).toHaveBeenCalledOnce();
     expect(updateProfile).toHaveBeenCalledWith(
       expect.objectContaining({
-        role_id: "finance-role",
+        role_id: "20000000-0000-4000-8000-000000000001",
         account_status: "inactive",
       }),
     );

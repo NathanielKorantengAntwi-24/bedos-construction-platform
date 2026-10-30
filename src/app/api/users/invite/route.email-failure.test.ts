@@ -135,7 +135,8 @@ describe("Staff invitation email failure protection", () => {
       }),
     );
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(502);
+    expect(await response.json()).toEqual({ error: "Unable to send staff invitation." });
 
     expect(createUser).toHaveBeenCalledWith(
       expect.objectContaining({

@@ -1,0 +1,474 @@
+{
+  "date": "2026-10-30T01:16:46.378Z",
+  "scope": "Local staff SQL/Auth/SMTP integration with explicit PKCE-client session adoption. Next.js redirect/fragment wiring is unit-tested separately. No production calls or persistent schema changes. Passwords, hashes, links and tokens excluded.",
+  "results": [
+    {
+      "name": "actor synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "actor expected role exists",
+      "pass": true
+    },
+    {
+      "name": "actor fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "normal synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "normal expected role exists",
+      "pass": true
+    },
+    {
+      "name": "normal fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "activation denied before email setup",
+      "pass": true
+    },
+    {
+      "name": "local invite email has guarded Auth link",
+      "pass": true
+    },
+    {
+      "name": "local invite verification returned a session",
+      "pass": true
+    },
+    {
+      "name": "invite lands on trusted home Auth bridge",
+      "pass": true
+    },
+    {
+      "name": "explicit session works with PKCE client for expected staff",
+      "pass": true
+    },
+    {
+      "name": "activation denied before actual password change",
+      "pass": true
+    },
+    {
+      "name": "invited staff sets own password",
+      "pass": true
+    },
+    {
+      "name": "activation succeeds after trusted onboarding",
+      "pass": true
+    },
+    {
+      "name": "duplicate activation rejected",
+      "pass": true
+    },
+    {
+      "name": "retry synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "retry expected role exists",
+      "pass": true
+    },
+    {
+      "name": "retry fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "unconfirmed retry selects invitation method",
+      "pass": true
+    },
+    {
+      "name": "retried Auth invitation preserves identity",
+      "pass": true
+    },
+    {
+      "name": "retry outcome audited",
+      "pass": true
+    },
+    {
+      "name": "local invite email has guarded Auth link",
+      "pass": true
+    },
+    {
+      "name": "local invite verification returned a session",
+      "pass": true
+    },
+    {
+      "name": "invite lands on trusted home Auth bridge",
+      "pass": true
+    },
+    {
+      "name": "explicit session works with PKCE client for expected staff",
+      "pass": true
+    },
+    {
+      "name": "resent invitation alone cannot satisfy password-change proof",
+      "pass": true
+    },
+    {
+      "name": "confirmed-recovery synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "confirmed-recovery expected role exists",
+      "pass": true
+    },
+    {
+      "name": "confirmed-recovery fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "local invite email has guarded Auth link",
+      "pass": true
+    },
+    {
+      "name": "local invite verification returned a session",
+      "pass": true
+    },
+    {
+      "name": "invite lands on trusted home Auth bridge",
+      "pass": true
+    },
+    {
+      "name": "explicit session works with PKCE client for expected staff",
+      "pass": true
+    },
+    {
+      "name": "confirmed pending staff selects recovery",
+      "pass": true
+    },
+    {
+      "name": "server-initiated recovery email accepted",
+      "pass": true
+    },
+    {
+      "name": "recovery dispatch result audited",
+      "pass": true
+    },
+    {
+      "name": "immediate retry blocked by cooldown",
+      "pass": true
+    },
+    {
+      "name": "duplicate retry completion rejected",
+      "pass": true
+    },
+    {
+      "name": "local recovery email has guarded Auth link",
+      "pass": true
+    },
+    {
+      "name": "local recovery verification returned a session",
+      "pass": true
+    },
+    {
+      "name": "recovery lands on trusted home Auth bridge",
+      "pass": true
+    },
+    {
+      "name": "explicit session works with PKCE client for expected staff",
+      "pass": true
+    },
+    {
+      "name": "recovery link alone does not prove password setup",
+      "pass": true
+    },
+    {
+      "name": "recovered staff sets own password",
+      "pass": true
+    },
+    {
+      "name": "recovered staff activation succeeds after password setup",
+      "pass": true
+    },
+    {
+      "name": "revocation synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "revocation expected role exists",
+      "pass": true
+    },
+    {
+      "name": "revocation fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "anonymous cannot invoke bedos_activate_staff_invitation with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary staff cannot invoke bedos_activate_staff_invitation with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "anonymous cannot invoke bedos_revoke_staff_invitation with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary staff cannot invoke bedos_revoke_staff_invitation with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "anonymous cannot invoke bedos_prepare_staff_invitation_retry with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary staff cannot invoke bedos_prepare_staff_invitation_retry with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "anonymous cannot invoke bedos_finish_staff_invitation_retry with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary staff cannot invoke bedos_finish_staff_invitation_retry with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "anonymous cannot invoke bedos_record_staff_invitation_password_baseline with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary staff cannot invoke bedos_record_staff_invitation_password_baseline with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "anonymous cannot invoke bedos_authorize_staff_invitation with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary staff cannot invoke bedos_authorize_staff_invitation with forged administrator identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary staff denied by database actor-permission check",
+      "pass": true
+    },
+    {
+      "name": "administrator role cannot be assigned through staff invitations",
+      "pass": true
+    },
+    {
+      "name": "suspended administrator denied in database",
+      "pass": true
+    },
+    {
+      "name": "pending invitation revoked",
+      "pass": true
+    },
+    {
+      "name": "revoked staff remains inactive",
+      "pass": true
+    },
+    {
+      "name": "revoked invitation cannot activate",
+      "pass": true
+    },
+    {
+      "name": "revoked invitation cannot retry",
+      "pass": true
+    },
+    {
+      "name": "duplicate revocation rejected",
+      "pass": true
+    },
+    {
+      "name": "concurrent-retry synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "concurrent-retry expected role exists",
+      "pass": true
+    },
+    {
+      "name": "concurrent-retry fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "concurrent retries produce one winner and one cooldown rejection",
+      "pass": true
+    },
+    {
+      "name": "failed dispatch result recorded without activation",
+      "pass": true
+    },
+    {
+      "name": "failed dispatch leaves account inactive",
+      "pass": true
+    },
+    {
+      "name": "synthetic audit records readable by trusted backend",
+      "pass": true
+    },
+    {
+      "name": "exactly one staff_invitation_activated for intended target",
+      "pass": true
+    },
+    {
+      "name": "exactly one staff_invitation_retry_accepted for intended target",
+      "pass": true
+    },
+    {
+      "name": "exactly one staff_invitation_activated for intended target",
+      "pass": true
+    },
+    {
+      "name": "exactly one staff_invitation_revoked for intended target",
+      "pass": true
+    },
+    {
+      "name": "exactly one staff_invitation_retry_requested for intended target",
+      "pass": true
+    },
+    {
+      "name": "exactly one staff_invitation_retry_failed for intended target",
+      "pass": true
+    },
+    {
+      "name": "audit-rollback synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "audit-rollback expected role exists",
+      "pass": true
+    },
+    {
+      "name": "audit-rollback fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "failed audit insert rolls back invitation revocation",
+      "pass": true
+    },
+    {
+      "name": "activation-revocation-race synthetic identity created",
+      "pass": true
+    },
+    {
+      "name": "activation-revocation-race expected role exists",
+      "pass": true
+    },
+    {
+      "name": "activation-revocation-race fixture role/status configured",
+      "pass": true
+    },
+    {
+      "name": "trusted invitation authorization",
+      "pass": true
+    },
+    {
+      "name": "Auth invitation accepted for same identity",
+      "pass": true
+    },
+    {
+      "name": "post-invitation password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "local invite email has guarded Auth link",
+      "pass": true
+    },
+    {
+      "name": "local invite verification returned a session",
+      "pass": true
+    },
+    {
+      "name": "invite lands on trusted home Auth bridge",
+      "pass": true
+    },
+    {
+      "name": "explicit session works with PKCE client for expected staff",
+      "pass": true
+    },
+    {
+      "name": "race fixture password setup succeeds",
+      "pass": true
+    },
+    {
+      "name": "activation versus revocation has exactly one winner",
+      "pass": true
+    },
+    {
+      "name": "racing final invitation/profile state is consistent",
+      "pass": true
+    },
+    {
+      "name": "only synthetic local fixtures removed",
+      "pass": true
+    }
+  ]
+}
