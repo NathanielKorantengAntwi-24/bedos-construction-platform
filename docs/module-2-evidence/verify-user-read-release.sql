@@ -1,0 +1,3 @@
+BEGIN TRANSACTION READ ONLY;
+SELECT p.prosecdef AS security_definer,p.proconfig AS settings,md5(regexp_replace(p.prosrc,'\s+','','g')) AS normalized_body_md5,has_function_privilege('anon',p.oid,'EXECUTE') AS anon_execute,has_function_privilege('authenticated',p.oid,'EXECUTE') AS authenticated_execute,has_function_privilege('service_role',p.oid,'EXECUTE') AS service_role_execute,(SELECT count(*) FROM supabase_migrations.schema_migrations WHERE version='20261030010000') AS migration_rows,(SELECT count(*) FROM auth.users WHERE email LIKE '%@bedos-user-reads.invalid') AS rollback_fixture_count FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname='bedos_read_users';
+COMMIT;

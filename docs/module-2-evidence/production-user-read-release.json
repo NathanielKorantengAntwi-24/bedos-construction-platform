@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-30T02:30:07.4583636Z",
+  "commit": "932e3a5",
+  "deployment": "Vercel success",
+  "migration": "20261030010000_add_admin_user_reads.sql",
+  "migration_rows": 1,
+  "function_body_matches_committed_source": true,
+  "security_definer": true,
+  "empty_search_path": true,
+  "anon_execute": false,
+  "authenticated_execute": false,
+  "service_role_execute": true,
+  "rollback_database_assertions": 29,
+  "remaining_rollback_fixtures": 0,
+  "administrator_route_verification": "pending private user-run script",
+  "account_identifiers_recorded": false
+}

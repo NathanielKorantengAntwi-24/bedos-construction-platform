@@ -1,6 +1,6 @@
 # Module 2 administrator list/detail implementation
 
-30 October 2026. Status: locally implemented and verified under the approved administration contracts. Not committed, pushed, migrated or deployed. Module 2 remains open.
+30 October 2026. Status: approved patch 932e3a5 deployed; production database and anonymous/customer denial checks passed. Administrator-success route verification pending private user-run test. Module 2 remains open.
 
 ## Module objective
 
@@ -48,10 +48,18 @@ npm run build
 - [x] Validation, safe fields and authorization tested at route/SQL layers.
 - [x] Relevant compatibility tests, build, TypeScript and focused lint passed.
 - [x] Local fixture/migration rollback independently verified.
-- [ ] Separate release approval for exact-file commit/push, production migration and deployment.
+- [x] Separate release approval for exact-file commit/push, production migration and deployment.
 - [ ] Production route verification with an authorized administrator session, ordinary-user denial and safe response checks. Keep detailed identity evidence local; publish sanitized counts/status only.
 
-This is local acceptance, not production acceptance or overall Module 2 completion. The application requires the new migration before these endpoints can work in production. Release the DB function first, then deploy application routes; old application code does not call the additive function. If deployment fails, the old application continues to operate with the unused service-only function. Review the remote pending-migration list before applying this exact migration; do not apply unrelated pending changes.
+Local acceptance and partial production verification are complete; administrator-success acceptance and overall Module 2 completion are pending. The dry run contained only 20261030010000_add_admin_user_reads.sql. Applied once before pushing application commit 932e3a5; Vercel reported deployment success. No unrelated migration was applied.
+
+## Production release evidence
+
+- All 29 actual DB assertions passed against the new production function inside a rollback-only synthetic-fixture transaction. Independent check confirmed zero remaining fixture users, one installed function and one recorded migration version.
+- Production function body matches committed source after whitespace normalization. SECURITY DEFINER, empty search_path, service_role EXECUTE and no anon/authenticated EXECUTE independently verified.
+- Thirteen deployed anonymous/customer checks passed, including fixture setup and cleanup assertions. Anonymous list/detail returned 401; active customer list/detail returned 403 even for their own ID; permission denial preceded query validation. Temporary confirmed customer setup is not signup-confirmation evidence. Exact disposable Auth identity and profile deletion verified. No administrator credentials or account records were saved.
+- Sanitized evidence: module-2-evidence/production-user-read-release.json and production-user-read-denials.json. Reproduction: verify-user-read-release.sql and scripts/Test-ProductionUserReadDenials.mjs.
+- Remaining administrator verification: run scripts/Test-ProductionUserReads.ps1, enter the existing administrator email and new administrator password privately, and share PASS/STOPPED lines plus logout status. The script checks defaults, safe response fields, combined filters, next page, self detail, missing users and invalid inputs. It creates/changes no accounts and records only sanitized results in production-user-reads-admin.json.
 
 ## Remaining risks or issues
 

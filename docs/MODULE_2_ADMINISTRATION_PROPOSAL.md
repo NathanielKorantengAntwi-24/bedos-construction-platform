@@ -1,6 +1,6 @@
 # Module 2 administration contract proposal
 
-30 October 2026. Status: user approved the contracts and local list/detail implementation. List/detail is implemented and locally verified; production release is pending. Status/role operations are not implemented. Backend only. This document recommends concrete interfaces for gaps recorded in MODULE_2_AUDIT.md; these interfaces are not claimed to be prescribed verbatim by the approved plan.
+30 October 2026. Status: user approved contracts, local list/detail implementation and its production release. List/detail is deployed; administrator-success verification pending. Status/role operations are not implemented. Backend only. This document recommends concrete interfaces for gaps recorded in MODULE_2_AUDIT.md; these interfaces are not claimed to be prescribed verbatim by the approved plan.
 
 ## Module objective
 

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-30T02:28:47.158Z",
+  "scope": "Production anonymous/customer denial checks; confirmed disposable fixture setup only, not signup evidence; no user identifiers or credentials retained in report",
+  "results": [
+    {
+      "name": "Anonymous list denied without data",
+      "pass": true
+    },
+    {
+      "name": "Denied list not cacheable",
+      "pass": true
+    },
+    {
+      "name": "Anonymous detail denied without data",
+      "pass": true
+    },
+    {
+      "name": "Dedicated disposable customer fixture created",
+      "pass": true
+    },
+    {
+      "name": "Fixture is an active ordinary customer",
+      "pass": true
+    },
+    {
+      "name": "Dedicated customer backend login",
+      "pass": true
+    },
+    {
+      "name": "Dedicated customer session verified",
+      "pass": true
+    },
+    {
+      "name": "Customer list denied without data",
+      "pass": true
+    },
+    {
+      "name": "Customer administrative detail denied even for own ID",
+      "pass": true
+    },
+    {
+      "name": "Customer authorization precedes query validation",
+      "pass": true
+    },
+    {
+      "name": "Customer backend logout",
+      "pass": true
+    },
+    {
+      "name": "Exact disposable customer deleted",
+      "pass": true
+    },
+    {
+      "name": "Fixture Auth identity and profile removal verified",
+      "pass": true
+    }
+  ]
+}
