@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-30",
+  "scope": "Existing production staff invitation, recovery, activation and revocation workflow",
+  "workflow_checks": {
+    "passed": 17,
+    "failed": 0
+  },
+  "logout_checks": {
+    "http_status": 200,
+    "passed": 2,
+    "failed": 0
+  },
+  "verified_behaviors": [
+    "Administrator authentication and role",
+    "Malformed role UUID rejection",
+    "Trusted recovery-origin preflight",
+    "Dedicated staff invitation",
+    "Activation denied before password setup",
+    "Confirmed recovery and retry cooldown",
+    "Activation and duplicate rejection",
+    "Staff password login and correct role",
+    "Ordinary staff denied administrator invitation API",
+    "Pending invitation revocation and subsequent activation/retry rejection"
+  ],
+  "independent_verification": {
+    "real_administrator_modified": false,
+    "dedicated_fixture_count": 2,
+    "lifecycle_state_and_audit_events": "passed",
+    "audit_history": "retained",
+    "inactive_profiles_after_cleanup": 2,
+    "exact_fixture_identity_and_role": "passed"
+  },
+  "limitations": [
+    "Backend logout responses do not independently prove every provider refresh token is revoked",
+    "Direct fixture cleanup does not certify a general account-status API"
+  ],
+  "module_status": "Open",
+  "remaining_work": [
+    "Approve and implement missing administration API contracts",
+    "Partial invitation setup failure recovery",
+    "Audit table least privilege review"
+  ],
+  "detailed_evidence": "Retained locally and excluded from Git"
+}

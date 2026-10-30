@@ -56,3 +56,15 @@ This bounded correction is locally verified and deployed; entire Module 2 is not
 ## Next step
 
 Run scripts/Test-ProductionStaffRecovery.ps1 with private administrator authentication. Follow its Chrome email instructions for separate dedicated staff accounts, then enter the new staff password privately when prompted. The script records sanitized results and exact fixture identities, checks normal logout status, and leaves fixtures for independent audit and controlled deactivation. Never paste passwords, email links or cookies into chat. Review retained fixtures immediately after the run. Continue Module 2 contract work only within agreed scope; Module 3 stays deferred.
+
+Production user-run 2026-10-30T01:42:34Z stopped at administrator login (HTTP 401); sanitized manifest has zero fixtures and no successful sessions. Staff workflow is untested. Login handler maps provider signInWithPassword errors to 401; inactive/missing-profile cases use other statuses. Exact provider cause is unknown. scripts/Compare-AdministratorLogin.ps1 compares backend and linked Auth using the existing administrator email, private input and bounded provider error codes. It makes no account changes; successful temporary sessions are signed out.
+
+## Production workflow verification completed 30 October 2026
+
+User-run production test completed at 01:59:28 UTC: all 17 workflow assertions passed and both logout requests returned HTTP 200. Administrator authentication, UUID rejection, trusted-origin preflight, invitation, blocked premature activation, confirmed recovery, retry cooldown, activation, duplicate rejection, staff login/role/permission denial, and separate pending-invitation revocation all passed. This supersedes the earlier administrator-login blocker and pending workflow status; it does not certify all Module 2 scope.
+
+Independent production Auth/admin and PostgREST checks at 02:02:55 UTC verified exact fixture identities, roles, invitation state, accepted recovery attempt and administrator-attributed lifecycle audit actions. The activated test profile was changed from active to inactive after both fixture identities/states/audits passed guards; the revoked fixture was already inactive. Both profiles independently re-read as inactive. Auth identities, invitations and audit records retained. No real administrator modified. Direct fixture cleanup is not evidence of a general account-status management API. Backend successful logouts do not independently prove every provider refresh token is revoked; inactive profile/role restrictions continue to apply.
+
+Published evidence: module-2-evidence/production-staff-workflow-summary.json contains counts, verified behaviors, cleanup status and limitations only. Detailed identity-bearing evidence and exact-fixture diagnostics are retained locally and excluded from Git.
+
+Completion: bounded staff-workflow correction verified in production. Module 2 remains OPEN for missing administration API contracts/implementation, partial invitation setup recovery and audit-table least privilege review. Next module remains Module 2; Module 3 deferred.

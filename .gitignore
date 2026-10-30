@@ -41,3 +41,11 @@ yarn-error.log*
 next-env.d.ts
 # Supabase local temporary state
 /supabase/.temp/
+
+# Local production identity evidence and exact-fixture diagnostics
+/docs/module-2-evidence/production-staff-workflow-user-run.json
+/docs/module-2-evidence/production-staff-independent-verification.json
+/docs/module-2-evidence/check-admin-auth-metadata.sql
+/docs/module-2-evidence/verify-production-staff-fixtures.sql
+/scripts/Audit-Module2ProductionFixtures.mjs
+/scripts/Compare-AdministratorLogin.ps1
