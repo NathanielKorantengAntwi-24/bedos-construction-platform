@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { errorResponse } from "@/server/http/api-error";
+import { ApiError, errorResponse } from "@/server/http/api-error";
 import { parseJson } from "@/server/http/parse-json";
 
 type SignupRequest = {
@@ -9,6 +9,32 @@ type SignupRequest = {
   full_name: string;
   phone?: string;
 };
+
+function confirmationRedirectUrl(): string {
+  const production = process.env.NODE_ENV === "production";
+  const configured = process.env.BEDOS_APP_ORIGIN ||
+    (production
+      ? "https://bedos-construction-platform.vercel.app"
+      : "http://localhost:3000");
+
+  let origin: URL;
+  try {
+    origin = new URL(configured);
+  } catch {
+    throw new ApiError("Registration confirmation is not configured.", 503);
+  }
+
+  const localHttp = !production && origin.protocol === "http:" &&
+    ["localhost", "127.0.0.1", "[::1]"].includes(origin.hostname);
+  if ((origin.protocol !== "https:" && !localHttp) ||
+      origin.username || origin.password || origin.pathname !== "/" ||
+      origin.search || origin.hash) {
+    throw new ApiError("Registration confirmation is not configured.", 503);
+  }
+
+  // Use a trusted deployment origin, never request Host or forwarded headers.
+  return new URL("/auth/callback", origin).toString();
+}
 
 export async function POST(request: Request) {
   try {
@@ -66,12 +92,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const emailRedirectTo = confirmationRedirectUrl();
     const supabase = await createClient();
 
     const { data, error } = await supabase.auth.signUp({
       email: body.email,
       password: body.password,
       options: {
+        emailRedirectTo,
         data: {
           full_name: body.full_name,
           phone: body.phone ?? null,
@@ -96,7 +124,10 @@ export async function POST(request: Request) {
               email: data.user.email,
             }
           : null,
-        message: "Account created successfully",
+      confirmation_required: !data.session,
+      message: data.session
+        ? "Account created successfully"
+        : "Check your email to confirm your account before signing in.",
       },
       { status: 201 },
     );

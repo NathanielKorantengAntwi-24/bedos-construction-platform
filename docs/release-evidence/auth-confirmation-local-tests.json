@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-30T00:27:46.656Z",
+  "scope": "Local isolated Auth container on lab database and local SMTP only; no production requests. Passwords/links/tokens are not persisted. Existing lab Auth settings unchanged.",
+  "results": [
+    {
+      "name": "isolated Auth service ready",
+      "pass": true
+    },
+    {
+      "name": "seven-character password rejected",
+      "pass": true
+    },
+    {
+      "name": "signup creates unconfirmed account without session",
+      "pass": true
+    },
+    {
+      "name": "login denied before email confirmation",
+      "pass": true
+    },
+    {
+      "name": "confirmation email delivered to local test inbox",
+      "pass": true
+    },
+    {
+      "name": "email contains isolated verification link",
+      "pass": true
+    },
+    {
+      "name": "email verification redirects to trusted callback with code",
+      "pass": true
+    },
+    {
+      "name": "PKCE callback exchange establishes correct confirmed session",
+      "pass": true
+    },
+    {
+      "name": "password login succeeds after email confirmation",
+      "pass": true
+    },
+    {
+      "name": "local synthetic account removed",
+      "pass": true
+    }
+  ]
+}

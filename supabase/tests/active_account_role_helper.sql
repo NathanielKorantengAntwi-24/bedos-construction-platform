@@ -18,7 +18,7 @@ DECLARE
 BEGIN
     SELECT function_oid, owner_oid, function_acl
     INTO expected_signature, expected_owner, expected_acl
-    FROM role_helper_before;
+    FROM tested_function_before;
 
     IF (SELECT count(*) FROM public.roles WHERE name IN
         ('administrator', 'content_manager', 'customer', 'finance', 'sales_customer_service')) <> 5 THEN

@@ -1,0 +1,8 @@
+# Review-only partial production configuration; never push the full local config.
+project_id = "construction-platform"
+
+[auth]
+minimum_password_length = 8
+
+[auth.email]
+enable_confirmations = true

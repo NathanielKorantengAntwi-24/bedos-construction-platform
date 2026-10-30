@@ -1,0 +1,27 @@
+{
+  "project_ref": "zjdqomckldeipigqqfqm",
+  "applies_nothing": true,
+  "declared_changes": [
+    {
+      "path": [
+        "auth",
+        "email",
+        "enable_confirmations"
+      ],
+      "class": "update",
+      "declared": true,
+      "local": true,
+      "remote": false
+    },
+    {
+      "path": [
+        "auth",
+        "minimum_password_length"
+      ],
+      "class": "update",
+      "declared": true,
+      "local": 8,
+      "remote": 6
+    }
+  ]
+}

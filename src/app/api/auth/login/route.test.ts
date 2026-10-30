@@ -153,6 +153,21 @@ describe("Customer login API", () => {
     expect(response.status).toBe(401);
   });
 
+  it("rejects an unconfirmed email without exposing provider details", async () => {
+    mocks.signInWithPassword.mockResolvedValue({
+      data: { user: null, session: null },
+      error: { code: "email_not_confirmed", message: "Email not confirmed" },
+    });
+
+    const response = await POST(loginRequest({
+      email: "customer@example.com", password: "password123",
+    }));
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({ error: "Invalid email or password" });
+    expect(mocks.from).not.toHaveBeenCalled();
+  });
+
   it("rejects suspended customers and signs out", async () => {
     mocks.single.mockResolvedValue({
       data: { account_status: "suspended" },
