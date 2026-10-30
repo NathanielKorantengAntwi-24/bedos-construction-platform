@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-30T00:44:22.613Z",
+  "scope": "Public settings and invalid-password validation only; no valid signup, email, session or real account change intended",
+  "results": [
+    {
+      "name": "public Auth requires email confirmation",
+      "pass": true
+    },
+    {
+      "name": "direct Auth rejects seven-character password",
+      "pass": true,
+      "status": 422,
+      "error_code": "weak_password"
+    }
+  ]
+}

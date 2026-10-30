@@ -1,0 +1,9 @@
+{
+  "project_ref": "zjdqomckldeipigqqfqm",
+  "unrelated_properties_not_declared": 18,
+  "declared_differences": 0,
+  "verified_settings": {
+    "minimum_password_length": 8,
+    "email_confirmations": true
+  }
+}

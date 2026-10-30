@@ -1,6 +1,6 @@
 # Module 1 Auth configuration and confirmation review
 
-Date: 30 October 2026. Status: local changes verified; production changes pending explicit release approval.
+Date: 30 October 2026. Status: approved release applied and automated production checks passed; user-assisted production email confirmation round trip pending.
 
 ## Objective and approved decision
 
@@ -12,7 +12,7 @@ Read through Supabase CLI config pull into a gitignored review folder; original 
 
 Provider rate-limit configuration is present: email_sent 30, sms_sent 30, anonymous_users 30, token_refresh 150, sign_in_sign_ups 30 and web3 30. These are configuration values, not results of production load/rate-limit testing; provider endpoint units differ. Email send cooldown is 60 seconds, OTP length eight, OTP expiry 3600 seconds. External Auth logs were previously observed; database audit storage had zero rows.
 
-Production currently has minimum_password_length=6 and email enable_confirmations=false. The application already enforces eight characters at registration/password setup. Secure-password-change reauthentication is disabled; enabling it would require a supported nonce flow and is not included in this release. CAPTCHA and paid leaked-password protection are not being certified from the fields obtained in this review. No rate-limit, SMTP, OTP, session, redirect or reauthentication setting was changed.
+At the start of this review, production had minimum_password_length=6 and email enable_confirmations=false. The approved release now requires eight characters and email confirmation. The application already enforces eight characters at registration/password setup. Secure-password-change reauthentication is disabled; enabling it would require a supported nonce flow and is not included in this release. CAPTCHA and paid leaked-password protection are not being certified from the fields obtained in this review. No rate-limit, SMTP, OTP, session, redirect or reauthentication setting was changed.
 
 ## Relevant files and code changes
 
@@ -39,7 +39,7 @@ Regression supabase/tests/active_profile_update.sql uses the existing guarded ro
 
 ## Verification status
 
-Full application suite: 178 tests across 31 files passed. Focused lint passed (the chained command then started the build). Production build result will be recorded when it finishes. No application or production configuration changes have been released from this review. Existing live get_user_role correction remains applied and verified as previously reported.
+Full application suite: 178 tests across 31 files passed. Focused lint passed (the chained command then started the build). Production build result will be recorded when it finishes. The approved application, profile-RPC and two-setting Auth changes have now been released; production evidence is recorded below. Existing live get_user_role correction remains applied and verified as previously reported.
 
 ## Proposed release sequence
 
@@ -51,3 +51,15 @@ Full application suite: 178 tests across 31 files passed. Focused lint passed (t
 6. Record rollout and any remaining acceptance issues. Module 1 is not complete until production checks and closure review are recorded. Do not begin another module.
 
 Final local verification: production build completed successfully, including TypeScript. Focused ESLint and git diff --check passed. The database test runner's PowerShell syntax passed. No temporary confirmation-test Auth containers remained.
+
+## Approved production release on 30 October 2026
+
+- User explicitly approved the complete release. Implementation commit 8aecb57 pushed to origin/master. GitHub Vercel status reported success, Deployment has completed, before Auth settings changed.
+- Prior update_own_profile definition/OID/owner/ACL/return type and grants captured in release-evidence/profile-rpc-before.json. Dry run listed exactly migration 20261030000000. Applied only that migration; after-snapshot confirms unchanged identity/owner/ACL/return type/execution grants, empty search_path and migration recorded once.
+- Production nine-assertion RPC regression passed using rollback-only synthetic Auth/profile fixtures. Independent query confirmed zero remaining synthetic profile-RPC users. No real customer or administrator records modified.
+- Applied exactly two declared properties through the partial config: email.enable_confirmations=true and minimum_password_length=8. CLI reported 18 undeclared remote properties left unchanged. Post-release config diff had zero remaining declared differences. No secrets were sent by this configuration push.
+- Public Auth settings independently reported mailer_autoconfirm=false. Direct Auth signup with a seven-character password returned HTTP 422 / weak_password without creating a user or sending email.
+- All 12 backend negative/anonymous smoke checks passed after release.
+- Current release evidence: profile-rpc-after.json, profile-rpc-production-tests.json, auth-policy-production-verification.json and auth-policy-production-negative-tests.json under release-evidence.
+- Prepared scripts/Test-ConfirmedCustomerSignup.ps1 for user-assisted production E2E, syntax checked. It creates a dedicated Gmail-alias customer with an in-memory random password, checks login is denied before confirmation, prompts privately for the emailed link, follows it with the SAME originating HTTP cookie session, verifies the correct customer, and tests fresh password login afterward. It signs out and excludes credentials/links from recorded results. The user must COPY the new email link into the hidden local prompt rather than clicking it or sharing it in chat; the script holds the PKCE verifier. Old immediate-login signup scripts are no longer valid for new users under the confirmed-email policy.
+- Awaiting the user-run confirmation E2E result. Do not mark Module 1 complete or start another module before this evidence and final closure review are recorded.
