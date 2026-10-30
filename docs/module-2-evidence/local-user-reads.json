@@ -1,0 +1,6 @@
+{
+  "date": "2026-10-30T02:19:17.601Z",
+  "scope": "Isolated bedos-supabase-lab only; migration and fixtures rolled back",
+  "status": "passed",
+  "assertions": 29
+}

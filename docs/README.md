@@ -13,4 +13,6 @@ Backend completion proceeds one module at a time. Frontend development has not s
 Next: Module 2 Users, Staff and RBAC audit and reconciliation of existing completion evidence. No new module implementation should begin until its scope is inspected and agreed.
 
 - MODULE_2_AUDIT.md: current Module 2 scope, source/production audit, evidence, gaps and proposed implementation step.
-- MODULE_2_WORKFLOW_FIX.md: current locally verified correction scope and production release prerequisites.
+- MODULE_2_WORKFLOW_FIX.md: deployed staff workflow correction, production verification and local-only detailed evidence policy.
+- MODULE_2_ADMINISTRATION_PROPOSAL.md: approved administration API contracts and staged scope.
+- MODULE_2_USER_READS.md: current locally verified list/detail implementation, changed files, evidence and pending release checkpoint.

@@ -1,0 +1,371 @@
+[
+  {
+    "evidence": [
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "auth",
+        "table": "users",
+        "type": "uuid"
+      },
+      {
+        "column": "email",
+        "nullable": "YES",
+        "schema": "auth",
+        "table": "users",
+        "type": "character varying"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "permissions",
+        "type": "uuid"
+      },
+      {
+        "column": "name",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "permissions",
+        "type": "text"
+      },
+      {
+        "column": "description",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "permissions",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "permissions",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "uuid"
+      },
+      {
+        "column": "full_name",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "phone",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "role_id",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "profiles",
+        "type": "uuid"
+      },
+      {
+        "column": "account_status",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "updated_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "role_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "role_permissions",
+        "type": "uuid"
+      },
+      {
+        "column": "permission_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "role_permissions",
+        "type": "uuid"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "role_permissions",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "roles",
+        "type": "uuid"
+      },
+      {
+        "column": "name",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "roles",
+        "type": "text"
+      },
+      {
+        "column": "description",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "roles",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "roles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "user_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "invited_by",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "approved_role_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "status",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "activated_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "activated_by",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "revoked_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "revoked_by",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "password_baseline_digest",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "password_baseline_recorded_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "retry_attempt_count",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "integer"
+      },
+      {
+        "column": "last_retry_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "last_retry_method",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "last_retry_completed_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "last_retry_accepted",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "boolean"
+      }
+    ],
+    "section": "columns"
+  },
+  {
+    "evidence": [
+      {
+        "definition": "CREATE UNIQUE INDEX permissions_name_key ON public.permissions USING btree (name)",
+        "table": "permissions"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX permissions_pkey ON public.permissions USING btree (id)",
+        "table": "permissions"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (id)",
+        "table": "profiles"
+      },
+      {
+        "definition": "CREATE INDEX role_permissions_permission_id_idx ON public.role_permissions USING btree (permission_id)",
+        "table": "role_permissions"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX role_permissions_pkey ON public.role_permissions USING btree (role_id, permission_id)",
+        "table": "role_permissions"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX roles_name_key ON public.roles USING btree (name)",
+        "table": "roles"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX roles_pkey ON public.roles USING btree (id)",
+        "table": "roles"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX staff_invitations_pkey ON public.staff_invitations USING btree (id)",
+        "table": "staff_invitations"
+      },
+      {
+        "definition": "CREATE INDEX staff_invitations_status_created_idx ON public.staff_invitations USING btree (status, created_at)",
+        "table": "staff_invitations"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX staff_invitations_user_id_key ON public.staff_invitations USING btree (user_id)",
+        "table": "staff_invitations"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX confirmation_token_idx ON auth.users USING btree (confirmation_token) WHERE ((confirmation_token)::text !~ '^[0-9 ]*$'::text)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX email_change_token_current_idx ON auth.users USING btree (email_change_token_current) WHERE ((email_change_token_current)::text !~ '^[0-9 ]*$'::text)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX email_change_token_new_idx ON auth.users USING btree (email_change_token_new) WHERE ((email_change_token_new)::text !~ '^[0-9 ]*$'::text)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE INDEX idx_users_created_at_desc ON auth.users USING btree (created_at DESC)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE INDEX idx_users_email ON auth.users USING btree (email)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE INDEX idx_users_last_sign_in_at_desc ON auth.users USING btree (last_sign_in_at DESC)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE INDEX idx_users_name ON auth.users USING btree (((raw_user_meta_data ->> 'name'::text))) WHERE ((raw_user_meta_data ->> 'name'::text) IS NOT NULL)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX reauthentication_token_idx ON auth.users USING btree (reauthentication_token) WHERE ((reauthentication_token)::text !~ '^[0-9 ]*$'::text)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX recovery_token_idx ON auth.users USING btree (recovery_token) WHERE ((recovery_token)::text !~ '^[0-9 ]*$'::text)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX users_email_partial_key ON auth.users USING btree (email) WHERE (is_sso_user = false)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE INDEX users_instance_id_email_idx ON auth.users USING btree (instance_id, lower((email)::text))",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE INDEX users_instance_id_idx ON auth.users USING btree (instance_id)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE INDEX users_is_anonymous_idx ON auth.users USING btree (is_anonymous)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX users_phone_key ON auth.users USING btree (phone)",
+        "table": "users"
+      },
+      {
+        "definition": "CREATE UNIQUE INDEX users_pkey ON auth.users USING btree (id)",
+        "table": "users"
+      }
+    ],
+    "section": "indexes"
+  }
+]

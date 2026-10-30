@@ -99,3 +99,5 @@ Independent production Auth/admin and PostgREST checks at 02:02:55 UTC verified 
 Published evidence: module-2-evidence/production-staff-workflow-summary.json contains counts, verified behaviors, cleanup status and limitations only. Detailed identity-bearing evidence and exact-fixture diagnostics are retained locally and excluded from Git.
 
 Completion: bounded staff-workflow correction verified in production. Module 2 remains OPEN for missing administration API contracts/implementation, partial invitation setup recovery and audit-table least privilege review. Next module remains Module 2; Module 3 deferred.
+
+Module 2 user-read step update: user approved administration contracts and local list/detail implementation. Local implementation and verification passed (222 application tests, 29 local rollback-only SQL assertions, build/TypeScript and focused lint); production release pending. See MODULE_2_USER_READS.md for exact files, evidence, limitations and acceptance checklist. The earlier audit gap table is historical: list/detail is now implemented locally, while status/role interfaces and other open work remain unimplemented.
