@@ -1,0 +1,13 @@
+# Bedos engineering documentation
+
+Backend completion proceeds one module at a time. Frontend development has not started.
+
+- PROJECT_BASELINE.md: project/dependency map, architecture, master 24-module register and current stopping point.
+- MODULE_1_COMPLETION_REPORT.md: current verified Module 1 closure, evidence matrix and limitations (30 October 2026).
+- MODULE_1_VERIFICATION_STATUS.md: chronological Module 1 verification history; use completion report for current status.
+- MODULE_1_AUTH_POLICY_REVIEW.md: confirmed-email/password policy and legacy profile RPC release.
+- MODULE_1_ACTIVE_ROLE_FIX.md: shared active-account role-helper correction and production verification.
+- MODULE_1_LOGIN_ERROR_FIX.md: malformed login JSON correction.
+- release-evidence/: sanitized committed production/local verification records.
+
+Next: Module 2 Users, Staff and RBAC audit and reconciliation of existing completion evidence. No new module implementation should begin until its scope is inspected and agreed.

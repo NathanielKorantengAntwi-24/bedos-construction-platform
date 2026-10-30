@@ -1,0 +1,28 @@
+﻿{
+    "date":  "2026-10-30T00:48:49.3493245Z",
+    "scope":  "User-run dedicated customer confirmation E2E; credentials and links excluded",
+    "email":  "nathaniel.koranteng.antwics2022+bedos-confirm-1793321184115@gmail.com",
+    "userId":  "0b7cddc1-62b3-49e5-b16d-66af2ba8de50",
+    "results":  [
+                    {
+                        "name":  "Signup requires confirmation",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Login denied before email confirmation",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Email callback established correct customer session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Fresh password login succeeds after confirmation",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Fresh customer session verified",
+                        "pass":  true
+                    }
+                ]
+}

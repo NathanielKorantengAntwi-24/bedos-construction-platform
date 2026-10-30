@@ -1,6 +1,6 @@
 # Module 1 Auth configuration and confirmation review
 
-Date: 30 October 2026. Status: approved release applied and automated production checks passed; user-assisted production email confirmation round trip pending.
+Date: 30 October 2026. Status: approved release and user-assisted production email confirmation round trip passed. Module 1 closure recorded in MODULE_1_COMPLETION_REPORT.md.
 
 ## Objective and approved decision
 
@@ -63,3 +63,6 @@ Final local verification: production build completed successfully, including Typ
 - Current release evidence: profile-rpc-after.json, profile-rpc-production-tests.json, auth-policy-production-verification.json and auth-policy-production-negative-tests.json under release-evidence.
 - Prepared scripts/Test-ConfirmedCustomerSignup.ps1 for user-assisted production E2E, syntax checked. It creates a dedicated Gmail-alias customer with an in-memory random password, checks login is denied before confirmation, prompts privately for the emailed link, follows it with the SAME originating HTTP cookie session, verifies the correct customer, and tests fresh password login afterward. It signs out and excludes credentials/links from recorded results. The user must COPY the new email link into the hidden local prompt rather than clicking it or sharing it in chat; the script holds the PKCE verifier. Old immediate-login signup scripts are no longer valid for new users under the confirmed-email policy.
 - Awaiting the user-run confirmation E2E result. Do not mark Module 1 complete or start another module before this evidence and final closure review are recorded.
+
+
+Final production confirmation: user-run E2E passed all five checks, saved result independently inspected and expected confirmed customer verified. Old-password rejection/new-password success independently tested on a disposable fixture and passed. See MODULE_1_COMPLETION_REPORT.md for current closure; preceding pending notes are historical.
