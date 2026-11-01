@@ -1,0 +1,218 @@
+{
+  "date": "2026-11-01T19:34:37.810Z",
+  "scope": "Read-only exact-fixture absence and retained audit-chain reconciliation; no production writes; no identities credentials slugs or audit images published",
+  "results": [
+    {
+      "name": "Saved administrator workflow has thirty-five passing checks",
+      "pass": true
+    },
+    {
+      "name": "Administrator workflow logout completed",
+      "pass": true
+    },
+    {
+      "name": "Private journal complete with two distinct deleted identities",
+      "pass": true
+    },
+    {
+      "name": "Both expected labels share the exact fixture nonce",
+      "pass": true
+    },
+    {
+      "name": "Expected production project and backend credential configured",
+      "pass": true
+    },
+    {
+      "name": "Independent production read requests succeed",
+      "pass": true
+    },
+    {
+      "name": "Both exact property fixture IDs are absent",
+      "pass": true
+    },
+    {
+      "name": "No properties remain under the exact fixture nonce",
+      "pass": true
+    },
+    {
+      "name": "Original administrator remains active with administrator role",
+      "pass": true
+    },
+    {
+      "name": "Fourteen successful property audits retained",
+      "pass": true
+    },
+    {
+      "name": "Every retained actor entity and result matches",
+      "pass": true
+    },
+    {
+      "name": "Action counts exactly match successful workflow mutations",
+      "pass": true
+    },
+    {
+      "name": "lifecycle exact creation and deletion identity images",
+      "pass": true
+    },
+    {
+      "name": "lifecycle creation uses expected draft defaults",
+      "pass": true
+    },
+    {
+      "name": "lifecycle specification edit count is correct",
+      "pass": true
+    },
+    {
+      "name": "Specification edit preserves exact previous image",
+      "pass": true
+    },
+    {
+      "name": "Specification edit records only expected business changes",
+      "pass": true
+    },
+    {
+      "name": "lifecycle successful lifecycle transition count",
+      "pass": true
+    },
+    {
+      "name": "lifecycle draft to published audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 1 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 1 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "lifecycle published to reserved audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 2 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 2 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "lifecycle reserved to published audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 3 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 3 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "lifecycle published to unavailable audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 4 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 4 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "lifecycle unavailable to archived audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 5 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 5 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "lifecycle archived to draft audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 6 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "lifecycle lifecycle step 6 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "lifecycle deletion continues exact audited image",
+      "pass": true
+    },
+    {
+      "name": "lifecycle deletion cascaded no feature or amenity metadata",
+      "pass": true
+    },
+    {
+      "name": "sale-status exact creation and deletion identity images",
+      "pass": true
+    },
+    {
+      "name": "sale-status creation uses expected draft defaults",
+      "pass": true
+    },
+    {
+      "name": "sale-status specification edit count is correct",
+      "pass": true
+    },
+    {
+      "name": "sale-status successful lifecycle transition count",
+      "pass": true
+    },
+    {
+      "name": "sale-status draft to published audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "sale-status lifecycle step 1 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "sale-status lifecycle step 1 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "sale-status published to sold audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "sale-status lifecycle step 2 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "sale-status lifecycle step 2 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "sale-status sold to archived audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "sale-status lifecycle step 3 preserves prior audited image",
+      "pass": true
+    },
+    {
+      "name": "sale-status lifecycle step 3 preserves specifications",
+      "pass": true
+    },
+    {
+      "name": "sale-status deletion continues exact audited image",
+      "pass": true
+    },
+    {
+      "name": "sale-status deletion cascaded no feature or amenity metadata",
+      "pass": true
+    }
+  ]
+}

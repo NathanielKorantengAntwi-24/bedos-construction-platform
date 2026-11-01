@@ -1,0 +1,147 @@
+﻿{
+    "date":  "2026-11-01T19:32:58.9159062Z",
+    "scope":  "Production administrator property workflow; identifiers only in ignored private journal",
+    "results":  [
+                    {
+                        "name":  "Administrator login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Expected active administrator session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated lifecycle draft created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated sale-status draft created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator sees both drafts",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Management response not cacheable",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public list hides drafts",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public draft detail hidden",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Ordinary edit cannot change lifecycle",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Partial specification edit succeeds",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle draft to published",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Combined public filters and publication",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public detail exact approved fields",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public detail not cacheable",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Empty page retains count",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid property query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid property query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid property query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid property query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous management denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous status mutation denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Stale lifecycle rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle published to reserved",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Reserved listing hidden publicly",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle reserved to published",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle published to unavailable",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle unavailable to archived",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle archived to draft",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle draft to published",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle published to sold",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Sold listing cannot republish directly",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Lifecycle sold to archived",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable property removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable property removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator logout",
+                        "pass":  true,
+                        "http_status":  200
+                    }
+                ]
+}

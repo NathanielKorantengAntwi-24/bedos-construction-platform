@@ -1,6 +1,6 @@
 # Module 4 — property management
 
-1 November 2026. Backend released and production database/public verification passed; private administrator HTTP acceptance and reconciliation pending. This is not a module completion report.
+1 November 2026. COMPLETE for agreed backend scope. Production administrator acceptance and independent cleanup/audit reconciliation passed. Authoritative closure: MODULE_4_COMPLETION_REPORT.md. Earlier pending entries below preserve release history.
 
 ## 1. Module objective
 
@@ -120,9 +120,9 @@ Run Docker integration and database scripts sequentially because they use the sa
 - [x] Sanitized evidence and release procedure prepared.
 - [x] Separate approval for commit/push, production migrations/deployment and two disposable production properties.
 - [x] Fresh production preflight and release metadata/rollback verification.
-- [ ] Private administrator production HTTP workflow.
-- [ ] Independent exact-fixture cleanup and retained-audit reconciliation.
-- [ ] Final completion recorded before starting Module 5.
+- [x] Private administrator production HTTP workflow.
+- [x] Independent exact-fixture cleanup and retained-audit reconciliation.
+- [x] Final completion recorded before starting Module 5.
 
 ## 8. Remaining risks or issues and release procedure
 
@@ -151,3 +151,7 @@ Independent final local cleanup passed: zero Module 4 Auth/property fixtures, te
 User authorized commit/push, staged migration/deployment and two temporary production properties. Fresh read-only preflight matched all reviewed dependencies; new function/trigger-name collisions and explicit column ACLs were zero. Phase one 20261101060000 committed and five function sources/owners/search paths/ACLs, corrected status constraint and both enabled guard bindings verified before deployment. Application commit 1c888f0 deployed successfully to Production. All 13 anonymous/public checks passed before phase two 20261101070000 committed. Production rollback-only verification passed all 114 assertions. Independent final metadata confirms zero direct table/column writes, five matching functions, both guards, RLS retained, two migration rows and zero synthetic Auth fixtures/failure triggers. Post-release columns, constraints, policies, original trigger fingerprints, intended SELECT grants, role mappings and legacy aggregates matched. All 13 public/anonymous checks passed again. Sanitized report: module-4-evidence/production-property-release.json.
 
 The rollback test now scopes list counts to its unique fixture nonce so existing listings cannot affect assertions; the adjusted wrapper passed locally and in production. No application logic changed after the deployed commit. The final required step is private scripts/Test-ProductionPropertyManagement.ps1 execution with the existing administrator credentials, followed by independent exact-fixture deletion/audit reconciliation. Module 4 remains OPEN; Module 5/frontend deferred.
+
+## Production acceptance and closure — 1 November 2026
+
+Saved administrator workflow contains 35 passing checks, logout HTTP 200 and both exact temporary properties deleted. Independent read-only reconciliation passed all 53 checks: exact IDs and shared fixture nonce absent, all 14 expected audits retained with correct actor/results and continuous identity/specification/lifecycle chains, and original administrator active with administrator role. The private identity journal is complete and remains Git-ignored. No production writes occurred during reconciliation. See MODULE_4_COMPLETION_REPORT.md and module-4-evidence/production-property-completion.json. Module 4 COMPLETE; next is Module 5 analysis. Frontend remains deferred.
