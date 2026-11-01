@@ -17,4 +17,4 @@ Next: Module 2 Users, Staff and RBAC audit and reconciliation of existing comple
 - MODULE_2_ADMINISTRATION_PROPOSAL.md: approved administration API contracts and staged scope.
 - MODULE_2_USER_READS.md: completed list/detail step, changed files and verified production acceptance evidence.
 - MODULE_2_ACCOUNT_STATUS.md: completed suspension/restoration step with verified production acceptance, audit records and fixture cleanup.
-- MODULE_2_STAFF_ROLE_CHANGES.md: locally verified ordinary staff role changes, atomic profile/invitation audit, existing-session/concurrency tests and pending release checkpoint.
+- MODULE_2_STAFF_ROLE_CHANGES.md: completed ordinary staff role-change step, atomic profile/invitation audit and verified production acceptance/cleanup.

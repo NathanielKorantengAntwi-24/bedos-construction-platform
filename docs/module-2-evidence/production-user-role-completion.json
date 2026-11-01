@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-01T02:36:19.5773186Z",
+  "scope": "Independent exact-fixture production cleanup and audit verification; no identifiers retained",
+  "user_run_assertions": 38,
+  "user_run_passed": 38,
+  "remaining_auth_users": 0,
+  "remaining_profiles": 0,
+  "remaining_invitations": 0,
+  "role_change_audits": 3,
+  "valid_role_transition_audits": 3,
+  "distinct_role_actors": 1,
+  "original_approval_audits": 1,
+  "activation_audits": 1,
+  "status_change_audits": 2,
+  "private_fixture_state": "deleted",
+  "step_status": "complete for agreed ordinary staff role-change scope",
+  "overall_module2_status": "open"
+}

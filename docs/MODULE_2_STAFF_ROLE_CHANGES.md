@@ -1,6 +1,6 @@
 # Module 2 ordinary staff role changes
 
-1 November 2026. Status: approved role patch f617814 deployed; production database and anonymous denial checks passed. Administrator/staff HTTP workflow acceptance pending private user-run test. Overall Module 2 remains open.
+1 November 2026. Status: ordinary staff role-change step COMPLETE for agreed scope. Approved patch f617814 deployed; production SQL and administrator/staff HTTP acceptance passed. Overall Module 2 remains open.
 
 ## Module objective
 
@@ -60,9 +60,9 @@ npm run build
 - [x] Compatibility suite, build, TypeScript and focused lint passed.
 - [x] Fixture cleanup and unchanged lab dependencies independently verified.
 - [x] Separate approval for exact-file commit/push, additive production migration and deployment.
-- [ ] Production SQL and dedicated administrator/staff HTTP verification, with private credentials and local-only account identifiers.
+- [x] Production SQL and dedicated administrator/staff HTTP verification, with private credentials and local-only account identifiers.
 
-Local acceptance and partial production verification are complete. User approved release; dry run contained only 20261101010000_add_admin_staff_role_changes.sql. Applied once before pushing application commit f617814, and Vercel reported successful deployment. No temporary lab dependencies were replayed in production and no real staff/customer role was changed.
+Local and production acceptance of this role-change step are complete. User approved release; dry run contained only 20261101010000_add_admin_staff_role_changes.sql. Applied once before pushing application commit f617814, and Vercel reported successful deployment. No temporary lab dependencies were replayed in production and no real staff/customer role was changed.
 
 ## Production release verification
 
@@ -85,8 +85,14 @@ Share PASS/STOPPED lines and logout statuses only. Do not rerun if fixture clean
 
 ## Remaining risks or issues
 
-Deployed administrator/staff role-route acceptance is pending the private run above. The permission-refresh unit case uses representative permission mappings; it is not proof of every business module's complete finance/sales/content authorization. Actual local RLS assertions cover the selected draft-service path. Existing policies and backend guards must continue to read current database role/status; changing a role does not cancel in-flight requests or promise provider-wide token revocation. No arbitrary role/permission catalogue editor is introduced.
+The private production administrator/staff workflow above passed; its service-permission probe used an absent entity and read no business records. The permission-refresh unit case uses representative permission mappings; it is not proof of every business module's complete finance/sales/content authorization. Actual local RLS assertions cover the selected draft-service path. Existing policies and backend guards must continue to read current database role/status; changing a role does not cancel in-flight requests or promise provider-wide token revocation. No arbitrary role/permission catalogue editor is introduced.
 
 ## Next module
 
-Complete this role step's release/production checkpoint before starting partial invitation setup recovery or audit least-privilege changes. Overall Module 2 remains open; Module 3 deferred.
+The role release/production checkpoint is satisfied. Next is partial invitation setup recovery and audit least-privilege review, with their exact implementation scope reviewed before changes. Overall Module 2 remains open; Module 3 deferred.
+
+## Final production acceptance, 1 November 2026
+
+Private user-run completion at 02:35:01 UTC: all 38 saved assertions passed (35 setup/workflow/audit checks, two HTTP-200 logouts and exact fixture cleanup). Content -> finance -> sales/customer service -> content transitions, current-session role/permission loss/recovery, ordinary/anonymous/protected/stale/no-op denial, invitation proof consistency, suspended-role denial and status compatibility passed. Three correct role audit transitions and the original approval were verified. This supersedes the earlier pending HTTP acceptance notes.
+
+Independent exact-fixture production SQL confirmed zero Auth users, profiles and invitation records; retained audit history includes three correct role changes by one actor, original authorization, activation and two status transitions. No identifiers are retained in public evidence. Reports: production-user-role-admin.json and production-user-role-completion.json. The private fixture manifest remains Git-ignored with state deleted. Ordinary staff role-change step COMPLETE; overall Module 2 stays OPEN for partial invitation setup recovery and audit least-privilege review. Module 3 deferred.

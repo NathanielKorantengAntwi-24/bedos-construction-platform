@@ -1,6 +1,6 @@
 # Module 2 administration contract proposal
 
-1 November 2026. Status: contracts approved; list/detail and suspension/restoration complete with production acceptance. Ordinary staff role changes released with user approval; production database checks passed and private administrator/staff HTTP acceptance pending. Backend only. This document recommends concrete interfaces for gaps recorded in MODULE_2_AUDIT.md; these interfaces are not claimed to be prescribed verbatim by the approved plan.
+1 November 2026. Status: contracts approved; list/detail and suspension/restoration complete with production acceptance. Ordinary staff role changes complete with production SQL and administrator/staff HTTP acceptance. Backend only. This document recommends concrete interfaces for gaps recorded in MODULE_2_AUDIT.md; these interfaces are not claimed to be prescribed verbatim by the approved plan.
 
 ## Module objective
 
@@ -55,4 +55,4 @@ Implementation order within Module 2: (1) list/detail and validation; (2) status
 
 ## Completion status and next module
 
-List/detail complete; see MODULE_2_USER_READS.md. Status step complete; see MODULE_2_ACCOUNT_STATUS.md. User authorized ordinary staff role implementation; locally verified, with release/production checkpoint pending in MODULE_2_STAFF_ROLE_CHANGES.md. Module 2 remains open; Module 3 deferred. Do not begin remaining invitation-recovery/audit-grant changes before the current checkpoint is resolved and next scope agreed.
+List/detail complete; see MODULE_2_USER_READS.md. Status step complete; see MODULE_2_ACCOUNT_STATUS.md. Ordinary staff role changes complete with production verification in MODULE_2_STAFF_ROLE_CHANGES.md. Module 2 remains open; Module 3 deferred. Do not begin remaining invitation-recovery/audit-grant changes before the current checkpoint is resolved and next scope agreed.

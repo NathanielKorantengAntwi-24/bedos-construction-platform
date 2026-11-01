@@ -1,0 +1,160 @@
+﻿{
+    "date":  "2026-11-01T02:35:01.1819070Z",
+    "scope":  "Production role workflow on one disposable staff fixture; confirmation is setup only; no account identifiers credentials or user records retained; audit history preserved",
+    "results":  [
+                    {
+                        "name":  "Administrator login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Active administrator session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Backend service authentication before fixture creation",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Expected built-in roles resolved",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable staff Auth identity created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Inactive ordinary staff fixture configured",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact fixture profile and role verified",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Trusted fixture invitation authorization recorded",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Fixture password baseline captured",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Fixture provider setup session verified",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Fixture staff changes own password after baseline",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator activates completed fixture onboarding",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Activated staff backend login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Content staff permission reaches absent-service lookup",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous role change denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Ordinary staff role change denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator assigns finance role",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Safe role response and no-store cache policy",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing staff session sees finance role",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing session loses content service permission",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Activated invitation proof matches new role",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Stale expected role rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "No-op role request rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Protected administrator assignment rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Protected customer assignment rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Updated staff proof supports suspension",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Suspended staff role edit rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Updated staff proof supports restoration",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator assigns sales customer service role",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator reassigns content manager role",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing staff session sees restored content role",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing session regains content service permission",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exactly three successful role edits audited",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Role audit actors before after reasons and proof verified",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Original staff approval audit preserved",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Staff logout",
+                        "pass":  true,
+                        "http_status":  200
+                    },
+                    {
+                        "name":  "Administrator logout",
+                        "pass":  true,
+                        "http_status":  200
+                    },
+                    {
+                        "name":  "Exact disposable Auth profile and invitation removed",
+                        "pass":  true
+                    }
+                ]
+}
