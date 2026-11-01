@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-01T02:19:05.216Z",
+  "scope": "Local lab only; confirmed fixtures are setup, not email flow evidence; actual provider/session RLS and role/status races; fixtures removed and original helper definitions restored",
+  "results": [
+    {
+      "name": "new local functions absent",
+      "pass": true
+    },
+    {
+      "name": "role RPC ready with actor denial",
+      "pass": true
+    },
+    {
+      "name": "actor exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "actor role exists",
+      "pass": true
+    },
+    {
+      "name": "actor profile configured",
+      "pass": true
+    },
+    {
+      "name": "second-actor exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "second-actor role exists",
+      "pass": true
+    },
+    {
+      "name": "second-actor profile configured",
+      "pass": true
+    },
+    {
+      "name": "staff exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "staff role exists",
+      "pass": true
+    },
+    {
+      "name": "staff profile configured",
+      "pass": true
+    },
+    {
+      "name": "destination roles resolved",
+      "pass": true
+    },
+    {
+      "name": "trusted staff invitation authorized",
+      "pass": true
+    },
+    {
+      "name": "staff password baseline recorded",
+      "pass": true
+    },
+    {
+      "name": "local provider setup session",
+      "pass": true
+    },
+    {
+      "name": "staff changes own password after baseline",
+      "pass": true
+    },
+    {
+      "name": "trusted staff onboarding activated",
+      "pass": true
+    },
+    {
+      "name": "dedicated draft service created",
+      "pass": true
+    },
+    {
+      "name": "content staff session sees draft",
+      "pass": true
+    },
+    {
+      "name": "staff cannot forge administrator actor",
+      "pass": true
+    },
+    {
+      "name": "administrator changes staff to finance",
+      "pass": true
+    },
+    {
+      "name": "existing access token retained",
+      "pass": true
+    },
+    {
+      "name": "same real session now resolves finance",
+      "pass": true
+    },
+    {
+      "name": "same session profile reflects new role",
+      "pass": true
+    },
+    {
+      "name": "same real session loses content draft access",
+      "pass": true
+    },
+    {
+      "name": "updated proof supports staff suspension",
+      "pass": true
+    },
+    {
+      "name": "suspended role edit rejected",
+      "pass": true
+    },
+    {
+      "name": "updated proof supports staff restoration",
+      "pass": true
+    },
+    {
+      "name": "content staff role restored",
+      "pass": true
+    },
+    {
+      "name": "same real session regains draft access",
+      "pass": true
+    },
+    {
+      "name": "concurrent role requests have one winner",
+      "pass": true
+    },
+    {
+      "name": "role conflict loser has no extra audit",
+      "pass": true
+    },
+    {
+      "name": "role versus suspension has valid serial outcome",
+      "pass": true
+    },
+    {
+      "name": "cross-race profile and invitation remain consistent",
+      "pass": true
+    },
+    {
+      "name": "cross-race audit count matches committed changes",
+      "pass": true
+    },
+    {
+      "name": "all role audit actors and reasons correct",
+      "pass": true
+    },
+    {
+      "name": "original invitation approval history retained",
+      "pass": true
+    },
+    {
+      "name": "local staff session signed out",
+      "pass": true
+    },
+    {
+      "name": "exact draft service removed",
+      "pass": true
+    },
+    {
+      "name": "exact local role fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local role fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local role fixture removed",
+      "pass": true
+    },
+    {
+      "name": "local role integration identities absent",
+      "pass": true
+    },
+    {
+      "name": "original dependencies and ACLs restored",
+      "pass": true
+    },
+    {
+      "name": "temporary local functions removed",
+      "pass": true
+    }
+  ]
+}

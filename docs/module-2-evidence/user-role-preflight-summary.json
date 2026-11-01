@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-01T02:22:03.5546868Z",
+  "scope": "Read-only production metadata and independent local cleanup",
+  "production_dependency_bodies_match_source": true,
+  "production_role_function_count": 0,
+  "production_permission_assignments": 58,
+  "production_writes": false,
+  "local_sql_fixture_users": 0,
+  "local_auth_fixture_users": 0,
+  "local_temporary_functions": 0,
+  "local_audit_test_triggers": 0,
+  "local_draft_fixtures": 0
+}

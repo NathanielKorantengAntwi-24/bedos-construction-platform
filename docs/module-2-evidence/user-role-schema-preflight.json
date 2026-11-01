@@ -1,0 +1,505 @@
+[
+  {
+    "evidence": [
+      {
+        "column": "id",
+        "nullable": "NO",
+        "table": "audit_logs",
+        "type": "uuid"
+      },
+      {
+        "column": "actor_id",
+        "nullable": "YES",
+        "table": "audit_logs",
+        "type": "uuid"
+      },
+      {
+        "column": "action",
+        "nullable": "NO",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "entity_type",
+        "nullable": "YES",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "entity_id",
+        "nullable": "YES",
+        "table": "audit_logs",
+        "type": "uuid"
+      },
+      {
+        "column": "description",
+        "nullable": "YES",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "metadata",
+        "nullable": "YES",
+        "table": "audit_logs",
+        "type": "jsonb"
+      },
+      {
+        "column": "ip_address",
+        "nullable": "YES",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "user_agent",
+        "nullable": "YES",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "table": "audit_logs",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "table": "profiles",
+        "type": "uuid"
+      },
+      {
+        "column": "full_name",
+        "nullable": "YES",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "phone",
+        "nullable": "YES",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "role_id",
+        "nullable": "YES",
+        "table": "profiles",
+        "type": "uuid"
+      },
+      {
+        "column": "account_status",
+        "nullable": "NO",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "table": "profiles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "updated_at",
+        "nullable": "NO",
+        "table": "profiles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "table": "roles",
+        "type": "uuid"
+      },
+      {
+        "column": "name",
+        "nullable": "NO",
+        "table": "roles",
+        "type": "text"
+      },
+      {
+        "column": "description",
+        "nullable": "YES",
+        "table": "roles",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "table": "roles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "user_id",
+        "nullable": "NO",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "invited_by",
+        "nullable": "NO",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "approved_role_id",
+        "nullable": "NO",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "status",
+        "nullable": "NO",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "activated_at",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "activated_by",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "revoked_at",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "revoked_by",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "password_baseline_digest",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "password_baseline_recorded_at",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "retry_attempt_count",
+        "nullable": "NO",
+        "table": "staff_invitations",
+        "type": "integer"
+      },
+      {
+        "column": "last_retry_at",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "last_retry_method",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "last_retry_completed_at",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "last_retry_accepted",
+        "nullable": "YES",
+        "table": "staff_invitations",
+        "type": "boolean"
+      }
+    ],
+    "section": "columns"
+  },
+  {
+    "evidence": [
+      {
+        "name": "bedos_update_user_status",
+        "normalized_body_md5": "3d7bd3557650d4ac1a95098222e77b84",
+        "security_definer": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "name": "get_user_role",
+        "normalized_body_md5": "be9a337bc3ce2616fa1875e54f2b8df6",
+        "security_definer": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "name": "update_own_profile",
+        "normalized_body_md5": "8c791442033f0f366a0a7f13d1082064",
+        "security_definer": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      }
+    ],
+    "section": "dependencies"
+  },
+  {
+    "evidence": [
+      {
+        "permission": "audit_logs.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "blog.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "blog.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "enquiries.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "enquiries.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "interior_projects.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "interior_projects.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "media.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "orders.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "orders.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "payments.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "payments.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "products.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "products.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "projects.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "projects.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "properties.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "properties.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "reports.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "services.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "services.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "settings.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "users.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "users.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "viewings.manage",
+        "role": "administrator"
+      },
+      {
+        "permission": "viewings.view",
+        "role": "administrator"
+      },
+      {
+        "permission": "blog.manage",
+        "role": "content_manager"
+      },
+      {
+        "permission": "blog.view",
+        "role": "content_manager"
+      },
+      {
+        "permission": "interior_projects.manage",
+        "role": "content_manager"
+      },
+      {
+        "permission": "interior_projects.view",
+        "role": "content_manager"
+      },
+      {
+        "permission": "media.manage",
+        "role": "content_manager"
+      },
+      {
+        "permission": "products.manage",
+        "role": "content_manager"
+      },
+      {
+        "permission": "products.view",
+        "role": "content_manager"
+      },
+      {
+        "permission": "projects.manage",
+        "role": "content_manager"
+      },
+      {
+        "permission": "projects.view",
+        "role": "content_manager"
+      },
+      {
+        "permission": "properties.manage",
+        "role": "content_manager"
+      },
+      {
+        "permission": "properties.view",
+        "role": "content_manager"
+      },
+      {
+        "permission": "services.manage",
+        "role": "content_manager"
+      },
+      {
+        "permission": "services.view",
+        "role": "content_manager"
+      },
+      {
+        "permission": "blog.view",
+        "role": "customer"
+      },
+      {
+        "permission": "interior_projects.view",
+        "role": "customer"
+      },
+      {
+        "permission": "orders.view",
+        "role": "customer"
+      },
+      {
+        "permission": "products.view",
+        "role": "customer"
+      },
+      {
+        "permission": "projects.view",
+        "role": "customer"
+      },
+      {
+        "permission": "properties.view",
+        "role": "customer"
+      },
+      {
+        "permission": "services.view",
+        "role": "customer"
+      },
+      {
+        "permission": "orders.manage",
+        "role": "finance"
+      },
+      {
+        "permission": "orders.view",
+        "role": "finance"
+      },
+      {
+        "permission": "payments.manage",
+        "role": "finance"
+      },
+      {
+        "permission": "payments.view",
+        "role": "finance"
+      },
+      {
+        "permission": "reports.view",
+        "role": "finance"
+      },
+      {
+        "permission": "enquiries.manage",
+        "role": "sales_customer_service"
+      },
+      {
+        "permission": "enquiries.view",
+        "role": "sales_customer_service"
+      },
+      {
+        "permission": "orders.view",
+        "role": "sales_customer_service"
+      },
+      {
+        "permission": "properties.view",
+        "role": "sales_customer_service"
+      },
+      {
+        "permission": "reports.view",
+        "role": "sales_customer_service"
+      },
+      {
+        "permission": "viewings.manage",
+        "role": "sales_customer_service"
+      },
+      {
+        "permission": "viewings.view",
+        "role": "sales_customer_service"
+      }
+    ],
+    "section": "role_permission_matrix"
+  },
+  {
+    "evidence": 0,
+    "section": "new_role_function_count"
+  }
+]

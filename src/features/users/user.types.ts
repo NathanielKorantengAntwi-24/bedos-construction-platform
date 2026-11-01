@@ -1,5 +1,6 @@
 export const USER_ROLES = ["administrator", "content_manager", "finance", "sales_customer_service", "customer"] as const;
 export const ACCOUNT_STATUSES = ["active", "suspended", "inactive"] as const;
+export const STAFF_ROLES = ["content_manager", "finance", "sales_customer_service"] as const;
 
 export type UserRole = typeof USER_ROLES[number];
 export type AccountStatus = typeof ACCOUNT_STATUSES[number];
@@ -38,4 +39,9 @@ export type UpdateUserStatusInput = {
 export type UpdateUserStatusResult = {
   user_id: string;
   account_status: "active" | "suspended";
+};
+export type UpdateUserRoleInput = { role_id: string; expected_role_id: string; reason: string };
+export type UpdateUserRoleResult = {
+  user_id: string;
+  role: { id: string; name: typeof STAFF_ROLES[number] };
 };
