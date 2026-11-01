@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requirePermission } from "@/server/auth/require-permission";
@@ -95,6 +96,12 @@ export async function POST(request: Request) {
     const { data: created, error: createError } =
       await admin.auth.admin.createUser({
         email,
+        app_metadata: {
+          bedos_staff_invitation: {
+            version: 1, request_id: randomUUID(), requested_role_id: role.id,
+            created_by: context.user.id, email, full_name: fullName, phone,
+          },
+        },
         user_metadata: {
           full_name: fullName,
           phone,
@@ -114,48 +121,17 @@ export async function POST(request: Request) {
       throw new ApiError("Unable to create invited user.", 500);
     }
 
-    const { error: profileError } = await admin
-      .from("profiles")
-      .update({
-        full_name: fullName,
-        phone,
-        role_id: role.id,
-        account_status: "inactive",
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", created.user.id)
-      .select("id")
-      .single();
-
-    if (profileError) {
-      // Do not send an invitation when profile configuration fails.
-      // Preserve the newly created Auth account for controlled recovery.
-      throw new ApiError(
-        "Unable to configure invited user.",
-        500,
-      );
-    }
-
-    // Atomically create the invitation approval and audit record.
-    const { data: invitationRecordId, error: authorizationError } =
-      await admin.rpc("bedos_authorize_staff_invitation", {
-        p_user_id: created.user.id,
-        p_invited_by: context.user.id,
-        p_approved_role_id: role.id,
-      });
-
-    if (authorizationError || !invitationRecordId) {
-      console.error(
-        "Failed to authorize staff invitation:",
-        authorizationError ?? "No invitation record returned",
-      );
-
-      // Preserve the inactive Auth account for controlled recovery.
-      // Do not dispatch an invitation without database authorization.
-      throw new ApiError(
-        "Unable to authorize staff invitation.",
-        500,
-      );
+    // Configuration, trusted approval and audit commit or roll back together.
+    const { data: invitationRecordId, error: setupError } = await admin.rpc(
+      "bedos_setup_staff_invitation",
+      { p_user_id: created.user.id, p_actor_id: context.user.id,
+        p_reason: "Initial staff invitation setup", p_resume: false },
+    );
+    if (setupError || typeof invitationRecordId !== "string" ||
+        !/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(invitationRecordId)) {
+      console.error("Staff invitation setup failed", { code: setupError?.code });
+      // Preserve the inactive identity and server-owned proof for controlled resume.
+      throw new ApiError("Unable to configure and authorize staff invitation.", 500);
     }
 
     const { data: invitation, error: invitationError } =
@@ -195,7 +171,7 @@ export async function POST(request: Request) {
     if (baselineError || baselineId !== invitationRecordId) {
       console.error(
         "Staff invitation password baseline failed",
-        baselineError ?? "Invitation baseline ID mismatch",
+        { code: baselineError?.code },
       );
       throw new ApiError(
         "Unable to finalize staff invitation securely.",

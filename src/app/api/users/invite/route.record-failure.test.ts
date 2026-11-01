@@ -104,20 +104,15 @@ describe("Staff invitation record failure protection", () => {
 
     expect(response.status).toBe(500);
 
-    expect(updateProfile).toHaveBeenCalledWith(
-      expect.objectContaining({
-        role_id: roleId,
-        account_status: "inactive",
-      }),
-    );
+    expect(updateProfile).not.toHaveBeenCalled();
 
     expect(authorizeInvitation).toHaveBeenCalledOnce();
     expect(authorizeInvitation).toHaveBeenCalledWith(
-      "bedos_authorize_staff_invitation",
+      "bedos_setup_staff_invitation",
       {
         p_user_id: userId,
-        p_invited_by: adminId,
-        p_approved_role_id: roleId,
+        p_actor_id: adminId,
+        p_reason: "Initial staff invitation setup", p_resume: false,
       },
     );
 

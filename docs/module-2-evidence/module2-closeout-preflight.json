@@ -1,0 +1,106 @@
+[
+  {
+    "evidence": [
+      {
+        "privilege": "DELETE",
+        "role": "anon"
+      },
+      {
+        "privilege": "INSERT",
+        "role": "anon"
+      },
+      {
+        "privilege": "REFERENCES",
+        "role": "anon"
+      },
+      {
+        "privilege": "SELECT",
+        "role": "anon"
+      },
+      {
+        "privilege": "TRIGGER",
+        "role": "anon"
+      },
+      {
+        "privilege": "TRUNCATE",
+        "role": "anon"
+      },
+      {
+        "privilege": "UPDATE",
+        "role": "anon"
+      },
+      {
+        "privilege": "DELETE",
+        "role": "authenticated"
+      },
+      {
+        "privilege": "INSERT",
+        "role": "authenticated"
+      },
+      {
+        "privilege": "REFERENCES",
+        "role": "authenticated"
+      },
+      {
+        "privilege": "SELECT",
+        "role": "authenticated"
+      },
+      {
+        "privilege": "TRIGGER",
+        "role": "authenticated"
+      },
+      {
+        "privilege": "TRUNCATE",
+        "role": "authenticated"
+      },
+      {
+        "privilege": "UPDATE",
+        "role": "authenticated"
+      },
+      {
+        "privilege": "DELETE",
+        "role": "service_role"
+      },
+      {
+        "privilege": "INSERT",
+        "role": "service_role"
+      },
+      {
+        "privilege": "REFERENCES",
+        "role": "service_role"
+      },
+      {
+        "privilege": "SELECT",
+        "role": "service_role"
+      },
+      {
+        "privilege": "TRIGGER",
+        "role": "service_role"
+      },
+      {
+        "privilege": "TRUNCATE",
+        "role": "service_role"
+      },
+      {
+        "privilege": "UPDATE",
+        "role": "service_role"
+      }
+    ],
+    "section": "grants"
+  },
+  {
+    "evidence": [],
+    "section": "policies"
+  },
+  {
+    "evidence": {
+      "owner": "postgres",
+      "rls": true
+    },
+    "section": "audit_security"
+  },
+  {
+    "evidence": 1,
+    "section": "server_owned_auth_metadata"
+  }
+]

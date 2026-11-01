@@ -115,11 +115,11 @@ describe("Staff invitation identity protection", () => {
 
     expect(authorizeInvitation).toHaveBeenCalledOnce();
     expect(authorizeInvitation).toHaveBeenCalledWith(
-      "bedos_authorize_staff_invitation",
+      "bedos_setup_staff_invitation",
       {
         p_user_id: createdId,
-        p_invited_by: "administrator-id",
-        p_approved_role_id: "20000000-0000-4000-8000-000000000001",
+        p_actor_id: "administrator-id",
+        p_reason: "Initial staff invitation setup", p_resume: false,
       },
     );
 
@@ -128,18 +128,13 @@ describe("Staff invitation identity protection", () => {
 
     expect(inviteUserByEmail).toHaveBeenCalledOnce();
 
-    // Configure only the newly created Auth user's profile.
-    expect(updateProfile).toHaveBeenCalledOnce();
-    expect(updateProfile).toHaveBeenCalledWith(
-      expect.objectContaining({
-        role_id: "20000000-0000-4000-8000-000000000001",
-        account_status: "inactive",
-      }),
-    );
+    // Atomic setup above is bound only to the newly created identity.
+    expect(updateProfile).not.toHaveBeenCalled();
 
-    expect(targetProfile).toHaveBeenCalledOnce();
-    expect(targetProfile).toHaveBeenCalledWith("id", createdId);
-    expect(targetProfile).not.toHaveBeenCalledWith("id", invitedId);
+    expect(targetProfile).not.toHaveBeenCalled();
+    expect(authorizeInvitation).not.toHaveBeenCalledWith(
+      "bedos_setup_staff_invitation", expect.objectContaining({ p_user_id: invitedId }),
+    );
     expect(response.status).toBe(500);
   });
 });

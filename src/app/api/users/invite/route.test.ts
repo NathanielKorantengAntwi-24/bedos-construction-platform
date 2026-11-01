@@ -19,6 +19,7 @@ describe("staff invitation security", () => {
   it("rejects invitation without deleting the Auth account when the profile is missing", async () => {
     const invitedId = "10000000-0000-4000-8000-000000000999";
     const deleteUser = vi.fn().mockResolvedValue({ error: null });
+    const setup = vi.fn().mockResolvedValue({ data: null, error: { code: "P0001" } });
 
     const from = vi.fn((table: string) => {
       if (table === "roles") {
@@ -58,6 +59,7 @@ describe("staff invitation security", () => {
 
     mocks.adminClient.mockReturnValue({
       from,
+      rpc: setup,
       auth: {
         admin: {
           createUser: vi.fn().mockResolvedValue({
@@ -87,6 +89,9 @@ describe("staff invitation security", () => {
     );
 
     expect(response.status).toBe(500);
+    expect(setup).toHaveBeenCalledWith("bedos_setup_staff_invitation", {
+      p_user_id: invitedId, p_actor_id: "test-admin", p_reason: "Initial staff invitation setup", p_resume: false,
+    });
     expect(deleteUser).not.toHaveBeenCalled();
   });
 
@@ -167,19 +172,17 @@ describe("staff invitation security", () => {
       }),
     );
     expect(response.status).toBe(201);
-    expect(updateProfile).toHaveBeenCalledWith(
-      expect.objectContaining({ role_id: roleId, account_status: "inactive" }),
-    );
-    expect(updateEq).toHaveBeenCalledWith("id", invitedId);
+    expect(updateProfile).not.toHaveBeenCalled();
+    expect(updateEq).not.toHaveBeenCalled();
 
     expect(authorizeInvitation).toHaveBeenCalledTimes(2);
     expect(authorizeInvitation).toHaveBeenNthCalledWith(
       1,
-      "bedos_authorize_staff_invitation",
+      "bedos_setup_staff_invitation",
       {
         p_user_id: invitedId,
-        p_invited_by: "test-admin",
-        p_approved_role_id: roleId,
+        p_actor_id: "test-admin",
+        p_reason: "Initial staff invitation setup", p_resume: false,
       },
     );
 

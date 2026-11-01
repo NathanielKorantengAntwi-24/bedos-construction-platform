@@ -1,0 +1,298 @@
+{
+  "date": "2026-11-01T03:03:21.539Z",
+  "scope": "Local lab only; actual compiled shared service, Auth/mail and concurrency with injected failures; no credentials, hashes, links or identifiers retained",
+  "results": [
+    {
+      "name": "local setup function absent",
+      "pass": true
+    },
+    {
+      "name": "local injection helpers absent",
+      "pass": true
+    },
+    {
+      "name": "setup RPC schema ready",
+      "pass": true
+    },
+    {
+      "name": "actor exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "administrator role resolved",
+      "pass": true
+    },
+    {
+      "name": "exact local actor configured",
+      "pass": true
+    },
+    {
+      "name": "bound role resolved",
+      "pass": true
+    },
+    {
+      "name": "early exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "profile failure prevents dispatch",
+      "pass": true
+    },
+    {
+      "name": "profile failure profile and approval rolled back",
+      "pass": true
+    },
+    {
+      "name": "approval audit failure prevents dispatch",
+      "pass": true
+    },
+    {
+      "name": "approval audit failure profile and approval rolled back",
+      "pass": true
+    },
+    {
+      "name": "concurrent resume has one accepted dispatch and cooldown loser",
+      "pass": true
+    },
+    {
+      "name": "concurrent setup creates one approval audit",
+      "pass": true
+    },
+    {
+      "name": "invite local email has guarded link",
+      "pass": true
+    },
+    {
+      "name": "invite lands on trusted root",
+      "pass": true
+    },
+    {
+      "name": "invite session belongs to exact fixture",
+      "pass": true
+    },
+    {
+      "name": "resumed invite alone cannot activate staff",
+      "pass": true
+    },
+    {
+      "name": "fixture owner changes password",
+      "pass": true
+    },
+    {
+      "name": "resumed invite activates only after owner password change",
+      "pass": true
+    },
+    {
+      "name": "activated account cannot resume setup",
+      "pass": true
+    },
+    {
+      "name": "late-baseline exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "late failure has trusted initial setup",
+      "pass": true
+    },
+    {
+      "name": "initial email accepted before simulated baseline failure",
+      "pass": true
+    },
+    {
+      "name": "missing baseline repaired through shared retry",
+      "pass": true
+    },
+    {
+      "name": "invite local email has guarded link",
+      "pass": true
+    },
+    {
+      "name": "invite lands on trusted root",
+      "pass": true
+    },
+    {
+      "name": "invite session belongs to exact fixture",
+      "pass": true
+    },
+    {
+      "name": "re-sent email does not fake password change",
+      "pass": true
+    },
+    {
+      "name": "fixture owner changes password",
+      "pass": true
+    },
+    {
+      "name": "late baseline recovery activates with genuine password change",
+      "pass": true
+    },
+    {
+      "name": "outcome exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "accepted email audit failure returns error",
+      "pass": true
+    },
+    {
+      "name": "preparation proof retained after outcome rollback",
+      "pass": true
+    },
+    {
+      "name": "invite local email has guarded link",
+      "pass": true
+    },
+    {
+      "name": "invite lands on trusted root",
+      "pass": true
+    },
+    {
+      "name": "invite session belongs to exact fixture",
+      "pass": true
+    },
+    {
+      "name": "fixture owner changes password",
+      "pass": true
+    },
+    {
+      "name": "already-confirmed owner uses recovery after prior failure",
+      "pass": true
+    },
+    {
+      "name": "established baseline preserved after owner already set password",
+      "pass": true
+    },
+    {
+      "name": "recovery local email has guarded link",
+      "pass": true
+    },
+    {
+      "name": "recovery lands on trusted root",
+      "pass": true
+    },
+    {
+      "name": "recovery session belongs to exact fixture",
+      "pass": true
+    },
+    {
+      "name": "fixture owner changes password",
+      "pass": true
+    },
+    {
+      "name": "outcome audit recovery completes onboarding",
+      "pass": true
+    },
+    {
+      "name": "retry-race exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "setup and existing retry have one accepted dispatch",
+      "pass": true
+    },
+    {
+      "name": "revoke-race exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "revocation race starts with trusted pending record",
+      "pass": true
+    },
+    {
+      "name": "resume revocation race has valid serial outcome",
+      "pass": true
+    },
+    {
+      "name": "resume cannot reopen revoked record",
+      "pass": true
+    },
+    {
+      "name": "revoked race target cannot activate",
+      "pass": true
+    },
+    {
+      "name": "activate-race exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "activation race starts with trusted record",
+      "pass": true
+    },
+    {
+      "name": "activation race has password baseline",
+      "pass": true
+    },
+    {
+      "name": "activation race owner session verified",
+      "pass": true
+    },
+    {
+      "name": "fixture owner changes password",
+      "pass": true
+    },
+    {
+      "name": "resume activation race has valid serial outcome",
+      "pass": true
+    },
+    {
+      "name": "resume cannot revert completed activation",
+      "pass": true
+    },
+    {
+      "name": "forged exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "ordinary fixture provider session established",
+      "pass": true
+    },
+    {
+      "name": "public Auth cannot create server-owned provenance",
+      "pass": true
+    },
+    {
+      "name": "forged mutable metadata cannot convert customer",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local setup fixture removed",
+      "pass": true
+    },
+    {
+      "name": "no local setup integration users remain",
+      "pass": true
+    },
+    {
+      "name": "temporary setup function removed",
+      "pass": true
+    }
+  ]
+}

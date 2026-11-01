@@ -21,7 +21,7 @@ const roleId = "20000000-0000-4000-8000-000000000001";
 function setup(profileFails: boolean) {
   const operations: string[] = [];
 
-  const createUser = vi.fn(async (_attributes: unknown) => {
+  const createUser = vi.fn(async () => {
     operations.push("create-user");
 
     return {
@@ -70,14 +70,15 @@ function setup(profileFails: boolean) {
 
   const authorizeInvitation = vi.fn(
     async (functionName: string, args: Record<string, unknown>) => {
-      if (functionName === "bedos_authorize_staff_invitation") {
+      if (functionName === "bedos_setup_staff_invitation") {
         operations.push("authorize-invitation");
 
         expect(args).toEqual({
           p_user_id: userId,
-          p_invited_by: "administrator-id",
-          p_approved_role_id: roleId,
+          p_actor_id: "administrator-id",
+          p_reason: "Initial staff invitation setup", p_resume: false,
         });
+        if (profileFails) return { data: null, error: { code: "P0001" } };
       } else if (
         functionName === "bedos_record_staff_invitation_password_baseline"
       ) {
@@ -172,7 +173,6 @@ describe("Staff invitation operation ordering", () => {
 
     expect(operations).toEqual([
       "create-user",
-      "configure-profile",
       "authorize-invitation",
       "send-invitation",
       "record-password-baseline",
@@ -186,8 +186,8 @@ describe("Staff invitation operation ordering", () => {
     const response = await POST(request());
 
     expect(response.status).toBe(500);
-    expect(updateProfile).toHaveBeenCalledOnce();
-    expect(authorizeInvitation).not.toHaveBeenCalled();
+    expect(updateProfile).not.toHaveBeenCalled();
+    expect(authorizeInvitation).toHaveBeenCalledOnce();
     expect(inviteUserByEmail).not.toHaveBeenCalled();
   });
 });

@@ -48,7 +48,7 @@ describe("Trusted staff invitation records", () => {
     });
 
     const authorizeInvitation = vi.fn(async (functionName: string) => {
-      if (functionName === "bedos_authorize_staff_invitation") {
+      if (functionName === "bedos_setup_staff_invitation") {
         operations.push("authorize-invitation");
       } else if (
         functionName === "bedos_record_staff_invitation_password_baseline"
@@ -127,11 +127,11 @@ describe("Trusted staff invitation records", () => {
     expect(authorizeInvitation).toHaveBeenCalledTimes(2);
     expect(authorizeInvitation).toHaveBeenNthCalledWith(
       1,
-      "bedos_authorize_staff_invitation",
+      "bedos_setup_staff_invitation",
       {
         p_user_id: userId,
-        p_invited_by: adminId,
-        p_approved_role_id: roleId,
+        p_actor_id: adminId,
+        p_reason: "Initial staff invitation setup", p_resume: false,
       },
     );
 
@@ -143,7 +143,6 @@ describe("Trusted staff invitation records", () => {
 
     expect(operations).toEqual([
       "create-user",
-      "configure-profile",
       "authorize-invitation",
       "send-invitation",
       "record-password-baseline",

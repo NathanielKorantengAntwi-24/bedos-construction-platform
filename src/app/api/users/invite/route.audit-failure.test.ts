@@ -121,11 +121,11 @@ describe("Staff invitation audit failure protection", () => {
 
     expect(authorizeInvitation).toHaveBeenCalledOnce();
     expect(authorizeInvitation).toHaveBeenCalledWith(
-      "bedos_authorize_staff_invitation",
+      "bedos_setup_staff_invitation",
       {
         p_user_id: userId,
-        p_invited_by: adminId,
-        p_approved_role_id: roleId,
+        p_actor_id: adminId,
+        p_reason: "Initial staff invitation setup", p_resume: false,
       },
     );
 
@@ -136,7 +136,6 @@ describe("Staff invitation audit failure protection", () => {
 
     expect(operations).toEqual([
       "create-user",
-      "configure-profile",
       "authorize-invitation",
     ]);
   });

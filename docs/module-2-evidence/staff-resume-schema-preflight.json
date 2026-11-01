@@ -1,0 +1,98 @@
+[
+  {
+    "evidence": [
+      {
+        "column": "id",
+        "type": "uuid"
+      },
+      {
+        "column": "email",
+        "type": "character varying"
+      },
+      {
+        "column": "raw_app_meta_data",
+        "type": "jsonb"
+      },
+      {
+        "column": "raw_user_meta_data",
+        "type": "jsonb"
+      }
+    ],
+    "section": "auth_columns"
+  },
+  {
+    "evidence": [
+      {
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "body_md5": "da72407bdaca175d8b4488ab5536bd62",
+        "name": "bedos_activate_staff_invitation",
+        "security_definer": true,
+        "service_role_execute": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "body_md5": "30cc56c80d625505c3314d2574952a32",
+        "name": "bedos_authorize_staff_invitation",
+        "security_definer": true,
+        "service_role_execute": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "body_md5": "6020672be9685dc27b716e0f6bbb88ff",
+        "name": "bedos_finish_staff_invitation_retry",
+        "security_definer": true,
+        "service_role_execute": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "body_md5": "f3b919cc01ab23bf412f47ebe937d9b5",
+        "name": "bedos_prepare_staff_invitation_retry",
+        "security_definer": true,
+        "service_role_execute": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "body_md5": "3aea12a1c8131ba61bcc900d4c116273",
+        "name": "bedos_record_staff_invitation_password_baseline",
+        "security_definer": true,
+        "service_role_execute": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "body_md5": "890e8c23c94fadf43b7a81b7f10733b7",
+        "name": "bedos_revoke_staff_invitation",
+        "security_definer": true,
+        "service_role_execute": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      }
+    ],
+    "section": "dependencies"
+  },
+  {
+    "evidence": 0,
+    "section": "new_setup_function_count"
+  }
+]
