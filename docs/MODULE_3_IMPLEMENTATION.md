@@ -1,6 +1,6 @@
 # Module 3 implementation and release review
 
-1 November 2026. Status: **a41066c deployed; both production migrations, database assertions and anonymous checks passed; private administrator acceptance pending**. User approved MODULE_3_REVIEW_AND_PROPOSAL.md. User approved commit/push, staged production migration/deployment and the five-record disposable content test. Fresh production preflight and staged release passed. Module 4 remains deferred.
+1 November 2026. Status: **COMPLETE for the agreed backend scope.** Authoritative closure: MODULE_3_COMPLETION_REPORT.md. Application a41066c deployed; production SQL, public/anonymous and administrator acceptance passed. User approved MODULE_3_REVIEW_AND_PROPOSAL.md. User approved commit/push, staged production migration/deployment and the five-record disposable content test. Fresh production preflight and staged release passed. Module 4 remains deferred.
 
 ## 1. Module objective
 
@@ -77,8 +77,8 @@ The real Auth integration temporarily uses Module 1's active-role helper and exp
 - [x] Fresh production catalog/trigger/constraint/permission/aggregate-length preflight reviewed; all comparisons passed.
 - [x] Separate user approval for commit/push, staged database release/deployment and disposable production content test.
 - [x] Both migrations applied once; deployed application healthy; source/ACL/owner/path/RLS checks and 160 rollback assertions passed; synthetic fixture cleanup verified; 13 anonymous/public HTTP checks passed.
-- [ ] Private administrator CRUD/publication/cleanup acceptance via Test-ProductionServiceCatalog.ps1 and exact fixture/audit reconciliation.
-- [ ] Module 3 closure recorded before Module 4.
+- [x] Private administrator CRUD/publication/cleanup acceptance: 40 passing workflow checks; 36 independent fixture/audit reconciliation checks.
+- [x] Module 3 closure recorded in MODULE_3_COMPLETION_REPORT.md; Module 4 not started.
 
 ## 8. Remaining risks or issues and production procedure
 
@@ -117,3 +117,7 @@ Read-only SQL Editor comparison passed: tables, columns, constraints, policies, 
 ## Production release — 1 November 2026
 
 Application a41066c pushed and Vercel deployment succeeded. Phase one 20261101040000 installed all six reviewed functions and preserved existing table grants; source/owner/path/ACL parity passed before push. After new public routes passed 13 anonymous checks, phase two 20261101050000 revoked direct mutations. Production-safe verification passed all 160 assertions and rolled back. Final metadata: six functions, zero source/owner/path/ACL mismatches, zero effective table/column write privileges, two new migration rows, RLS enabled on both tables, zero synthetic Auth fixtures/failure triggers. Independent post-release comparison confirms columns, constraints, policies, trigger fingerprints, role mappings, active-role helper and existing length aggregates unchanged; grant differences are the intended restrictions. All 13 public/anonymous checks passed again after phase two. Evidence: production-catalog-phase-one.json, production-catalog-release.json and production-catalog-anonymous.json. No real administrator account was altered. Private administrator HTTP CRUD/publication acceptance remains pending; Module 3 stays open.
+
+## Production acceptance and closure — 1 November 2026
+
+Final private administrator report has 40 passing checks, zero failures and logout HTTP 200. Git-ignored journal records five deleted fixtures and state complete. Independent read-only verification passed 36 checks: exact three service/two category rows absent; 13 retained audits have the expected actions, original administrator actor, identity images, publication and relationship changes, and continuous before/after chains. The administrator remains active with administrator role. No audit rows were deleted during reconciliation. Sanitized evidence production-catalog-admin.json and production-catalog-completion.json; private journal remains ignored. Module 3 COMPLETE for the agreed backend scope; earlier pending statements above are historical. Next is Module 4 Properties Management analysis, not yet started.

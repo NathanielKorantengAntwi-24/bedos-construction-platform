@@ -64,7 +64,7 @@ Statuses below are evidence classifications, not newly granted completion:
 | --- | --- | --- |
 | 1 | Authentication and Account Management | Complete for agreed backend scope; verified 30 October 2026; see MODULE_1_COMPLETION_REPORT.md |
 | 2 | Users, Staff and RBAC | In progress: current audit in MODULE_2_AUDIT.md; existing workflow tested, recovery/admin-management gaps identified |
-| 3 | Services and Service Categories | a41066c deployed; DB/public checks passed; private administrator acceptance pending |
+| 3 | Services and Service Categories | COMPLETE; a41066c deployed; production administrator acceptance and independent cleanup/audit verification passed |
 | 4 | Properties Management | Files inventoried; detailed audit pending |
 | 5 | Property Media | Files inventoried; security audit pending |
 | 6 | Property Viewing Management | Files/imports inventoried; detailed audit pending |
@@ -249,3 +249,7 @@ Approved scope implemented locally. 443 application tests/39 files, 184 SQL asse
 ## Module 3 production release — 1 November 2026
 
 User approved commit/push, staged production migrations/deployment and the five-record disposable content workflow. Fresh production metadata/aggregate preflight matched the reviewed baseline. a41066c committed and pushed after 20261101040000 installed/verified guarded functions without changing existing table grants. Vercel deployment and 13 anonymous/public checks passed before 20261101050000 restricted direct writes. Production 160 rollback-only SQL assertions passed. Final source/owner/path/ACL mismatches zero; direct table/column writes zero; both migrations recorded once; RLS retained; synthetic Auth/failure triggers absent. Post-release role mappings, policies, constraints, trigger fingerprints, active-role helper and legacy length aggregates unchanged. Anonymous checks passed again after restrictions. Production unchanged records preserved. Next required step: private Test-ProductionServiceCatalog.ps1 administrator CRUD/publication workflow, then exact cleanup/audit reconciliation and closure. No email step/new Auth account. Module 3 OPEN; Module 4 deferred.
+
+## Module 3 completion — 1 November 2026
+
+COMPLETE for agreed backend scope. Administrator production workflow passed all 40 saved checks including logout HTTP 200. Independent read-only reconciliation passed 36 checks, verifying three exact service fixtures/two category fixtures absent and 13 correct retained audits with actor and before/after lifecycle continuity. Private journal complete, all five fixtures deleted and Git-ignored; original administrator active with administrator role. No production writes during reconciliation. Authoritative closure, test/dependency evidence, limitations and next scope: MODULE_3_COMPLETION_REPORT.md. Modules 1–3 closed; next is Module 4 Properties Management inspection/acceptance definition. Module 4 implementation and frontend work have not started.

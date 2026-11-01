@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-01T17:59:57.945Z",
+  "scope": "Read-only exact-fixture database and retained-audit reconciliation; no account identities credentials slugs or record images published; no production writes",
+  "results": [
+    {
+      "name": "Saved administrator workflow has forty passing checks",
+      "pass": true
+    },
+    {
+      "name": "Administrator workflow logout completed",
+      "pass": true
+    },
+    {
+      "name": "Private journal complete with five distinct deleted identities",
+      "pass": true
+    },
+    {
+      "name": "Fixture kinds and shared nonce are valid",
+      "pass": true
+    },
+    {
+      "name": "Expected production project and backend credential configured",
+      "pass": true
+    },
+    {
+      "name": "Independent production read requests succeed",
+      "pass": true
+    },
+    {
+      "name": "All three exact service fixtures are absent",
+      "pass": true
+    },
+    {
+      "name": "Both exact category fixtures are absent",
+      "pass": true
+    },
+    {
+      "name": "Original administrator remains active with administrator role",
+      "pass": true
+    },
+    {
+      "name": "Thirteen successful catalog audits retained",
+      "pass": true
+    },
+    {
+      "name": "All retained audit actors and results match",
+      "pass": true
+    },
+    {
+      "name": "Retained action counts exactly match the workflow",
+      "pass": true
+    },
+    {
+      "name": "visible-category creation and deletion have exact safe identity images",
+      "pass": true
+    },
+    {
+      "name": "hidden-category creation and deletion have exact safe identity images",
+      "pass": true
+    },
+    {
+      "name": "draft creation and deletion have exact safe identity images",
+      "pass": true
+    },
+    {
+      "name": "draft creator remains the original administrator",
+      "pass": true
+    },
+    {
+      "name": "published creation and deletion have exact safe identity images",
+      "pass": true
+    },
+    {
+      "name": "published creator remains the original administrator",
+      "pass": true
+    },
+    {
+      "name": "archived creation and deletion have exact safe identity images",
+      "pass": true
+    },
+    {
+      "name": "archived creator remains the original administrator",
+      "pass": true
+    },
+    {
+      "name": "Draft publication update records exact before and after values",
+      "pass": true
+    },
+    {
+      "name": "Only the two expected service relationships were detached",
+      "pass": true
+    },
+    {
+      "name": "visible-category service_category_deleted preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "visible-category final audited lifecycle ends in deletion",
+      "pass": true
+    },
+    {
+      "name": "hidden-category service_category_deleted preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "hidden-category final audited lifecycle ends in deletion",
+      "pass": true
+    },
+    {
+      "name": "draft service_updated preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "draft service_category_detached preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "draft service_deleted preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "draft final audited lifecycle ends in deletion",
+      "pass": true
+    },
+    {
+      "name": "published service_category_detached preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "published service_deleted preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "published final audited lifecycle ends in deletion",
+      "pass": true
+    },
+    {
+      "name": "archived service_deleted preserves the prior audited image",
+      "pass": true
+    },
+    {
+      "name": "archived final audited lifecycle ends in deletion",
+      "pass": true
+    },
+    {
+      "name": "Archived fixture retains archived status until deletion",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+﻿{
+    "date":  "2026-11-01T17:57:02.2081175Z",
+    "scope":  "Private user-run backend/public catalog acceptance; exact disposable content removed; no Auth accounts created; audits retained; no identities links credentials or records in this report",
+    "results":  [
+                    {
+                        "name":  "Administrator login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Expected active administrator session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated visible-category fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated hidden-category fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated draft fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated published fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated archived fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator sees all dedicated publication states",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Staff list not cacheable",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Draft defaults and actor are correct",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public list contains only dedicated published service",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public service exposes exact approved fields",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public publication response not cacheable",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public categories hide unpublished-only category",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public category exposes exact approved fields",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Unpublished service detail hidden",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Unpublished service detail hidden",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Published public detail identity",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Empty page retains exact filtered count",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid catalog query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid catalog query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid catalog query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid catalog query or ID rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous staff read denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous catalog mutation denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Empty update rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Duplicate service slug rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Wrong field type rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Partial edit and publication succeed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Public filters reflect immediate publication",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Only exact test services reference disposable category",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator deletes exact disposable category",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Category deletion retains service and clears relationship",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator deletes exact disposable service",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Deleted service immediately unavailable publicly",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Missing service returns 404",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable catalog fixture removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable catalog fixture removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable catalog fixture removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator logout",
+                        "pass":  true,
+                        "http_status":  200
+                    }
+                ]
+}
