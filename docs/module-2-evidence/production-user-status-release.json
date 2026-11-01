@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-01T01:56:56.0687866Z",
+  "commit": "736875a",
+  "migration": "20261101000000_add_admin_account_status.sql",
+  "migration_rows": 1,
+  "source_body_match": true,
+  "security_definer": true,
+  "empty_search_path": true,
+  "anon_execute": false,
+  "authenticated_execute": false,
+  "service_role_execute": true,
+  "existing_module1_dependency_bodies_unchanged": true,
+  "rollback_database_assertions": 45,
+  "remaining_test_users": 0,
+  "remaining_test_triggers": 0,
+  "remaining_test_services": 0,
+  "deployment": "Vercel success",
+  "administrator_http_verification": "pending private user-run test"
+}

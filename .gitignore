@@ -49,3 +49,4 @@ next-env.d.ts
 /docs/module-2-evidence/verify-production-staff-fixtures.sql
 /scripts/Audit-Module2ProductionFixtures.mjs
 /scripts/Compare-AdministratorLogin.ps1
+/docs/module-2-evidence/private-user-status-fixture.json

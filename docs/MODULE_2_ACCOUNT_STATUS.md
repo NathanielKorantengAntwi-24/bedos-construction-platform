@@ -1,6 +1,6 @@
 # Module 2 account suspension and restoration
 
-1 November 2026. Status: implemented and verified locally under the approved status contract. Not committed, pushed, migrated or deployed. Overall Module 2 remains open.
+1 November 2026. Status: approved status patch 736875a deployed; production database assertions and anonymous denial checks passed. Administrator/customer HTTP workflow verification pending private user-run test. Overall Module 2 remains open.
 
 ## Module objective
 
@@ -59,10 +59,28 @@ npm run build
 - [x] Route, real SQL, existing-session and competing-request tests passed.
 - [x] Audit rollback and local cleanup/restoration independently verified.
 - [x] Build/TypeScript and focused lint passed.
-- [ ] Separate approval for exact-file commit/push, new production migration and deployment.
+- [x] Separate approval for exact-file commit/push, new production migration and deployment.
 - [ ] Production administrator-success and ordinary/anonymous denial verification with dedicated fixtures and sanitized evidence.
 
-This is local acceptance only. Before production release, review pending migrations and confirm only the approved additive status function is applied. Apply the database function before deploying its caller. Preserve existing Module 1 helpers; the temporary lab dependency setup must never be replayed as an extra production change. Production verification must avoid real customer/staff status changes and use exact dedicated fixture guards.
+Local acceptance and partial production verification are complete. The approved dry run contained only 20261101000000_add_admin_account_status.sql; applied once before application push. No Module 1 helper change was applied to production. Vercel reported successful deployment of 736875a. Production HTTP acceptance still requires the private administrator run below.
+
+## Production release verification
+
+- All 45 actual SQL assertions passed in production inside a rollback-only synthetic-fixture transaction, including all three ordinary staff roles, audit failure rollback, same-claims restrictions and protected accounts. No lasting account or test-trigger changes.
+- Independent metadata query verified committed function body parity, SECURITY DEFINER/empty search_path, restricted service-only EXECUTE, exactly one migration record, unchanged Module 1 helper bodies and zero fixture users/test services/audit triggers.
+- Two anonymous PATCH requests (valid and malformed) returned 401 before input processing; both denied responses contained no-store (four recorded checks).
+- Sanitized evidence: module-2-evidence/production-user-status-release.json and production-user-status-anonymous.json. Reproducible metadata check: verify-user-status-release.sql.
+- Remaining HTTP test: scripts/Test-ProductionUserStatus.ps1 prompts for the existing administrator email/password privately. It uses service credentials from local configuration only for one disposable confirmed-customer fixture, audit verification and exact-identity cleanup. Actual status changes use the real administrator session through the deployed PATCH API, not service-role authorization bypass.
+- The script verifies ordinary/anonymous denial, customer suspension/restoration, existing-session restrictions, profile-write denial, stale/invalid/missing-target handling, exact audit contents, normal logout and deletion of the disposable Auth account/profile. Audit history is retained. Explicit confirmation is fixture setup only, not public signup proof.
+- The script records only named check results/statuses in production-user-status-admin.json. Exact fixture identifiers are retained in the Git-ignored private-user-status-fixture.json, with no passwords/keys. A previous unfinished fixture blocks a fresh run until controlled cleanup. If account creation times out, the planned identity is retained locally for review rather than assuming nothing was created.
+
+Run from project root:
+
+```powershell
+powershell.exe -NoProfile -File .\scripts\Test-ProductionUserStatus.ps1
+```
+
+No email-link action is required. Share PASS/STOPPED lines and logout statuses only. If cleanup stops, do not rerun; use the exact local fixture record for controlled review. Never upload that private record.
 
 ## Remaining risks or issues
 
