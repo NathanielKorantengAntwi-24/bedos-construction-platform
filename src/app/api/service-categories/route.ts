@@ -1,54 +1,21 @@
-import { NextResponse } from "next/server";
-import {
-  createServiceCategory,
-  listServiceCategories,
-} from "@/features/services/service-category.service";
-import { errorResponse } from "@/server/http/api-error";
+import { listServiceCategories, createServiceCategory } from "@/features/services/service-category.service";
+import { parseCatalogInput, parseCatalogQuery } from "@/features/services/catalog.validation";
+import { catalogResponse, catalogError } from "@/features/services/catalog.http";
 import { requirePermission } from "@/server/auth/require-permission";
-import type { CreateServiceCategoryInput } from "@/features/services/service-category.types";
+import { parseJson } from "@/server/http/parse-json";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    await requirePermission("services.view");
-
-    const categories = await listServiceCategories();
-
-    return NextResponse.json({ categories });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("services.view");
+    const input = parseCatalogQuery(new URL(request.url).searchParams, true);
+    return catalogResponse(await listServiceCategories(actor.user.id, input));
+  } catch (error) { return catalogError(error); }
 }
-
 export async function POST(request: Request) {
   try {
-    await requirePermission("services.manage");
-
-    const body =
-      (await request.json()) as CreateServiceCategoryInput;
-
-    if (!body.name?.trim() || !body.slug?.trim()) {
-      return NextResponse.json(
-        {
-          error: "Service category name and slug are required",
-        },
-        { status: 400 },
-      );
-    }
-
-    const category = await createServiceCategory({
-      name: body.name.trim(),
-      slug: body.slug.trim(),
-      description: body.description?.trim() || null,
-    });
-
-    return NextResponse.json(
-      {
-        category,
-        message: "Service category created successfully",
-      },
-      { status: 201 },
-    );
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("services.manage");
+    const input = parseCatalogInput(await parseJson<unknown>(request), true, true);
+    const category = await createServiceCategory(input, actor.user.id);
+    return catalogResponse({ category, message: "Service category created successfully" }, 201);
+  } catch (error) { return catalogError(error); }
 }

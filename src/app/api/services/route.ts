@@ -1,76 +1,21 @@
-import { NextResponse } from "next/server";
-import {
-  createService,
-  listServices,
-} from "@/features/services/service.service";
-import { errorResponse } from "@/server/http/api-error";
+import { listServices, createService } from "@/features/services/service.service";
+import { parseCatalogInput, parseCatalogQuery } from "@/features/services/catalog.validation";
+import { catalogResponse, catalogError } from "@/features/services/catalog.http";
 import { requirePermission } from "@/server/auth/require-permission";
-import type { CreateServiceInput } from "@/features/services/service.types";
+import { parseJson } from "@/server/http/parse-json";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    await requirePermission("services.view");
-
-    const services = await listServices();
-
-    return NextResponse.json({ services });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("services.view");
+    const input = parseCatalogQuery(new URL(request.url).searchParams, false);
+    return catalogResponse(await listServices(actor.user.id, input));
+  } catch (error) { return catalogError(error); }
 }
-
 export async function POST(request: Request) {
   try {
-    const context = await requirePermission("services.manage");
-
-    const body = (await request.json()) as CreateServiceInput;
-
-    if (!body.name?.trim() || !body.slug?.trim()) {
-      return NextResponse.json(
-        {
-          error: "Service name and slug are required",
-        },
-        { status: 400 },
-      );
-    }
-
-    const allowedStatuses = [
-      "draft",
-      "published",
-      "archived",
-    ] as const;
-
-    if (
-      body.status !== undefined &&
-      !allowedStatuses.includes(body.status)
-    ) {
-      return NextResponse.json(
-        {
-          error:
-            "Service status must be draft, published, or archived",
-        },
-        { status: 400 },
-      );
-    }
-
-    const service = await createService(
-      {
-        ...body,
-        name: body.name.trim(),
-        slug: body.slug.trim(),
-        description: body.description?.trim() || null,
-      },
-      context.user.id,
-    );
-
-    return NextResponse.json(
-      {
-        service,
-        message: "Service created successfully",
-      },
-      { status: 201 },
-    );
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("services.manage");
+    const input = parseCatalogInput(await parseJson<unknown>(request), false, true);
+    const service = await createService(input, actor.user.id);
+    return catalogResponse({ service, message: "Service created successfully" }, 201);
+  } catch (error) { return catalogError(error); }
 }

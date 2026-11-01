@@ -1,0 +1,531 @@
+{
+  "date": "2026-11-01",
+  "scope": "Local Docker lab metadata and aggregate lengths only; not production evidence",
+  "tables": [
+    {
+      "name": "service_categories",
+      "owner": "postgres",
+      "rls": true
+    },
+    {
+      "name": "services",
+      "owner": "postgres",
+      "rls": true
+    }
+  ],
+  "columns": [
+    {
+      "table": "service_categories",
+      "column": "id",
+      "type": "uuid",
+      "nullable": "NO",
+      "default": "gen_random_uuid()"
+    },
+    {
+      "table": "service_categories",
+      "column": "name",
+      "type": "text",
+      "nullable": "NO",
+      "default": null
+    },
+    {
+      "table": "service_categories",
+      "column": "slug",
+      "type": "text",
+      "nullable": "NO",
+      "default": null
+    },
+    {
+      "table": "service_categories",
+      "column": "description",
+      "type": "text",
+      "nullable": "YES",
+      "default": null
+    },
+    {
+      "table": "service_categories",
+      "column": "created_at",
+      "type": "timestamp with time zone",
+      "nullable": "NO",
+      "default": "now()"
+    },
+    {
+      "table": "service_categories",
+      "column": "updated_at",
+      "type": "timestamp with time zone",
+      "nullable": "NO",
+      "default": "now()"
+    },
+    {
+      "table": "services",
+      "column": "id",
+      "type": "uuid",
+      "nullable": "NO",
+      "default": "gen_random_uuid()"
+    },
+    {
+      "table": "services",
+      "column": "category_id",
+      "type": "uuid",
+      "nullable": "YES",
+      "default": null
+    },
+    {
+      "table": "services",
+      "column": "name",
+      "type": "text",
+      "nullable": "NO",
+      "default": null
+    },
+    {
+      "table": "services",
+      "column": "slug",
+      "type": "text",
+      "nullable": "NO",
+      "default": null
+    },
+    {
+      "table": "services",
+      "column": "description",
+      "type": "text",
+      "nullable": "YES",
+      "default": null
+    },
+    {
+      "table": "services",
+      "column": "status",
+      "type": "text",
+      "nullable": "NO",
+      "default": "'draft'::text"
+    },
+    {
+      "table": "services",
+      "column": "featured",
+      "type": "boolean",
+      "nullable": "NO",
+      "default": "false"
+    },
+    {
+      "table": "services",
+      "column": "created_by",
+      "type": "uuid",
+      "nullable": "YES",
+      "default": null
+    },
+    {
+      "table": "services",
+      "column": "created_at",
+      "type": "timestamp with time zone",
+      "nullable": "NO",
+      "default": "now()"
+    },
+    {
+      "table": "services",
+      "column": "updated_at",
+      "type": "timestamp with time zone",
+      "nullable": "NO",
+      "default": "now()"
+    }
+  ],
+  "constraints": [
+    {
+      "table": "services",
+      "name": "services_status_check",
+      "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'published'::text, 'archived'::text])))"
+    },
+    {
+      "table": "service_categories",
+      "name": "service_categories_name_key",
+      "definition": "UNIQUE (name)"
+    },
+    {
+      "table": "service_categories",
+      "name": "service_categories_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table": "service_categories",
+      "name": "service_categories_slug_key",
+      "definition": "UNIQUE (slug)"
+    },
+    {
+      "table": "services",
+      "name": "services_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table": "services",
+      "name": "services_slug_key",
+      "definition": "UNIQUE (slug)"
+    },
+    {
+      "table": "enquiries",
+      "name": "enquiries_service_id_fkey",
+      "definition": "FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE SET NULL"
+    },
+    {
+      "table": "services",
+      "name": "services_category_id_fkey",
+      "definition": "FOREIGN KEY (category_id) REFERENCES service_categories(id) ON DELETE SET NULL"
+    },
+    {
+      "table": "services",
+      "name": "services_created_by_fkey",
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)"
+    }
+  ],
+  "policies": [
+    {
+      "table": "service_categories",
+      "name": "Administrators can manage service categories",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(get_user_role() = 'administrator'::text)",
+      "check": "(get_user_role() = 'administrator'::text)"
+    },
+    {
+      "table": "services",
+      "name": "Administrators can manage services",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(get_user_role() = 'administrator'::text)",
+      "check": "(get_user_role() = 'administrator'::text)"
+    },
+    {
+      "table": "service_categories",
+      "name": "Administrators can view all service categories",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(get_user_role() = 'administrator'::text)",
+      "check": null
+    },
+    {
+      "table": "services",
+      "name": "Administrators can view all services",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(get_user_role() = 'administrator'::text)",
+      "check": null
+    },
+    {
+      "table": "service_categories",
+      "name": "Content managers can manage service categories",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(get_user_role() = 'content_manager'::text)",
+      "check": "(get_user_role() = 'content_manager'::text)"
+    },
+    {
+      "table": "services",
+      "name": "Content managers can manage services",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(get_user_role() = 'content_manager'::text)",
+      "check": "(get_user_role() = 'content_manager'::text)"
+    },
+    {
+      "table": "service_categories",
+      "name": "Content managers can view all service categories",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(get_user_role() = 'content_manager'::text)",
+      "check": null
+    },
+    {
+      "table": "services",
+      "name": "Content managers can view all services",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(get_user_role() = 'content_manager'::text)",
+      "check": null
+    },
+    {
+      "table": "services",
+      "name": "Customers can view published services",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "((status = 'published'::text) AND (get_user_role() = 'customer'::text))",
+      "check": null
+    },
+    {
+      "table": "service_categories",
+      "name": "Customers can view service categories",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(get_user_role() = 'customer'::text)",
+      "check": null
+    }
+  ],
+  "triggers": [
+    {
+      "table": "service_categories",
+      "name": "service_categories_set_updated_at",
+      "function": "set_updated_at",
+      "definition_md5": "e34d0b1ce6e2c835e2ceb045bae934d8",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c"
+    },
+    {
+      "table": "services",
+      "name": "services_set_updated_at",
+      "function": "set_updated_at",
+      "definition_md5": "55d5e487a320612d1684d5b3171ca1d8",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c"
+    }
+  ],
+  "related_triggers": [
+    {
+      "table": "enquiries",
+      "name": "enquiries_set_updated_at",
+      "function": "set_updated_at",
+      "definition_md5": "12a4155590dbd0dddc0d950df94b1ab7",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c"
+    }
+  ],
+  "grants": [
+    {
+      "table": "service_categories",
+      "role": "anon",
+      "privilege": "INSERT"
+    },
+    {
+      "table": "service_categories",
+      "role": "anon",
+      "privilege": "SELECT"
+    },
+    {
+      "table": "service_categories",
+      "role": "anon",
+      "privilege": "UPDATE"
+    },
+    {
+      "table": "service_categories",
+      "role": "anon",
+      "privilege": "DELETE"
+    },
+    {
+      "table": "service_categories",
+      "role": "anon",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "table": "service_categories",
+      "role": "anon",
+      "privilege": "REFERENCES"
+    },
+    {
+      "table": "service_categories",
+      "role": "anon",
+      "privilege": "TRIGGER"
+    },
+    {
+      "table": "service_categories",
+      "role": "authenticated",
+      "privilege": "INSERT"
+    },
+    {
+      "table": "service_categories",
+      "role": "authenticated",
+      "privilege": "SELECT"
+    },
+    {
+      "table": "service_categories",
+      "role": "authenticated",
+      "privilege": "UPDATE"
+    },
+    {
+      "table": "service_categories",
+      "role": "authenticated",
+      "privilege": "DELETE"
+    },
+    {
+      "table": "service_categories",
+      "role": "authenticated",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "table": "service_categories",
+      "role": "authenticated",
+      "privilege": "REFERENCES"
+    },
+    {
+      "table": "service_categories",
+      "role": "authenticated",
+      "privilege": "TRIGGER"
+    },
+    {
+      "table": "service_categories",
+      "role": "service_role",
+      "privilege": "INSERT"
+    },
+    {
+      "table": "service_categories",
+      "role": "service_role",
+      "privilege": "SELECT"
+    },
+    {
+      "table": "service_categories",
+      "role": "service_role",
+      "privilege": "UPDATE"
+    },
+    {
+      "table": "service_categories",
+      "role": "service_role",
+      "privilege": "DELETE"
+    },
+    {
+      "table": "service_categories",
+      "role": "service_role",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "table": "service_categories",
+      "role": "service_role",
+      "privilege": "REFERENCES"
+    },
+    {
+      "table": "service_categories",
+      "role": "service_role",
+      "privilege": "TRIGGER"
+    },
+    {
+      "table": "services",
+      "role": "anon",
+      "privilege": "INSERT"
+    },
+    {
+      "table": "services",
+      "role": "anon",
+      "privilege": "SELECT"
+    },
+    {
+      "table": "services",
+      "role": "anon",
+      "privilege": "UPDATE"
+    },
+    {
+      "table": "services",
+      "role": "anon",
+      "privilege": "DELETE"
+    },
+    {
+      "table": "services",
+      "role": "anon",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "table": "services",
+      "role": "anon",
+      "privilege": "REFERENCES"
+    },
+    {
+      "table": "services",
+      "role": "anon",
+      "privilege": "TRIGGER"
+    },
+    {
+      "table": "services",
+      "role": "authenticated",
+      "privilege": "INSERT"
+    },
+    {
+      "table": "services",
+      "role": "authenticated",
+      "privilege": "SELECT"
+    },
+    {
+      "table": "services",
+      "role": "authenticated",
+      "privilege": "UPDATE"
+    },
+    {
+      "table": "services",
+      "role": "authenticated",
+      "privilege": "DELETE"
+    },
+    {
+      "table": "services",
+      "role": "authenticated",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "table": "services",
+      "role": "authenticated",
+      "privilege": "REFERENCES"
+    },
+    {
+      "table": "services",
+      "role": "authenticated",
+      "privilege": "TRIGGER"
+    },
+    {
+      "table": "services",
+      "role": "service_role",
+      "privilege": "INSERT"
+    },
+    {
+      "table": "services",
+      "role": "service_role",
+      "privilege": "SELECT"
+    },
+    {
+      "table": "services",
+      "role": "service_role",
+      "privilege": "UPDATE"
+    },
+    {
+      "table": "services",
+      "role": "service_role",
+      "privilege": "DELETE"
+    },
+    {
+      "table": "services",
+      "role": "service_role",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "table": "services",
+      "role": "service_role",
+      "privilege": "REFERENCES"
+    },
+    {
+      "table": "services",
+      "role": "service_role",
+      "privilege": "TRIGGER"
+    }
+  ],
+  "role_permissions": null,
+  "legacy_field_lengths": {
+    "services": {
+      "name_max": 0,
+      "slug_max": 0,
+      "description_max": 0
+    },
+    "categories": {
+      "name_max": 0,
+      "slug_max": 0,
+      "description_max": 0
+    }
+  },
+  "pending_function_collisions": 0,
+  "last_migration": "20261026020000"
+}

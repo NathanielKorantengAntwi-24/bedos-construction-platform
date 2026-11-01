@@ -1,139 +1,23 @@
-import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { ApiError } from "@/server/http/api-error";
-import type {
-  CreateServiceCategoryInput,
-  ServiceCategory,
-  UpdateServiceCategoryInput,
-} from "./service-category.types";
-
-const CATEGORY_SELECT = `
-  id,
-  name,
-  slug,
-  description,
-  created_at,
-  updated_at
-`;
-
-export async function listServiceCategories(): Promise<ServiceCategory[]> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("service_categories")
-    .select(CATEGORY_SELECT)
-    .order("name", { ascending: true });
-
-  if (error) {
-    throw new ApiError(error.message, 500);
-  }
-
-  return (data ?? []) as ServiceCategory[];
+import { catalogRpc, DEFAULT_CATALOG_QUERY, readCatalog, type Pagination } from "./catalog.service";
+import { catalogId, type CatalogQuery } from "./catalog.validation";
+import type { CreateServiceCategoryInput, ServiceCategory, UpdateServiceCategoryInput } from "./service-category.types";
+export type PublicServiceCategory = Pick<ServiceCategory, "id" | "name" | "slug" | "description">;
+export type CategoryList<T = ServiceCategory> = { categories: T[]; pagination: Pagination };
+export async function listServiceCategories(actorId: string, input: CatalogQuery): Promise<CategoryList> {
+  return await readCatalog("categories", actorId, input) as CategoryList;
 }
-
-export async function getServiceCategoryById(
-  categoryId: string,
-): Promise<ServiceCategory> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("service_categories")
-    .select(CATEGORY_SELECT)
-    .eq("id", categoryId)
-    .single();
-
-  if (error || !data) {
-    throw new ApiError("Service category not found", 404);
-  }
-
-  return data as ServiceCategory;
+export async function listPublicServiceCategories(input: CatalogQuery): Promise<CategoryList<PublicServiceCategory>> {
+  return await readCatalog("categories", null, input) as CategoryList<PublicServiceCategory>;
 }
-
-export async function createServiceCategory(
-  input: CreateServiceCategoryInput,
-): Promise<ServiceCategory> {
-  const supabase = createAdminClient();
-
-  const { data, error } = await supabase
-    .from("service_categories")
-    .insert({
-      name: input.name,
-      slug: input.slug,
-      description: input.description ?? null,
-    })
-    .select(CATEGORY_SELECT)
-    .single();
-
-  if (error) {
-    if (error.code === "23505") {
-      throw new ApiError(
-        "A service category with this name or slug already exists",
-        409,
-      );
-    }
-
-    throw new ApiError(error.message, 500);
-  }
-
-  if (!data) {
-    throw new ApiError("Failed to create service category", 500);
-  }
-
-  return data as ServiceCategory;
+export async function getServiceCategoryById(id: string, actorId: string): Promise<ServiceCategory> {
+  return await readCatalog("categories", actorId, DEFAULT_CATALOG_QUERY, { id: catalogId(id) }) as ServiceCategory;
 }
-
-export async function updateServiceCategory(
-  categoryId: string,
-  input: UpdateServiceCategoryInput,
-): Promise<ServiceCategory> {
-  const supabase = createAdminClient();
-
-  const { data, error } = await supabase
-    .from("service_categories")
-    .update({
-      ...(input.name !== undefined && { name: input.name }),
-      ...(input.slug !== undefined && { slug: input.slug }),
-      ...(input.description !== undefined && {
-        description: input.description,
-      }),
-    })
-    .eq("id", categoryId)
-    .select(CATEGORY_SELECT)
-    .single();
-
-  if (error) {
-    if (error.code === "23505") {
-      throw new ApiError(
-        "A service category with this name or slug already exists",
-        409,
-      );
-    }
-
-    if (error.code === "PGRST116") {
-      throw new ApiError("Service category not found", 404);
-    }
-
-    throw new ApiError(error.message, 500);
-  }
-
-  if (!data) {
-    throw new ApiError("Service category not found", 404);
-  }
-
-  return data as ServiceCategory;
+export async function createServiceCategory(input: CreateServiceCategoryInput, actorId: string): Promise<ServiceCategory> {
+  return await catalogRpc("bedos_mutate_service_category", { p_actor_id: actorId, p_action: "create", p_id: null, p_input: input }) as ServiceCategory;
 }
-
-export async function deleteServiceCategory(
-  categoryId: string,
-): Promise<void> {
-  const supabase = createAdminClient();
-
-  const { error } = await supabase
-    .from("service_categories")
-    .delete()
-    .eq("id", categoryId);
-
-  if (error) {
-    throw new ApiError(error.message, 500);
-  }
+export async function updateServiceCategory(id: string, input: UpdateServiceCategoryInput, actorId: string): Promise<ServiceCategory> {
+  return await catalogRpc("bedos_mutate_service_category", { p_actor_id: actorId, p_action: "update", p_id: catalogId(id), p_input: input }) as ServiceCategory;
+}
+export async function deleteServiceCategory(id: string, actorId: string): Promise<void> {
+  await catalogRpc("bedos_mutate_service_category", { p_actor_id: actorId, p_action: "delete", p_id: catalogId(id), p_input: {} });
 }

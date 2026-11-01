@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-01",
+  "scope": "Read-only production SQL Editor comparison; metadata and aggregate lengths only, no account or business record contents",
+  "tables_match": true,
+  "columns_match": true,
+  "constraints_match": true,
+  "policies_match": true,
+  "triggers_match": true,
+  "related_triggers_match": true,
+  "grants_match": true,
+  "role_permissions_match": true,
+  "active_role_helper_matches": true,
+  "explicit_column_acls": 0,
+  "pending_function_collisions": 0,
+  "last_migration": "20261101030000",
+  "legacy_field_lengths": {
+    "services": {
+      "slug_max": 34,
+      "description_max": 46,
+      "name_max": 36
+    },
+    "categories": {
+      "slug_max": 23,
+      "description_max": 96,
+      "name_max": 25
+    }
+  },
+  "status": "passed"
+}

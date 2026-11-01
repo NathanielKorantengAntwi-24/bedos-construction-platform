@@ -1,113 +1,32 @@
-import { NextResponse } from "next/server";
-import {
-  deleteServiceCategory,
-  getServiceCategoryById,
-  updateServiceCategory,
-} from "@/features/services/service-category.service";
-import { errorResponse } from "@/server/http/api-error";
+import { getServiceCategoryById, updateServiceCategory, deleteServiceCategory } from "@/features/services/service-category.service";
+import { catalogId, noDetailQuery, parseCatalogInput } from "@/features/services/catalog.validation";
+import { catalogResponse, catalogError } from "@/features/services/catalog.http";
 import { requirePermission } from "@/server/auth/require-permission";
-import type { UpdateServiceCategoryInput } from "@/features/services/service-category.types";
-
-type RouteContext = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-
-export async function GET(
-  _request: Request,
-  context: RouteContext,
-) {
+import { parseJson } from "@/server/http/parse-json";
+type RouteContext = { params: Promise<{ id: string }> };
+export async function GET(request: Request, context: RouteContext) {
   try {
-    await requirePermission("services.view");
-
-    const { id } = await context.params;
-
-    const category = await getServiceCategoryById(id);
-
-    return NextResponse.json({
-      category,
-    });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("services.view");
+    const id = catalogId((await context.params).id);
+    noDetailQuery(request);
+    return catalogResponse({ category: await getServiceCategoryById(id, actor.user.id) });
+  } catch (error) { return catalogError(error); }
 }
-
-export async function PATCH(
-  request: Request,
-  context: RouteContext,
-) {
+export async function PATCH(request: Request, context: RouteContext) {
   try {
-    await requirePermission("services.manage");
-
-    const { id } = await context.params;
-
-    const body =
-      (await request.json()) as UpdateServiceCategoryInput;
-
-    if (
-      body.name !== undefined &&
-      !body.name.trim()
-    ) {
-      return NextResponse.json(
-        {
-          error: "Service category name cannot be empty",
-        },
-        { status: 400 },
-      );
-    }
-
-    if (
-      body.slug !== undefined &&
-      !body.slug.trim()
-    ) {
-      return NextResponse.json(
-        {
-          error: "Service category slug cannot be empty",
-        },
-        { status: 400 },
-      );
-    }
-
-    const category = await updateServiceCategory(id, {
-      ...body,
-      ...(body.name !== undefined && {
-        name: body.name.trim(),
-      }),
-      ...(body.slug !== undefined && {
-        slug: body.slug.trim(),
-      }),
-      ...(body.description !== undefined && {
-        description: body.description?.trim() || null,
-      }),
-    });
-
-    return NextResponse.json({
-      category,
-      message: "Service category updated successfully",
-    });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("services.manage");
+    const id = catalogId((await context.params).id);
+    noDetailQuery(request);
+    const input = parseCatalogInput(await parseJson<unknown>(request), true, false);
+    return catalogResponse({ category: await updateServiceCategory(id, input, actor.user.id), message: "Service category updated successfully" });
+  } catch (error) { return catalogError(error); }
 }
-
-export async function DELETE(
-  _request: Request,
-  context: RouteContext,
-) {
+export async function DELETE(request: Request, context: RouteContext) {
   try {
-    await requirePermission("services.manage");
-
-    const { id } = await context.params;
-
-    await getServiceCategoryById(id);
-
-    await deleteServiceCategory(id);
-
-    return NextResponse.json({
-      message: "Service category deleted successfully",
-    });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("services.manage");
+    const id = catalogId((await context.params).id);
+    noDetailQuery(request);
+    await deleteServiceCategory(id, actor.user.id);
+    return catalogResponse({ message: "Service category deleted successfully" });
+  } catch (error) { return catalogError(error); }
 }

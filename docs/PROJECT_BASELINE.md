@@ -64,7 +64,7 @@ Statuses below are evidence classifications, not newly granted completion:
 | --- | --- | --- |
 | 1 | Authentication and Account Management | Complete for agreed backend scope; verified 30 October 2026; see MODULE_1_COMPLETION_REPORT.md |
 | 2 | Users, Staff and RBAC | In progress: current audit in MODULE_2_AUDIT.md; existing workflow tested, recovery/admin-management gaps identified |
-| 3 | Services and Service Categories | CRUD inspected; audit findings below; proposed next implementation module |
+| 3 | Services and Service Categories | Local implementation verified; production release/acceptance pending; MODULE_3_IMPLEMENTATION.md |
 | 4 | Properties Management | Files inventoried; detailed audit pending |
 | 5 | Property Media | Files inventoried; security audit pending |
 | 6 | Property Viewing Management | Files/imports inventoried; detailed audit pending |
@@ -237,3 +237,11 @@ Staff setup recovery user acceptance passed: saved report has 31 passing checks,
 ## Module 2 final closure — 1 November 2026
 
 COMPLETE for agreed backend scope. This supersedes earlier open/pending entries. All substeps passed production acceptance. Approved audit migration 20261101030000 committed once through authenticated SQL Editor with transactional history tracking after CLI initialization stalled. Production 60 rollback-only RPC assertions and service audit insert/read passed; final effective table/column mismatches zero, synthetic Auth users/triggers/service audit rows zero, owner/RLS/policies unchanged. Final application suite 313 tests/37 files passed. See MODULE_2_COMPLETION_REPORT.md and MODULE_2_AUDIT_PRIVILEGES.md. Next: Module 3 Services and Service Categories analysis; no implementation started. Backend only.
+
+## Module 3 opened — 1 November 2026
+
+User authorized beginning Services and Service Categories. Requirements, all four CRUD handlers, both feature services/types, shared authorization/HTTP dependencies and enquiry references inspected. Local read-only catalog confirms constraints/RLS/timestamp-only triggers/SET NULL relationships; lab service RBAC mappings absent. Verified validation, safe-error, public-read, bounded-list and atomic-audit gaps. No application/schema/production changes. Concrete proposed contracts and acceptance: MODULE_3_REVIEW_AND_PROPOSAL.md. Approval of public endpoints, pagination, availability interpretation and mutation/grant scope precedes implementation. Current production metadata remains unverified; Module 4 deferred.
+
+## Module 3 local verification — 1 November 2026
+
+Approved scope implemented locally. 443 application tests/39 files, 184 SQL assertions and 95 real local HTTP/Auth/RLS/concurrency assertions passed; the actual production PowerShell helper also passed 40 local workflow checks with five exact content fixtures removed. Existing customer services.view published-only visibility is preserved. TypeScript, production build and focused lint passed. Generated staged migration/history scripts and 160 production-safe rollback assertions validated locally; original lab state restored. Migrations 20261101040000 and 20261101050000 are deliberately separated around deployment so old writers keep working until the new app is healthy. Source, dependency map, API contracts, decisions, evidence and release checklist: MODULE_3_IMPLEMENTATION.md. No Module 3 commit/push, production migration or deployment. Fresh production preflight and separate release/fixture approval remain required. Module 3 OPEN; Module 4 deferred.

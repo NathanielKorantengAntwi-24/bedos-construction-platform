@@ -1,0 +1,387 @@
+{
+  "date": "2026-11-01T17:13:20.550Z",
+  "scope": "Local Next HTTP/Auth/PostgREST/RLS and concurrent requests only; no hosted credentials or calls; fixture confirmation is setup, not email evidence; production PowerShell workflow uses an ignored local-destination copy; exact fixture cleanup and original dependency restoration verified separately",
+  "production_helper_local_assertions": 40,
+  "results": [
+    {
+      "name": "temporary catalog functions absent before test",
+      "pass": true
+    },
+    {
+      "name": "local audit failure control absent",
+      "pass": true
+    },
+    {
+      "name": "expected local role fixtures available",
+      "pass": true
+    },
+    {
+      "name": "actual local Next server ready with local Supabase only",
+      "pass": true
+    },
+    {
+      "name": "administrator exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "administrator actual backend login",
+      "pass": true
+    },
+    {
+      "name": "content exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "content actual backend login",
+      "pass": true
+    },
+    {
+      "name": "customer exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "customer actual backend login",
+      "pass": true
+    },
+    {
+      "name": "finance exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "finance actual backend login",
+      "pass": true
+    },
+    {
+      "name": "anonymous staff API denied",
+      "pass": true
+    },
+    {
+      "name": "customer management denied",
+      "pass": true
+    },
+    {
+      "name": "unprivileged finance read denied",
+      "pass": true
+    },
+    {
+      "name": "malformed JSON rejected by actual route",
+      "pass": true
+    },
+    {
+      "name": "wrong boolean rejected by actual route",
+      "pass": true
+    },
+    {
+      "name": "create category visible-category",
+      "pass": true
+    },
+    {
+      "name": "create category hidden-category",
+      "pass": true
+    },
+    {
+      "name": "create service draft",
+      "pass": true
+    },
+    {
+      "name": "create service published",
+      "pass": true
+    },
+    {
+      "name": "create service archived",
+      "pass": true
+    },
+    {
+      "name": "content staff list includes three states",
+      "pass": true
+    },
+    {
+      "name": "customer with services.view still sees only published content",
+      "pass": true
+    },
+    {
+      "name": "customer cannot guess protected draft UUID",
+      "pass": true
+    },
+    {
+      "name": "customer cannot guess archived UUID",
+      "pass": true
+    },
+    {
+      "name": "customer original category access retained",
+      "pass": true
+    },
+    {
+      "name": "public HTTP only published",
+      "pass": true
+    },
+    {
+      "name": "public HTTP safe exact fields",
+      "pass": true
+    },
+    {
+      "name": "public reads are not cacheable",
+      "pass": true
+    },
+    {
+      "name": "public category HTTP hides unpublished-only category",
+      "pass": true
+    },
+    {
+      "name": "draft public slug hidden",
+      "pass": true
+    },
+    {
+      "name": "archived public slug hidden",
+      "pass": true
+    },
+    {
+      "name": "published public detail available",
+      "pass": true
+    },
+    {
+      "name": "public status override rejected",
+      "pass": true
+    },
+    {
+      "name": "empty HTTP page retains exact count",
+      "pass": true
+    },
+    {
+      "name": "category duplicate is safe conflict",
+      "pass": true
+    },
+    {
+      "name": "actual provider staff RLS session",
+      "pass": true
+    },
+    {
+      "name": "active content RLS sees draft",
+      "pass": true
+    },
+    {
+      "name": "anonymous direct table remains private",
+      "pass": true
+    },
+    {
+      "name": "anonymous direct service write denied",
+      "pass": true
+    },
+    {
+      "name": "anonymous direct category insert denied",
+      "pass": true
+    },
+    {
+      "name": "authenticated content direct service write denied",
+      "pass": true
+    },
+    {
+      "name": "authenticated content direct category insert denied",
+      "pass": true
+    },
+    {
+      "name": "service direct service write denied",
+      "pass": true
+    },
+    {
+      "name": "service direct category insert denied",
+      "pass": true
+    },
+    {
+      "name": "authenticated client cannot forge actor RPC",
+      "pass": true
+    },
+    {
+      "name": "same backend session blocked while suspended",
+      "pass": true
+    },
+    {
+      "name": "same provider session loses draft RLS while suspended",
+      "pass": true
+    },
+    {
+      "name": "same session loses role permission",
+      "pass": true
+    },
+    {
+      "name": "same session regains content permission",
+      "pass": true
+    },
+    {
+      "name": "no backend reauthentication required for role/status checks",
+      "pass": true
+    },
+    {
+      "name": "audit read succeeds",
+      "pass": true
+    },
+    {
+      "name": "concurrent partial updates both commit",
+      "pass": true
+    },
+    {
+      "name": "concurrent partial updates do not lose fields",
+      "pass": true
+    },
+    {
+      "name": "audit read succeeds",
+      "pass": true
+    },
+    {
+      "name": "concurrent partial updates each audited once",
+      "pass": true
+    },
+    {
+      "name": "audit read succeeds",
+      "pass": true
+    },
+    {
+      "name": "actual HTTP audit failure is sanitized 500",
+      "pass": true
+    },
+    {
+      "name": "actual HTTP delete audit failure is safe 500",
+      "pass": true
+    },
+    {
+      "name": "audit read succeeds",
+      "pass": true
+    },
+    {
+      "name": "failed HTTP writes add no audit",
+      "pass": true
+    },
+    {
+      "name": "failed HTTP writes preserve record",
+      "pass": true
+    },
+    {
+      "name": "create category race-create-category",
+      "pass": true
+    },
+    {
+      "name": "category deletion versus service creation serializes",
+      "pass": true
+    },
+    {
+      "name": "concurrent created service retained detached",
+      "pass": true
+    },
+    {
+      "name": "create category race-move-category",
+      "pass": true
+    },
+    {
+      "name": "category deletion versus reassignment serializes",
+      "pass": true
+    },
+    {
+      "name": "reassignment never leaves dangling category",
+      "pass": true
+    },
+    {
+      "name": "local enquiry reference fixture created",
+      "pass": true
+    },
+    {
+      "name": "delete published service through HTTP",
+      "pass": true
+    },
+    {
+      "name": "HTTP deletion preserves and detaches enquiry",
+      "pass": true
+    },
+    {
+      "name": "audit read succeeds",
+      "pass": true
+    },
+    {
+      "name": "HTTP enquiry detachment audited with actor",
+      "pass": true
+    },
+    {
+      "name": "deleted service immediately unavailable publicly",
+      "pass": true
+    },
+    {
+      "name": "delete category through HTTP",
+      "pass": true
+    },
+    {
+      "name": "category deletion retains draft with null category",
+      "pass": true
+    },
+    {
+      "name": "production PowerShell workflow passes against guarded local origin",
+      "pass": true
+    },
+    {
+      "name": "PowerShell workflow removes all five exact content fixtures",
+      "pass": true
+    },
+    {
+      "name": "PowerShell workflow signs administrator out",
+      "pass": true
+    },
+    {
+      "name": "administrator backend logout",
+      "pass": true
+    },
+    {
+      "name": "content_manager backend logout",
+      "pass": true
+    },
+    {
+      "name": "customer backend logout",
+      "pass": true
+    },
+    {
+      "name": "finance backend logout",
+      "pass": true
+    },
+    {
+      "name": "exact local catalog Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local catalog Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local catalog Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local catalog Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "no local catalog test accounts remain",
+      "pass": true
+    },
+    {
+      "name": "no local catalog content remains",
+      "pass": true
+    },
+    {
+      "name": "temporary function bodies unchanged before cleanup",
+      "pass": true
+    },
+    {
+      "name": "original table grants restored",
+      "pass": true
+    },
+    {
+      "name": "original role helper restored",
+      "pass": true
+    },
+    {
+      "name": "original local permissions restored",
+      "pass": true
+    },
+    {
+      "name": "temporary catalog functions removed",
+      "pass": true
+    }
+  ]
+}

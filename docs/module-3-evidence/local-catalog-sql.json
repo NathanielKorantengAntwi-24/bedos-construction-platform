@@ -1,0 +1,7 @@
+{
+  "date": "2026-11-01T17:25:39.517Z",
+  "scope": "Actual SQL in guarded local lab; audit/catalog grants, all functions, permission seeds, fixtures and failure trigger rolled back",
+  "assertions": 184,
+  "phase_one_preserves_existing_table_grants": true,
+  "status": "passed"
+}
