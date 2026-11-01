@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-01",
+  "scope": "Approved staged production catalog release; SQL Editor metadata and rollback-only fixtures plus anonymous HTTP checks",
+  "application_commit": "a41066c",
+  "deployment": "success",
+  "migrations": [
+    "20261101040000",
+    "20261101050000"
+  ],
+  "new_migration_rows": 2,
+  "phase_one_preserved_existing_grants": true,
+  "function_count": 6,
+  "function_source_owner_path_acl_mismatches": 0,
+  "effective_table_write_privileges": 0,
+  "effective_column_write_privileges": 0,
+  "rls_enabled_tables": 2,
+  "production_rollback_assertions": 160,
+  "fixture_transaction": "rolled_back",
+  "rollback_auth_fixtures": 0,
+  "rollback_failure_triggers": 0,
+  "existing_columns_constraints_policies_triggers_role_mappings_unchanged": true,
+  "active_role_helper_matches": true,
+  "legacy_field_length_aggregates_unchanged": true,
+  "anonymous_http_assertions": 13,
+  "anonymous_http_failures": 0,
+  "private_administrator_acceptance": "pending",
+  "module_status": "open"
+}

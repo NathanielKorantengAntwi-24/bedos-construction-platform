@@ -1,6 +1,6 @@
 # Module 3 implementation and release review
 
-1 November 2026. Status: **local implementation and verification passed; production release/acceptance pending**. User approved MODULE_3_REVIEW_AND_PROPOSAL.md. User approved commit/push, staged production migration/deployment and the five-record disposable content test. Fresh production preflight passed; release execution is in progress. Module 4 remains deferred.
+1 November 2026. Status: **a41066c deployed; both production migrations, database assertions and anonymous checks passed; private administrator acceptance pending**. User approved MODULE_3_REVIEW_AND_PROPOSAL.md. User approved commit/push, staged production migration/deployment and the five-record disposable content test. Fresh production preflight and staged release passed. Module 4 remains deferred.
 
 ## 1. Module objective
 
@@ -76,7 +76,8 @@ The real Auth integration temporarily uses Module 1's active-role helper and exp
 - [x] Reviewable two-phase release scripts and private production acceptance helper prepared.
 - [x] Fresh production catalog/trigger/constraint/permission/aggregate-length preflight reviewed; all comparisons passed.
 - [x] Separate user approval for commit/push, staged database release/deployment and disposable production content test.
-- [ ] Production migration/source/ACL/RLS/rollback assertions and actual administrator/public HTTP acceptance passed; fixture cleanup reconciled.
+- [x] Both migrations applied once; deployed application healthy; source/ACL/owner/path/RLS checks and 160 rollback assertions passed; synthetic fixture cleanup verified; 13 anonymous/public HTTP checks passed.
+- [ ] Private administrator CRUD/publication/cleanup acceptance via Test-ProductionServiceCatalog.ps1 and exact fixture/audit reconciliation.
 - [ ] Module 3 closure recorded before Module 4.
 
 ## 8. Remaining risks or issues and production procedure
@@ -87,7 +88,7 @@ Before release, compare production constraints, RLS policy scope, trigger finger
 
 After phase two, run the prepared 160-check rollback script: it creates only synthetic SQL/Auth fixtures and temporary failure triggers, writes no existing business records, sends no emails and rolls everything back. Never run Test-Module3CatalogDirectWriteDenials.sql against production. That file contains local-only destructive permission-denial probes.
 
-After separately approved deployment, the user runs powershell.exe -NoProfile -File .\scripts\Test-ProductionServiceCatalog.ps1 with their existing administrator credentials privately. This creates two categories and three clearly labelled temporary services, briefly publishes test content, checks CRUD/public visibility and deletes only exact fixtures through backend APIs. No new login accounts or email steps. Existing audit history is retained. Identity journal docs/module-3-evidence/private-catalog-fixtures.json is Git-ignored; published evidence contains check names/status only. Unknown creation/cleanup outcomes block reruns for controlled review. This helper has not been run against production.
+After separately approved deployment, the user runs powershell.exe -NoProfile -File .\scripts\Test-ProductionServiceCatalog.ps1 with their existing administrator credentials privately. This creates two categories and three clearly labelled temporary services, briefly publishes test content, checks CRUD/public visibility and deletes only exact fixtures through backend APIs. No new login accounts or email steps. Existing audit history is retained. Identity journal docs/module-3-evidence/private-catalog-fixtures.json is Git-ignored; published evidence contains check names/status only. Unknown creation/cleanup outcomes block reruns for controlled review. This helper has not been run against production; it is now ready for the user to run with private administrator credentials.
 
 If application deployment fails before phase two, existing writers remain functional and phase two must not run. After phase two, prefer a compatible guarded-RPC deployment or a forward fix; do not silently restore broad direct-write grants or deploy an old direct-writing version.
 
@@ -112,3 +113,7 @@ Docker tests require the existing isolated bedos-supabase-lab stack. The integra
 ## Production preflight — 1 November 2026
 
 Read-only SQL Editor comparison passed: tables, columns, constraints, policies, trigger fingerprints (including related enquiries/audit), grants and role mappings match the reviewed baseline. Module 1 active-role helper matches. No column ACLs or new-function collisions; latest production migration 20261101030000. Aggregate maximum service name/slug/description lengths 36/34/46, category lengths 25/23/96, all below proposed input bounds. Evidence: module-3-evidence/production-catalog-preflight.json. No account or business record contents were returned.
+
+## Production release — 1 November 2026
+
+Application a41066c pushed and Vercel deployment succeeded. Phase one 20261101040000 installed all six reviewed functions and preserved existing table grants; source/owner/path/ACL parity passed before push. After new public routes passed 13 anonymous checks, phase two 20261101050000 revoked direct mutations. Production-safe verification passed all 160 assertions and rolled back. Final metadata: six functions, zero source/owner/path/ACL mismatches, zero effective table/column write privileges, two new migration rows, RLS enabled on both tables, zero synthetic Auth fixtures/failure triggers. Independent post-release comparison confirms columns, constraints, policies, trigger fingerprints, role mappings, active-role helper and existing length aggregates unchanged; grant differences are the intended restrictions. All 13 public/anonymous checks passed again after phase two. Evidence: production-catalog-phase-one.json, production-catalog-release.json and production-catalog-anonymous.json. No real administrator account was altered. Private administrator HTTP CRUD/publication acceptance remains pending; Module 3 stays open.

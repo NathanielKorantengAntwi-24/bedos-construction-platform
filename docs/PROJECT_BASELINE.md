@@ -64,7 +64,7 @@ Statuses below are evidence classifications, not newly granted completion:
 | --- | --- | --- |
 | 1 | Authentication and Account Management | Complete for agreed backend scope; verified 30 October 2026; see MODULE_1_COMPLETION_REPORT.md |
 | 2 | Users, Staff and RBAC | In progress: current audit in MODULE_2_AUDIT.md; existing workflow tested, recovery/admin-management gaps identified |
-| 3 | Services and Service Categories | Local implementation verified; production release/acceptance pending; MODULE_3_IMPLEMENTATION.md |
+| 3 | Services and Service Categories | a41066c deployed; DB/public checks passed; private administrator acceptance pending |
 | 4 | Properties Management | Files inventoried; detailed audit pending |
 | 5 | Property Media | Files inventoried; security audit pending |
 | 6 | Property Viewing Management | Files/imports inventoried; detailed audit pending |
@@ -245,3 +245,7 @@ User authorized beginning Services and Service Categories. Requirements, all fou
 ## Module 3 local verification — 1 November 2026
 
 Approved scope implemented locally. 443 application tests/39 files, 184 SQL assertions and 95 real local HTTP/Auth/RLS/concurrency assertions passed; the actual production PowerShell helper also passed 40 local workflow checks with five exact content fixtures removed. Existing customer services.view published-only visibility is preserved. TypeScript, production build and focused lint passed. Generated staged migration/history scripts and 160 production-safe rollback assertions validated locally; original lab state restored. Migrations 20261101040000 and 20261101050000 are deliberately separated around deployment so old writers keep working until the new app is healthy. Source, dependency map, API contracts, decisions, evidence and release checklist: MODULE_3_IMPLEMENTATION.md. No Module 3 commit/push, production migration or deployment. Fresh production preflight and separate release/fixture approval remain required. Module 3 OPEN; Module 4 deferred.
+
+## Module 3 production release — 1 November 2026
+
+User approved commit/push, staged production migrations/deployment and the five-record disposable content workflow. Fresh production metadata/aggregate preflight matched the reviewed baseline. a41066c committed and pushed after 20261101040000 installed/verified guarded functions without changing existing table grants. Vercel deployment and 13 anonymous/public checks passed before 20261101050000 restricted direct writes. Production 160 rollback-only SQL assertions passed. Final source/owner/path/ACL mismatches zero; direct table/column writes zero; both migrations recorded once; RLS retained; synthetic Auth/failure triggers absent. Post-release role mappings, policies, constraints, trigger fingerprints, active-role helper and legacy length aggregates unchanged. Anonymous checks passed again after restrictions. Production unchanged records preserved. Next required step: private Test-ProductionServiceCatalog.ps1 administrator CRUD/publication workflow, then exact cleanup/audit reconciliation and closure. No email step/new Auth account. Module 3 OPEN; Module 4 deferred.

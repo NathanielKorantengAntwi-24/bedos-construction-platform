@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-01",
+  "release_commit": "a41066c",
+  "scope": "Production phase one only; guarded functions installed and existing table grants preserved",
+  "migration": "20261101040000",
+  "function_count": 6,
+  "function_source_owner_path_acl_mismatches": 0,
+  "new_migration_rows": 1,
+  "rls_enabled_tables": 2,
+  "table_write_privileges_before_phase_two": 36,
+  "column_write_privileges_from_existing_table_grants": 18,
+  "rollback_auth_fixtures": 0,
+  "rollback_failure_triggers": 0,
+  "phase_two": "pending",
+  "status": "passed"
+}
