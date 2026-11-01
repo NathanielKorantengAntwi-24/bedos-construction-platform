@@ -89,7 +89,9 @@ try{
     Write-Output 'Open its link in Chrome. When Set your password appears, DO NOT enter a password yet.'
     $null=Read-Host 'Press Enter here only after that page appears'
     $r=Resume-Request $provider "/auth/v1/admin/users/$($target.id)" 'GET' $null $providerSession
-    Assert-ResumeCheck 'Recovery invitation confirmed exact fixture email' ($r.status -eq 200 -and $r.data.id -eq $target.id -and $r.data.email -eq $target.email -and [bool]$r.data.email_confirmed_at)
+    Assert-ResumeCheck 'Recovery account lookup succeeds' ($r.status -eq 200)
+    Assert-ResumeCheck 'Recovery lookup matches exact fixture identity' ($r.data.id -eq $target.id -and $r.data.email -eq $target.email)
+    Assert-ResumeCheck 'Recovery invitation email is confirmed' ([bool]$r.data.email_confirmed_at)
     $r=Resume-Request $origin "/api/users/$($target.id)/activate" 'POST' $null $adminSession
     Assert-ResumeCheck 'Email link alone cannot satisfy password setup' ($r.status -eq 409)
     Write-Output 'Now set a NEW STAFF test password in that same Chrome form and save it privately.'
@@ -98,6 +100,7 @@ try{
     $r=Resume-Request $origin "/api/users/$($target.id)/activate" 'POST' $null $adminSession
     Assert-ResumeCheck 'Administrator activates genuinely completed recovery' ($r.status -eq 200 -and $r.data.user_id -eq $target.id)
     $target.state='activated';Save-ResumeJournal
+    $stage='recovered staff password login'
     $staffSecure=Read-Host 'Enter the NEW STAFF test password (NOT the admin password)' -AsSecureString
     $staffCredential=New-Object System.Management.Automation.PSCredential($target.email,$staffSecure)
     $r=Resume-Request $origin '/api/auth/login' 'POST' @{email=$target.email;password=$staffCredential.GetNetworkCredential().Password} $staffSession

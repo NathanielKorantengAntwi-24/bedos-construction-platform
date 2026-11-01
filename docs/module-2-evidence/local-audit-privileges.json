@@ -1,0 +1,7 @@
+{
+  "date": "2026-11-01T15:55:31.434Z",
+  "scope": "Isolated local lab; grants, fixtures, triggers and setup function rolled back",
+  "audit_privilege_assertions": 35,
+  "rpc_regression_assertions": 60,
+  "status": "passed"
+}

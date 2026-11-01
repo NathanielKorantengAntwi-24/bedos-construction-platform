@@ -1,6 +1,6 @@
 # Module 2 partial staff invitation recovery
 
-1 November 2026. Status: approved recovery patch ee5768f deployed; production SQL and anonymous/compatibility checks passed. Private administrator/email workflow acceptance pending. Audit-grant changes are not included. Overall Module 2 remains open.
+1 November 2026. Status: recovery workflow acceptance passed. Patch ee5768f is deployed; production SQL and anonymous/compatibility checks passed. The final private administrator/email workflow report contains 31 passing checks and no failures, including staff login, both HTTP 200 logouts, and removal of both dedicated fixtures. Audit-grant changes are not included. Overall Module 2 remains open.
 
 ## Module objective
 
@@ -93,3 +93,11 @@ An accepted email may already arrive when later audit/baseline work fails. Do no
 ## Next module
 
 Complete this recovery release/production checkpoint, then implement the separately reviewed audit least-privilege step. Overall Module 2 stays open; Module 3 deferred.
+
+## Administrator workflow follow-up (1 November 2026)
+
+Two user-run attempts remain incomplete: the first passed activation but staff password login returned 401; the second stopped at the combined provider identity/email-confirmation check despite a 200 lookup. Both runs reported exact fixture deletion and administrator logout. Neither establishes a callback defect or an incorrect password as the cause. The verification script now separately checks lookup success, exact fixture identity, and email confirmation, and labels staff password-login failures correctly. Acceptance remains pending; no application or schema change was made for this diagnostic update.
+
+## Final administrator workflow result (1 November 2026)
+
+The saved production-staff-resume-admin.json contains 31 passing checks and zero failures. Exact recovery identity and email confirmation, password completion, activation, fresh staff login, active finance role, authorization restrictions, duplicate approval prevention and resume audit binding all passed. Both logouts returned HTTP 200. The private Git-ignored journal records both fixtures deleted and state complete. These are script-verified results; this checkpoint does not claim a separate independent database reconciliation. The earlier failed attempts remain historical failures rather than being reclassified. Remaining Module 2 work is the separately reviewed audit-permission restriction.

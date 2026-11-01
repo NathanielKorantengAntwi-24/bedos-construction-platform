@@ -1,0 +1,132 @@
+﻿{
+    "date":  "2026-11-01T15:50:06.7179602Z",
+    "scope":  "Private production normal invitation and incomplete setup recovery; one service-created orphan is fixture setup only; no identities credentials links or user records saved; audit history retained",
+    "results":  [
+                    {
+                        "name":  "Administrator login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Active administrator session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Backend fixture service authentication",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Ordinary finance role resolved",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Normal invitation succeeds through atomic setup",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Initial API generated exact server-owned creation proof",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Initial-check invitation safely revoked",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact incomplete setup fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Incomplete fixture starts inactive without staff approval",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous setup resume denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Resume cannot accept caller-selected role",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator repairs setup and requests invitation",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Resume result is not cacheable",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Repair assigns only bound role and keeps staff inactive",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Immediate repeated resume preserves retry cooldown",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Repair alone cannot activate staff",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Recovery account lookup succeeds",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Recovery lookup matches exact fixture identity",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Recovery invitation email is confirmed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Email link alone cannot satisfy password setup",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator activates genuinely completed recovery",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Recovered staff backend login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Recovered active staff role verified",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Ordinary staff cannot resume invitations",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Activated staff cannot be re-onboarded",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "One trusted approval retained after repeated resume",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Resume audits bind creator request reason and proof",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Staff logout",
+                        "pass":  true,
+                        "http_status":  200
+                    },
+                    {
+                        "name":  "Administrator logout",
+                        "pass":  true,
+                        "http_status":  200
+                    },
+                    {
+                        "name":  "Exact initial Auth profile and invitation fixture removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact resume Auth profile and invitation fixture removed",
+                        "pass":  true
+                    }
+                ]
+}

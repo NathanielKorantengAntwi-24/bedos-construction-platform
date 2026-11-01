@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-01",
+  "status": "passed",
+  "execution": "Authenticated Supabase production SQL Editor",
+  "migration": "20261101030000",
+  "migration_rows": 1,
+  "table_privilege_mismatches": 0,
+  "column_privilege_mismatches": 0,
+  "rpc_rollback_assertions": 60,
+  "service_insert_and_read_verified": true,
+  "rollback_fixture_users": 0,
+  "rollback_test_triggers": 0,
+  "rollback_service_audits": 0,
+  "owner": "postgres",
+  "rls": true,
+  "policy_count": 0,
+  "local_permission_assertions": 35,
+  "local_rpc_assertions": 60,
+  "application_tests": 313,
+  "application_test_files": 37,
+  "production_destructive_permission_probes": false,
+  "credential_extraction_performed": false
+}

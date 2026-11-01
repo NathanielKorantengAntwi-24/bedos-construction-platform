@@ -1,3 +1,7 @@
+# Backend development status
+
+Modules 1 and 2 are complete for their agreed backend scope. Module 2 closure and limitations: [completion report](docs/MODULE_2_COMPLETION_REPORT.md). Current project map and chronological register: [engineering baseline](docs/PROJECT_BASELINE.md). Next: Module 3 Services and Service Categories analysis. Frontend feature development remains deferred.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

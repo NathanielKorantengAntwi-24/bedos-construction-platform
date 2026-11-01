@@ -1,6 +1,6 @@
 # Module 2 remaining invitation recovery and audit scope
 
-1 November 2026. Status: user approved recovery implementation and release; deployed with production SQL checks passed and private administrator/email acceptance pending. Audit-grant changes remain a separate unimplemented subsequent step. Earlier list/detail, status and ordinary staff role steps remain complete. Module 2 remains open; Module 3 deferred.
+1 November 2026. Status: recovery production user acceptance passed with 31 checks. User approved local audit-grant work; migration and local rollback verification passed (35 permission checks plus 60 RPC regressions). Production audit-grant release remains pending. Earlier list/detail, status and ordinary staff role steps remain complete. Module 2 remains open; Module 3 deferred.
 
 ## Module objective
 
@@ -53,3 +53,7 @@ Acceptance: local actual SQL proves ordinary roles cannot read/write/truncate au
 ## Completion status and next module
 
 Recovery implemented and locally verified under user approval; current report MODULE_2_INVITATION_RECOVERY.md. No production migration/deployment or audit-grant changes made. Separate recovery release approval/production verification is next. Verify that checkpoint before starting the audit-grant work. Module 2 remains active until both accepted steps and limitations are recorded; Module 3 deferred.
+
+## Module 2 final closure — 1 November 2026
+
+COMPLETE for agreed backend scope. This supersedes earlier open/pending entries. All substeps passed production acceptance. Approved audit migration 20261101030000 committed once through authenticated SQL Editor with transactional history tracking after CLI initialization stalled. Production 60 rollback-only RPC assertions and service audit insert/read passed; final effective table/column mismatches zero, synthetic Auth users/triggers/service audit rows zero, owner/RLS/policies unchanged. Final application suite 313 tests/37 files passed. See MODULE_2_COMPLETION_REPORT.md and MODULE_2_AUDIT_PRIVILEGES.md. Next: Module 3 Services and Service Categories analysis; no implementation started. Backend only.

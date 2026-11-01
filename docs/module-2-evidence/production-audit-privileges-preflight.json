@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-01",
+  "source": "Supabase dashboard SQL Editor",
+  "owner": "postgres",
+  "rls": true,
+  "policy_count": 0,
+  "last_migration": "20261101020000",
+  "only_pending_migration": "20261101030000",
+  "roles_before": [
+    "anon",
+    "authenticated",
+    "service_role"
+  ],
+  "all_seven_effective_privileges_before": true,
+  "explicit_column_acl_count": 0
+}
