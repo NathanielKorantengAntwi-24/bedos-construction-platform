@@ -1,6 +1,6 @@
 # Module 2 administration contract proposal
 
-1 November 2026. Status: contracts approved; list/detail and suspension/restoration complete with production acceptance. Ordinary staff role changes implemented and locally verified; separate release approval pending. Backend only. This document recommends concrete interfaces for gaps recorded in MODULE_2_AUDIT.md; these interfaces are not claimed to be prescribed verbatim by the approved plan.
+1 November 2026. Status: contracts approved; list/detail and suspension/restoration complete with production acceptance. Ordinary staff role changes released with user approval; production database checks passed and private administrator/staff HTTP acceptance pending. Backend only. This document recommends concrete interfaces for gaps recorded in MODULE_2_AUDIT.md; these interfaces are not claimed to be prescribed verbatim by the approved plan.
 
 ## Module objective
 

@@ -1,6 +1,6 @@
 # Module 2 ordinary staff role changes
 
-1 November 2026. Status: implemented and verified locally under the approved administration contracts. No commit, push, production migration or deployment. Overall Module 2 remains open.
+1 November 2026. Status: approved role patch f617814 deployed; production database and anonymous denial checks passed. Administrator/staff HTTP workflow acceptance pending private user-run test. Overall Module 2 remains open.
 
 ## Module objective
 
@@ -59,14 +59,33 @@ npm run build
 - [x] Audit atomicity, existing-session behavior and concurrency verified locally.
 - [x] Compatibility suite, build, TypeScript and focused lint passed.
 - [x] Fixture cleanup and unchanged lab dependencies independently verified.
-- [ ] Separate approval for exact-file commit/push, additive production migration and deployment.
+- [x] Separate approval for exact-file commit/push, additive production migration and deployment.
 - [ ] Production SQL and dedicated administrator/staff HTTP verification, with private credentials and local-only account identifiers.
 
-This is local acceptance only. Before a release, review pending migrations and apply only the approved role function, then deploy its caller. Temporary lab Module 1/status dependency setup is not an additional production migration. No existing live staff/customer role should be changed for verification; use dedicated fixtures and controlled cleanup. Publish only sanitized result counts/statuses.
+Local acceptance and partial production verification are complete. User approved release; dry run contained only 20261101010000_add_admin_staff_role_changes.sql. Applied once before pushing application commit f617814, and Vercel reported successful deployment. No temporary lab dependencies were replayed in production and no real staff/customer role was changed.
+
+## Production release verification
+
+- All 47 actual SQL assertions passed inside a rollback-only production transaction using synthetic fixtures. Independent metadata verification confirmed source parity, empty search_path, SECURITY DEFINER, service-only EXECUTE, one migration record, unchanged Module 1/status helpers and zero leftover test users, service records or audit triggers.
+- Two anonymous PATCH requests (valid and malformed) returned 401 before validation; both responses were no-store (four saved assertions). No sessions/accounts created by those HTTP probes.
+- Sanitized evidence: production-user-role-release.json and production-user-role-anonymous.json. Metadata reproduction: verify-user-role-release.sql.
+- scripts/Test-ProductionUserRole.ps1 prompts for the existing administrator email/password privately and tests a single disposable staff fixture. No email step is required. Explicit confirmation is test setup only; it is not proof of a new email-onboarding flow. Existing email onboarding acceptance is retained separately.
+- Fixture setup alone uses local service credentials: create confirmed inactive staff, assign ordinary role, record trusted authorization/password baseline, establish fixture provider session and change that fixture's own password. The real administrator backend session activates it and performs role/status changes through the deployed APIs. No production administrator is created, no real existing account is reassigned, and role authorization is not bypassed with a service credential.
+- The script checks content -> finance -> sales/customer service -> content, stale/no-op/protected-role denial, profile/invitation consistency, status compatibility, and current staff-session permission loss/recovery using a nonexistent service lookup (no business records read). It verifies three role audit transitions and retention of the original authorization, then signs out and deletes only the exact disposable Auth identity, cascading profile/invitation cleanup. Audit history is retained.
+- Shared scripts/lib/ProductionVerification.ps1 centralizes the already-corrected backend-only User-Agent and restricted provider-header transport. The status script now delegates to that transport with unchanged workflow. All three scripts parsed successfully and the actual shared transport returned expected absent-user HTTP 404 in Windows PowerShell 5, without creating an account.
+- Exact fixture identity is retained only in Git-ignored private-user-role-fixture.json; published production-user-role-admin.json contains named checks/statuses only. An unfinished fixture prevents another run. Creation is recorded before dispatch so an ambiguous outcome can be reviewed safely.
+
+Run from the project folder:
+
+```powershell
+powershell.exe -NoProfile -File .\scripts\Test-ProductionUserRole.ps1
+```
+
+Share PASS/STOPPED lines and logout statuses only. Do not rerun if fixture cleanup stops; retain the private record for exact-identity review. Never send passwords, tokens or keys.
 
 ## Remaining risks or issues
 
-No deployed role-route end-to-end test is claimed. The permission-refresh unit case uses representative permission mappings; it is not proof of every business module's complete finance/sales/content authorization. Actual local RLS assertions cover the selected draft-service path. Existing policies and backend guards must continue to read current database role/status; changing a role does not cancel in-flight requests or promise provider-wide token revocation. No arbitrary role/permission catalogue editor is introduced.
+Deployed administrator/staff role-route acceptance is pending the private run above. The permission-refresh unit case uses representative permission mappings; it is not proof of every business module's complete finance/sales/content authorization. Actual local RLS assertions cover the selected draft-service path. Existing policies and backend guards must continue to read current database role/status; changing a role does not cancel in-flight requests or promise provider-wide token revocation. No arbitrary role/permission catalogue editor is introduced.
 
 ## Next module
 

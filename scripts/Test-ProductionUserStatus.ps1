@@ -32,29 +32,11 @@ $fixtureName="Bedos Disposable Account Status $run"
 $random=New-Object byte[] 32
 $rng=[Security.Cryptography.RandomNumberGenerator]::Create()
 try{$rng.GetBytes($random);$fixturePassword=[Convert]::ToBase64String($random)+'aA1!'}finally{$rng.Dispose();[Array]::Clear($random,0,$random.Length)}
+. (Join-Path $PSScriptRoot 'lib/ProductionVerification.ps1')
 function Status-Request([string]$Base,[string]$Path,[string]$Method,[object]$Payload,[object]$Session){
-    $bytes=$null; $json=$null
-    try{
-        if($Base -ne $origin -and $Base -ne $provider){throw 'Request origin guard failed'}
-        $parameters=@{Uri="$Base$Path";Method=$Method;WebSession=$Session;UseBasicParsing=$true;TimeoutSec=30;MaximumRedirection=0;ErrorAction='Stop'}
-        if($Base -eq $provider){
-            $parameters.Headers=$serviceHeaders
-            # PowerShell's default browser-like User-Agent is rejected by modern
-            # Supabase secret keys. This is a backend-only verification client.
-            $parameters.UserAgent='BedosBackendVerification/1.0'
-        }
-        if($null -ne $Payload){$json=$Payload | ConvertTo-Json -Depth 6 -Compress;$bytes=[Text.Encoding]::UTF8.GetBytes($json);$parameters.ContentType='application/json; charset=utf-8';$parameters.Body=$bytes}
-        $response=Invoke-WebRequest @parameters
-        $script:lastStatus=[int]$response.StatusCode
-        $data=$null
-        if($response.Content){$data=$response.Content | ConvertFrom-Json}
-        if($Base -eq $provider -and $Path -like '/auth/v1/admin/users*' -and $null -ne $data.user){$data=$data.user}
-        return [pscustomobject]@{status=$script:lastStatus;data=$data;cache=$response.Headers['Cache-Control']}
-    }catch{
-        $script:lastStatus=$null
-        if($_.Exception.Response){$script:lastStatus=[int]$_.Exception.Response.StatusCode}
-        return [pscustomobject]@{status=$script:lastStatus;data=$null;cache=$null}
-    }finally{if($bytes){[Array]::Clear($bytes,0,$bytes.Length)};$bytes=$null;$json=$null}
+    $result=Invoke-BedosVerificationRequest -Base $Base -Origin $origin -Provider $provider -Path $Path -Method $Method -Payload $Payload -Session $Session -ProviderHeaders $serviceHeaders
+    $script:lastStatus=$result.status
+    return $result
 }
 function Assert-StatusCheck([string]$Name,[bool]$Pass){
     $checks.Add([pscustomobject]@{name=$Name;pass=$Pass})

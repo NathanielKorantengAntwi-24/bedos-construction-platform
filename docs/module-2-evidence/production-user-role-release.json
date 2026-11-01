@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-01T02:25:49.7752852Z",
+  "commit": "f617814",
+  "migration": "20261101010000_add_admin_staff_role_changes.sql",
+  "migration_rows": 1,
+  "source_body_match": true,
+  "security_definer": true,
+  "empty_search_path": true,
+  "anon_execute": false,
+  "authenticated_execute": false,
+  "service_role_execute": true,
+  "existing_dependencies_unchanged": true,
+  "rollback_database_assertions": 47,
+  "remaining_test_users": 0,
+  "remaining_test_triggers": 0,
+  "remaining_test_services": 0,
+  "deployment": "Vercel success",
+  "administrator_staff_http_verification": "pending private user-run test",
+  "verification_transport": {
+    "windows_powershell_major": 5,
+    "read_only_service_probe": 404,
+    "script_syntax": "passed"
+  }
+}

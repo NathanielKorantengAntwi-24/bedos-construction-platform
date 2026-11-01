@@ -50,3 +50,4 @@ next-env.d.ts
 /scripts/Audit-Module2ProductionFixtures.mjs
 /scripts/Compare-AdministratorLogin.ps1
 /docs/module-2-evidence/private-user-status-fixture.json
+/docs/module-2-evidence/private-user-role-fixture.json

@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-01T02:30:15.782Z",
+  "scope": "Anonymous denied requests only; no sessions accounts emails or record changes",
+  "results": [
+    {
+      "name": "Anonymous role mutation denied",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "name": "Anonymous role mutation denied response not cacheable",
+      "pass": true
+    },
+    {
+      "name": "Authorization precedes invalid role target and JSON",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "name": "Authorization precedes invalid role target and JSON response not cacheable",
+      "pass": true
+    }
+  ]
+}
