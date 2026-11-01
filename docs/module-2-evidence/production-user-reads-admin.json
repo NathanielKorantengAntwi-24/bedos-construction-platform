@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-01T01:38:33.603435Z",
+  "scope": "User-run production list/detail verification; no emails, IDs, user records or credentials saved",
+  "results": [
+    {
+      "name": "Administrator login",
+      "pass": true
+    },
+    {
+      "name": "Active administrator session",
+      "pass": true
+    },
+    {
+      "name": "Bounded default list and count",
+      "pass": true
+    },
+    {
+      "name": "List response not cacheable",
+      "pass": true
+    },
+    {
+      "name": "List exposes only approved user fields",
+      "pass": true
+    },
+    {
+      "name": "Combined role status email filters",
+      "pass": true
+    },
+    {
+      "name": "Empty next page retains filtered count",
+      "pass": true
+    },
+    {
+      "name": "Administrator detail identity and role",
+      "pass": true
+    },
+    {
+      "name": "Detail exposes only approved fields",
+      "pass": true
+    },
+    {
+      "name": "Detail response not cacheable",
+      "pass": true
+    },
+    {
+      "name": "Missing user returns 404",
+      "pass": true
+    },
+    {
+      "name": "Excessive page size rejected",
+      "pass": true
+    },
+    {
+      "name": "Invalid role rejected",
+      "pass": true
+    },
+    {
+      "name": "Unknown query key rejected",
+      "pass": true
+    },
+    {
+      "name": "Repeated query key rejected",
+      "pass": true
+    },
+    {
+      "name": "Invalid user UUID rejected",
+      "pass": true
+    },
+    {
+      "name": "Administrator logout",
+      "pass": true,
+      "http_status": 200
+    }
+  ]
+}

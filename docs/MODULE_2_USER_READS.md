@@ -1,6 +1,6 @@
 # Module 2 administrator list/detail implementation
 
-30 October 2026. Status: approved patch 932e3a5 deployed; production database and anonymous/customer denial checks passed. Administrator-success route verification pending private user-run test. Module 2 remains open.
+1 November 2026. Status: list/detail step COMPLETE for agreed scope. Approved patch 932e3a5 deployed; production database, anonymous/customer denial and private administrator-success checks passed. Overall Module 2 remains open.
 
 ## Module objective
 
@@ -49,9 +49,9 @@ npm run build
 - [x] Relevant compatibility tests, build, TypeScript and focused lint passed.
 - [x] Local fixture/migration rollback independently verified.
 - [x] Separate release approval for exact-file commit/push, production migration and deployment.
-- [ ] Production route verification with an authorized administrator session, ordinary-user denial and safe response checks. Keep detailed identity evidence local; publish sanitized counts/status only.
+- [x] Production route verification with an authorized administrator session, ordinary-user denial and safe response checks. Keep detailed identity evidence local; publish sanitized counts/status only.
 
-Local acceptance and partial production verification are complete; administrator-success acceptance and overall Module 2 completion are pending. The dry run contained only 20261030010000_add_admin_user_reads.sql. Applied once before pushing application commit 932e3a5; Vercel reported deployment success. No unrelated migration was applied.
+Local and production acceptance of this list/detail step are complete; overall Module 2 remains open. The dry run contained only 20261030010000_add_admin_user_reads.sql. Applied once before pushing application commit 932e3a5; Vercel reported deployment success. No unrelated migration was applied.
 
 ## Production release evidence
 
@@ -59,11 +59,11 @@ Local acceptance and partial production verification are complete; administrator
 - Production function body matches committed source after whitespace normalization. SECURITY DEFINER, empty search_path, service_role EXECUTE and no anon/authenticated EXECUTE independently verified.
 - Thirteen deployed anonymous/customer checks passed, including fixture setup and cleanup assertions. Anonymous list/detail returned 401; active customer list/detail returned 403 even for their own ID; permission denial preceded query validation. Temporary confirmed customer setup is not signup-confirmation evidence. Exact disposable Auth identity and profile deletion verified. No administrator credentials or account records were saved.
 - Sanitized evidence: module-2-evidence/production-user-read-release.json and production-user-read-denials.json. Reproduction: verify-user-read-release.sql and scripts/Test-ProductionUserReadDenials.mjs.
-- Remaining administrator verification: run scripts/Test-ProductionUserReads.ps1, enter the existing administrator email and new administrator password privately, and share PASS/STOPPED lines plus logout status. The script checks defaults, safe response fields, combined filters, next page, self detail, missing users and invalid inputs. It creates/changes no accounts and records only sanitized results in production-user-reads-admin.json.
+- Administrator verification completed 1 November 2026 at 01:38:33 UTC: 16 workflow checks passed plus successful HTTP-200 administrator logout (17 saved assertions). Defaults/counts, safe fields, no-store caching, combined filters, empty next page, administrator detail, missing user and invalid query/UUID behavior passed. Saved report inspected for all passing results and restricted field names; no emails, IDs, account records or credentials retained. Evidence: production-user-reads-admin.json. No account changes.
 
 ## Remaining risks or issues
 
-No full deployed administrator end-to-end test is claimed for these new routes. Query scale limits noted above remain unmeasured. Existing audit grants and partial invitation setup recovery remain Module 2 gaps. New list/detail reads do not change audit retention or add read-event logging; mutations require atomic audit in their later step.
+The deployed administrator script covers the listed success/validation cases; it is not a load test. Query scale limits noted above remain unmeasured. Existing audit grants and partial invitation setup recovery remain Module 2 gaps. New list/detail reads do not change audit retention or add read-event logging; mutations require atomic audit in their later step.
 
 ## Next module
 
