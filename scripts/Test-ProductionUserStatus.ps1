@@ -131,7 +131,7 @@ try{
         try{
             $actual=Status-Request $provider "/auth/v1/admin/users/$fixtureId" 'GET' $null $providerSession
             if($actual.status -ne 200 -or $actual.data.id -ne $fixtureId -or $actual.data.email -ne $fixtureEmail -or $actual.data.user_metadata.full_name -ne $fixtureName){throw 'Exact fixture cleanup identity guard failed'}
-            $removed=Status-Request $provider "/auth/v1/admin/users/$fixtureId" 'DELETE' $null $providerSession
+            $removed=Status-Request $provider "/auth/v1/admin/users/$fixtureId" 'DELETE' @{should_soft_delete=$false} $providerSession
             if($removed.status -notin @(200,204)){throw 'Dedicated fixture deletion failed'}
             $absent=Status-Request $provider "/auth/v1/admin/users/$fixtureId" 'GET' $null $providerSession
             $profile=Status-Request $provider "/rest/v1/profiles?id=eq.$fixtureId&select=id" 'GET' $null $providerSession
