@@ -1,0 +1,361 @@
+[
+  {
+    "evidence": [
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "auth",
+        "table": "users",
+        "type": "uuid"
+      },
+      {
+        "column": "email_confirmed_at",
+        "nullable": "YES",
+        "schema": "auth",
+        "table": "users",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "uuid"
+      },
+      {
+        "column": "actor_id",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "uuid"
+      },
+      {
+        "column": "action",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "entity_type",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "entity_id",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "uuid"
+      },
+      {
+        "column": "description",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "metadata",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "jsonb"
+      },
+      {
+        "column": "ip_address",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "user_agent",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "audit_logs",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "permissions",
+        "type": "uuid"
+      },
+      {
+        "column": "name",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "permissions",
+        "type": "text"
+      },
+      {
+        "column": "description",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "permissions",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "permissions",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "uuid"
+      },
+      {
+        "column": "full_name",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "phone",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "role_id",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "profiles",
+        "type": "uuid"
+      },
+      {
+        "column": "account_status",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "updated_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "profiles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "role_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "role_permissions",
+        "type": "uuid"
+      },
+      {
+        "column": "permission_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "role_permissions",
+        "type": "uuid"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "role_permissions",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "roles",
+        "type": "uuid"
+      },
+      {
+        "column": "name",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "roles",
+        "type": "text"
+      },
+      {
+        "column": "description",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "roles",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "roles",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "user_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "invited_by",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "approved_role_id",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "status",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "created_at",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "activated_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "activated_by",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "revoked_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "revoked_by",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "uuid"
+      },
+      {
+        "column": "password_baseline_digest",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "password_baseline_recorded_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "retry_attempt_count",
+        "nullable": "NO",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "integer"
+      },
+      {
+        "column": "last_retry_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "last_retry_method",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "text"
+      },
+      {
+        "column": "last_retry_completed_at",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "last_retry_accepted",
+        "nullable": "YES",
+        "schema": "public",
+        "table": "staff_invitations",
+        "type": "boolean"
+      }
+    ],
+    "section": "columns"
+  },
+  {
+    "evidence": [
+      {
+        "name": "get_user_role",
+        "normalized_body_md5": "be9a337bc3ce2616fa1875e54f2b8df6",
+        "security_definer": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      },
+      {
+        "name": "update_own_profile",
+        "normalized_body_md5": "8c791442033f0f366a0a7f13d1082064",
+        "security_definer": true,
+        "settings": [
+          "search_path=\"\""
+        ]
+      }
+    ],
+    "section": "dependencies"
+  },
+  {
+    "evidence": 0,
+    "section": "new_status_function_count"
+  }
+]

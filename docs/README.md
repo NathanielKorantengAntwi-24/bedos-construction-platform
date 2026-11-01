@@ -15,4 +15,5 @@ Next: Module 2 Users, Staff and RBAC audit and reconciliation of existing comple
 - MODULE_2_AUDIT.md: current Module 2 scope, source/production audit, evidence, gaps and proposed implementation step.
 - MODULE_2_WORKFLOW_FIX.md: deployed staff workflow correction, production verification and local-only detailed evidence policy.
 - MODULE_2_ADMINISTRATION_PROPOSAL.md: approved administration API contracts and staged scope.
-- MODULE_2_USER_READS.md: current locally verified list/detail implementation, changed files, evidence and pending release checkpoint.
+- MODULE_2_USER_READS.md: completed list/detail step, changed files and verified production acceptance evidence.
+- MODULE_2_ACCOUNT_STATUS.md: locally verified suspension/restoration implementation, same-session and concurrency coverage, and pending production release checkpoint.

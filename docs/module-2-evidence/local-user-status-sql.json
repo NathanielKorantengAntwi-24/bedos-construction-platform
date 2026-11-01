@@ -1,0 +1,6 @@
+{
+  "date": "2026-11-01T01:47:05.823Z",
+  "scope": "Isolated local lab only; function, synthetic audit trigger and fixtures rolled back",
+  "assertions": 45,
+  "status": "passed"
+}

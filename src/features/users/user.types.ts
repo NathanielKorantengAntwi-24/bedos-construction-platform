@@ -29,3 +29,13 @@ export type UserDetail = ManagedUser & {
   } | null;
 };
 export type UserListResult = { users: ManagedUser[]; page: number; limit: number; total: number };
+
+export type UpdateUserStatusInput = {
+  account_status: "active" | "suspended";
+  expected_account_status: AccountStatus;
+  reason: string;
+};
+export type UpdateUserStatusResult = {
+  user_id: string;
+  account_status: "active" | "suspended";
+};

@@ -1,0 +1,5 @@
+BEGIN TRANSACTION READ ONLY;
+SELECT 'columns' AS section,jsonb_agg(jsonb_build_object('schema',table_schema,'table',table_name,'column',column_name,'type',data_type,'nullable',is_nullable) ORDER BY table_schema,table_name,ordinal_position) AS evidence FROM information_schema.columns WHERE (table_schema='public' AND table_name IN ('profiles','roles','permissions','role_permissions','staff_invitations','audit_logs')) OR (table_schema='auth' AND table_name='users' AND column_name IN ('id','email_confirmed_at'))
+UNION ALL SELECT 'dependencies',jsonb_agg(jsonb_build_object('name',p.proname,'security_definer',p.prosecdef,'settings',p.proconfig,'normalized_body_md5',md5(regexp_replace(p.prosrc,'\s+','','g')))) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname IN ('get_user_role','update_own_profile')
+UNION ALL SELECT 'new_status_function_count',to_jsonb(count(*)) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname='bedos_update_user_status';
+COMMIT;

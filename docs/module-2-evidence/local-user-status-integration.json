@@ -1,0 +1,154 @@
+{
+  "date": "2026-11-01T01:50:35.845Z",
+  "scope": "Guarded local lab only; temporary Module 1 dependencies and status function; actual Auth/RLS and competing actor requests; no credential or fixture identifiers recorded",
+  "results": [
+    {
+      "name": "new local function absent before test",
+      "pass": true
+    },
+    {
+      "name": "local RPC schema ready with actor denial",
+      "pass": true
+    },
+    {
+      "name": "actor exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "actor role exists",
+      "pass": true
+    },
+    {
+      "name": "actor local profile configured",
+      "pass": true
+    },
+    {
+      "name": "second-actor exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "second-actor role exists",
+      "pass": true
+    },
+    {
+      "name": "second-actor local profile configured",
+      "pass": true
+    },
+    {
+      "name": "customer exact fixture created",
+      "pass": true
+    },
+    {
+      "name": "customer role exists",
+      "pass": true
+    },
+    {
+      "name": "customer local profile configured",
+      "pass": true
+    },
+    {
+      "name": "dedicated local service fixture created",
+      "pass": true
+    },
+    {
+      "name": "real customer Auth login",
+      "pass": true
+    },
+    {
+      "name": "active existing session role granted",
+      "pass": true
+    },
+    {
+      "name": "active existing session RLS access",
+      "pass": true
+    },
+    {
+      "name": "customer cannot forge administrator actor",
+      "pass": true
+    },
+    {
+      "name": "administrator suspends customer",
+      "pass": true
+    },
+    {
+      "name": "same access token retained after suspension",
+      "pass": true
+    },
+    {
+      "name": "provider session validity alone does not grant app access",
+      "pass": true
+    },
+    {
+      "name": "same real session role removed",
+      "pass": true
+    },
+    {
+      "name": "same real session RLS access removed",
+      "pass": true
+    },
+    {
+      "name": "same real session legacy profile update denied",
+      "pass": true
+    },
+    {
+      "name": "administrator restores customer",
+      "pass": true
+    },
+    {
+      "name": "same real session role restored",
+      "pass": true
+    },
+    {
+      "name": "same real session RLS access restored",
+      "pass": true
+    },
+    {
+      "name": "two prior transitions audited",
+      "pass": true
+    },
+    {
+      "name": "competing actors produce exactly one winner",
+      "pass": true
+    },
+    {
+      "name": "concurrent loser creates no duplicate audit",
+      "pass": true
+    },
+    {
+      "name": "audit actor and reason match authorized requests",
+      "pass": true
+    },
+    {
+      "name": "local customer session signed out",
+      "pass": true
+    },
+    {
+      "name": "exact local service removed",
+      "pass": true
+    },
+    {
+      "name": "administrator exact fixture removed",
+      "pass": true
+    },
+    {
+      "name": "administrator exact fixture removed",
+      "pass": true
+    },
+    {
+      "name": "customer exact fixture removed",
+      "pass": true
+    },
+    {
+      "name": "no local status integration identities remain",
+      "pass": true
+    },
+    {
+      "name": "original dependency definitions and ACLs restored",
+      "pass": true
+    },
+    {
+      "name": "new local function removed",
+      "pass": true
+    }
+  ]
+}
