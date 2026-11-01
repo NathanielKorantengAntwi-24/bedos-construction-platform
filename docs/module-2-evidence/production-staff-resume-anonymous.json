@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-01T03:25:32.608Z",
+  "scope": "Anonymous denied requests only; no accounts sessions mail or records changed",
+  "results": [
+    {
+      "name": "Anonymous setup resume denied",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "name": "Anonymous setup resume denied is not cacheable",
+      "pass": true
+    },
+    {
+      "name": "Resume permission precedes invalid target and JSON",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "name": "Resume permission precedes invalid target and JSON is not cacheable",
+      "pass": true
+    },
+    {
+      "name": "Legacy retry still rejects anonymous caller",
+      "status": 401,
+      "pass": true
+    }
+  ]
+}

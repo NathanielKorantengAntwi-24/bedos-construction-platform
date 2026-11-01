@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-01T03:17:54.4667204Z",
+  "commit": "ee5768f",
+  "migration": "20261101020000_add_trusted_staff_setup_resume.sql",
+  "migration_rows": 1,
+  "source_body_match": true,
+  "security_definer": true,
+  "empty_search_path": true,
+  "anon_execute": false,
+  "authenticated_execute": false,
+  "service_role_execute": true,
+  "legacy_invitation_dependencies_unchanged": true,
+  "audit_grants_unchanged": true,
+  "rollback_database_assertions": 60,
+  "remaining_test_users": 0,
+  "remaining_test_triggers": 0,
+  "deployment": "Vercel success",
+  "administrator_email_verification": "pending private user-run script",
+  "verification_script": {
+    "shared_service_probe": 404,
+    "windows_powershell_syntax": "passed"
+  }
+}

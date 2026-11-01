@@ -1,6 +1,6 @@
 # Module 2 remaining invitation recovery and audit scope
 
-1 November 2026. Status: user approved the recovery contract/local implementation; locally verified with production release pending. Audit-grant changes remain a separate unimplemented subsequent step. Earlier list/detail, status and ordinary staff role steps remain complete. Module 2 remains open; Module 3 deferred.
+1 November 2026. Status: user approved recovery implementation and release; deployed with production SQL checks passed and private administrator/email acceptance pending. Audit-grant changes remain a separate unimplemented subsequent step. Earlier list/detail, status and ordinary staff role steps remain complete. Module 2 remains open; Module 3 deferred.
 
 ## Module objective
 

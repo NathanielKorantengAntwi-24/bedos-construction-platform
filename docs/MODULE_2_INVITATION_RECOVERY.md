@@ -1,6 +1,6 @@
 # Module 2 partial staff invitation recovery
 
-1 November 2026. Status: approved recovery contract implemented and verified locally. Not committed, pushed, migrated or deployed. Audit-grant changes are not included. Overall Module 2 remains open.
+1 November 2026. Status: approved recovery patch ee5768f deployed; production SQL and anonymous/compatibility checks passed. Private administrator/email workflow acceptance pending. Audit-grant changes are not included. Overall Module 2 remains open.
 
 ## Module objective
 
@@ -59,10 +59,28 @@ npm run build
 - [x] Approved local contract implemented with protected provenance and atomic setup.
 - [x] Unit, actual SQL, provider/mail/failure/race and compatibility checks passed.
 - [x] Build/TypeScript, focused lint and independent local cleanup passed.
-- [ ] Separate approval for exact-file commit/push, additive production migration and deployment.
+- [x] Separate approval for exact-file commit/push, additive production migration and deployment.
 - [ ] Production SQL and dedicated administrator HTTP/email verification with private credentials and local-only account identifiers.
 
-Local acceptance is complete; production acceptance is not claimed. Before release, confirm only the new setup migration is pending and apply it before deploying its initial-invite caller. Do not alter applied invitation functions or audit grants. The dormant new function is compatible with old application code; old in-flight/legacy setup failures remain subject to the runbook below rather than receiving invented provenance.
+Local acceptance and partial production verification are complete. User approved release; the dry run contained only 20261101020000_add_trusted_staff_setup_resume.sql. Applied once before application push; Vercel reported successful deployment of ee5768f. Existing invitation functions and audit grants were independently verified unchanged. Administrator/email acceptance remains pending, and old in-flight/legacy setup failures remain subject to the runbook below rather than receiving invented provenance.
+
+## Production release verification
+
+- All 60 actual SQL assertions passed inside a rollback-only production transaction with synthetic fixtures and profile/audit failure triggers. Independent source, SECURITY DEFINER/empty-path, service-only EXECUTE, one-migration and zero-fixture/trigger checks passed. Six legacy invitation function bodies and audit-table grants matched their pre-release snapshot.
+- Five anonymous/compatibility assertions passed: valid and malformed resume requests returned 401 before validation and no-store responses; existing retry still returned 401 for an anonymous caller. No account or mail change from those HTTP probes.
+- Sanitized evidence: production-staff-resume-release.json and production-staff-resume-anonymous.json. Metadata reproduction: verify-staff-resume-release.sql.
+- Remaining private workflow: scripts/Test-ProductionStaffResume.ps1 prompts for the existing registered administrator Gmail/password privately. Its shared transport and script syntax were verified in Windows PowerShell using only a read-only nonexistent-user probe. Exact fixture details are recorded solely in Git-ignored private-staff-resume-fixtures.json; an unfinished journal blocks a fresh run.
+- Two fixtures: the actual initial invitation API verifies production creation of server-owned proof, then that invitation is revoked. Ignore its email. A second service-created fixture models a NEW backend-proven Auth account whose profile/approval stage did not finish. This fixture setup is not a claim of persistent production failure injection. The deployed resume API must repair its inactive default profile/approval and send the controlled-inbox invitation. Real SQL failure injection was tested only inside rollback transactions.
+- The user opens ONLY the printed recovery alias email in Chrome, reaches password setup WITHOUT setting it, and returns to the script. The script verifies exact email confirmation and activation denial before password change. The user then sets a new staff test password privately and follows the activation/login prompt. It verifies caller-selected role denial, cooldown, bound inactive role, normal staff denial, post-activation resume rejection and audit creator/request/proof/reason consistency.
+- Both fixture Auth identities, profiles and invitation rows are deleted only after exact identity guards; audit history retained. All published results contain check names/statuses only. Unknown creation/deletion outcomes retain the private journal for controlled review. Never delete/reassign an unrelated user or stamp an existing ambiguous account to make the test pass.
+
+Run from the project folder:
+
+```powershell
+powershell.exe -NoProfile -File .\scripts\Test-ProductionStaffResume.ps1
+```
+
+Keep PowerShell open and follow its Chrome email/password prompts. Do not set the staff password until asked. Share PASS/STOPPED lines and logout statuses only. If cleanup stops, do not rerun or publish the private journal; retain it for exact-identity review.
 
 ## Remaining risks or issues and operator runbook
 

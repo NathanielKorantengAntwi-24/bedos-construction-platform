@@ -51,3 +51,4 @@ next-env.d.ts
 /scripts/Compare-AdministratorLogin.ps1
 /docs/module-2-evidence/private-user-status-fixture.json
 /docs/module-2-evidence/private-user-role-fixture.json
+/docs/module-2-evidence/private-staff-resume-fixtures.json
