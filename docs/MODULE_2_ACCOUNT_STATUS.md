@@ -1,6 +1,6 @@
 # Module 2 account suspension and restoration
 
-1 November 2026. Status: approved status patch 736875a deployed; production database assertions and anonymous denial checks passed. Administrator/customer HTTP workflow verification pending private user-run test. Overall Module 2 remains open.
+1 November 2026. Status: suspension/restoration step COMPLETE for agreed scope. Approved patch 736875a deployed; production SQL, anonymous and administrator/customer HTTP acceptance passed. Overall Module 2 remains open.
 
 ## Module objective
 
@@ -60,9 +60,9 @@ npm run build
 - [x] Audit rollback and local cleanup/restoration independently verified.
 - [x] Build/TypeScript and focused lint passed.
 - [x] Separate approval for exact-file commit/push, new production migration and deployment.
-- [ ] Production administrator-success and ordinary/anonymous denial verification with dedicated fixtures and sanitized evidence.
+- [x] Production administrator-success and ordinary/anonymous denial verification with dedicated fixtures and sanitized evidence.
 
-Local acceptance and partial production verification are complete. The approved dry run contained only 20261101000000_add_admin_account_status.sql; applied once before application push. No Module 1 helper change was applied to production. Vercel reported successful deployment of 736875a. Production HTTP acceptance still requires the private administrator run below.
+Local and production acceptance of this status step are complete. The approved dry run contained only 20261101000000_add_admin_account_status.sql; applied once before application push. No Module 1 helper change was applied to production. Vercel reported successful deployment of 736875a. The private administrator/customer run below passed; historical instructions are retained for reproducibility.
 
 ## Production release verification
 
@@ -84,14 +84,20 @@ No email-link action is required. Share PASS/STOPPED lines and logout statuses o
 
 ## Remaining risks or issues
 
-The real Auth integration exercises local provider, RPC and RLS behavior; it does not claim deployed Next.js status-route end-to-end coverage. Suspension blocks subsequent application permission checks and status-aware database policies; it does not invalidate every provider token, revoke ownership-only policies or cancel requests already in progress. Future permission/role-changing operations must preserve the documented lock order. Existing audit-table least-privilege review and partial invitation recovery remain Module 2 work.
+The local Auth integration exercises provider/RPC/RLS behavior; the completed private production script additionally verifies the deployed customer status-route workflow. Production staff status transitions are verified at the SQL layer, not through a separate staff HTTP script. Suspension blocks subsequent application permission checks and status-aware database policies; it does not invalidate every provider token, revoke ownership-only policies or cancel requests already in progress. Future permission/role-changing operations must preserve the documented lock order. Existing audit-table least-privilege review and partial invitation recovery remain Module 2 work.
 
 ## Next module
 
-Finish this status step's approved release/production checkpoint before beginning ordinary staff role changes. Overall Module 2 remains open; Module 3 stays deferred.
+Status release/production checkpoint is satisfied. Next is ordinary staff role changes under the approved design and separately agreed implementation scope. Overall Module 2 remains open; Module 3 stays deferred.
 
 ## Fixture test-client correction, 1 November 2026
 
 User-run administrator login/role verification passed, but the privileged fixture creation request returned 401. Read-only probes using the same local credential returned 404 for a deliberately absent identity from Node, 401 from the original PowerShell helper and 404 after assigning an explicit backend-only User-Agent. Supabase secret keys reject browser-like User-Agent headers; provider documentation: https://github.com/supabase/supabase/blob/master/apps/docs/content/guides/getting-started/api-keys.mdx. This was a verification-client issue; no credential rotation, provider policy change or application permission change was needed.
 
 The helper now identifies provider requests as BedosBackendVerification/1.0 and tests service authentication with an absent-user GET before fixture creation. The actual helper passed that read-only probe in Windows PowerShell 5. Exact planned fixture lookup independently returned zero users; no account cleanup was needed. Its Git-ignored manifest is marked absent_verified, allowing a safe rerun. That state is accepted alongside deleted; other incomplete states still block reruns. Evidence: production-status-fixture-auth-fix.json. Production administrator/customer status workflow remains pending; do not mark the status step complete until its real test passes.
+
+## Final production acceptance, 1 November 2026
+
+User-run completion at 02:10:12 UTC: 24 saved assertions passed (21 workflow/setup/audit assertions, two HTTP-200 logouts and exact-fixture cleanup). Administrator suspension/restoration, ordinary/anonymous denial, existing-session restrictions/restoration, protected profile writes, safe output, stale/invalid/missing-target errors and exact audit actor/state/reasons passed. This supersedes the earlier fixture-client failure and pending-workflow notes.
+
+Independent production SQL verified zero Auth/profile rows for the exact private fixture identity, two retained status audit rows, one actor and both correct customer-role transitions/reasons. Detailed identity stays Git-ignored. Sanitized evidence: production-user-status-admin.json and production-user-status-completion.json. No production fixture or account change remains from this test; audit history retained. List/detail and suspension/restoration steps are complete. Overall Module 2 remains OPEN for staff role changes, partial invitation setup recovery and audit least-privilege review; Module 3 deferred.

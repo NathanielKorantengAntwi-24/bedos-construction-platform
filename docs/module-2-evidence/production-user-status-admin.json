@@ -1,0 +1,104 @@
+﻿{
+    "date":  "2026-11-01T02:10:12.5601011Z",
+    "scope":  "Production administrator status workflow on one disposable customer; confirmation is setup only; no account identifiers or credentials in this report; audit history retained",
+    "results":  [
+                    {
+                        "name":  "Administrator login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Active administrator session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Backend fixture service authentication verified before creation",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated disposable customer created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact active customer fixture verified",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated customer login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous status mutation denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Ordinary customer status mutation denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator suspends dedicated customer",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Status response contains only approved fields",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Stale suspension request rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing customer session blocked while suspended",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Suspended profile change denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator restores confirmed customer",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing customer session works after restoration",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Stale restoration request rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Unsupported requested status rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Blank audit reason rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Missing target returns 404",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exactly two status transitions audited",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Audit actor before after and reasons verified",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Customer logout",
+                        "pass":  true,
+                        "http_status":  200
+                    },
+                    {
+                        "name":  "Administrator logout",
+                        "pass":  true,
+                        "http_status":  200
+                    },
+                    {
+                        "name":  "Exact disposable Auth account and profile removed",
+                        "pass":  true
+                    }
+                ]
+}

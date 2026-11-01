@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-01T02:11:05.0304750Z",
+  "scope": "Independent exact-fixture production database verification; no identifiers retained",
+  "user_run_assertions": 24,
+  "user_run_passed": 24,
+  "remaining_auth_users": 0,
+  "remaining_profiles": 0,
+  "retained_status_audits": 2,
+  "distinct_authorized_actors": 1,
+  "valid_transition_audits": 2,
+  "private_manifest_state": "deleted",
+  "production_step_status": "complete for agreed suspension/restoration scope",
+  "overall_module2_status": "open"
+}
