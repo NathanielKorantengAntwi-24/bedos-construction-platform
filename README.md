@@ -1,6 +1,6 @@
 # Backend development status
 
-Modules 1, 2 and 3 are complete for their agreed backend scope. Module 2 closure and limitations: [completion report](docs/MODULE_2_COMPLETION_REPORT.md). Current project map and chronological register: [engineering baseline](docs/PROJECT_BASELINE.md). Module 3 production acceptance and cleanup are verified; [completion report](docs/MODULE_3_COMPLETION_REPORT.md). Next: Module 4 Properties Management analysis. Frontend feature development remains deferred.
+Modules 1, 2 and 3 are complete for their agreed backend scope. Module 2 closure and limitations: [completion report](docs/MODULE_2_COMPLETION_REPORT.md). Current project map and chronological register: [engineering baseline](docs/PROJECT_BASELINE.md). Module 3 production acceptance and cleanup are verified; [completion report](docs/MODULE_3_COMPLETION_REPORT.md). Module 4 property management is implemented and locally verified; production release and acceptance are pending. See [implementation and release checklist](docs/MODULE_4_IMPLEMENTATION.md). Frontend feature development remains deferred.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

@@ -37,6 +37,13 @@ export type PropertyListFilters = {
   city?: string;
   region?: string;
   featured?: boolean;
+  status?: PropertyStatus;
+  min_price?: number;
+  max_price?: number;
+  min_bedrooms?: number;
+  max_bedrooms?: number;
+  min_bathrooms?: number;
+  max_bathrooms?: number;
   page?: number;
   limit?: number;
 };
@@ -76,6 +83,5 @@ export type UpdatePropertyInput = {
   bathrooms?: number | null;
   floor_area?: number | null;
   land_area?: number | null;
-  status?: PropertyStatus;
   featured?: boolean;
 };

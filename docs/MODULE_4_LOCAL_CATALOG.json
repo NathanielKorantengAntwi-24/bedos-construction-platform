@@ -1,0 +1,423 @@
+{
+  "date": "2026-11-01",
+  "scope": "Local Docker metadata and aggregate compatibility only; not current production evidence",
+  "table": {
+    "owner": "postgres",
+    "rls": true
+  },
+  "columns": [
+    {
+      "column": "id",
+      "type": "uuid",
+      "udt": "uuid",
+      "nullable": "NO",
+      "default": "gen_random_uuid()",
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "title",
+      "type": "text",
+      "udt": "text",
+      "nullable": "NO",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "slug",
+      "type": "text",
+      "udt": "text",
+      "nullable": "NO",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "description",
+      "type": "text",
+      "udt": "text",
+      "nullable": "YES",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "property_type",
+      "type": "text",
+      "udt": "text",
+      "nullable": "NO",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "listing_type",
+      "type": "text",
+      "udt": "text",
+      "nullable": "NO",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "price",
+      "type": "numeric",
+      "udt": "numeric",
+      "nullable": "YES",
+      "default": null,
+      "precision": 14,
+      "scale": 2
+    },
+    {
+      "column": "currency",
+      "type": "text",
+      "udt": "text",
+      "nullable": "NO",
+      "default": "'GHS'::text",
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "location",
+      "type": "text",
+      "udt": "text",
+      "nullable": "YES",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "address",
+      "type": "text",
+      "udt": "text",
+      "nullable": "YES",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "city",
+      "type": "text",
+      "udt": "text",
+      "nullable": "YES",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "region",
+      "type": "text",
+      "udt": "text",
+      "nullable": "YES",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "bedrooms",
+      "type": "integer",
+      "udt": "int4",
+      "nullable": "YES",
+      "default": null,
+      "precision": 32,
+      "scale": 0
+    },
+    {
+      "column": "bathrooms",
+      "type": "integer",
+      "udt": "int4",
+      "nullable": "YES",
+      "default": null,
+      "precision": 32,
+      "scale": 0
+    },
+    {
+      "column": "floor_area",
+      "type": "numeric",
+      "udt": "numeric",
+      "nullable": "YES",
+      "default": null,
+      "precision": 12,
+      "scale": 2
+    },
+    {
+      "column": "land_area",
+      "type": "numeric",
+      "udt": "numeric",
+      "nullable": "YES",
+      "default": null,
+      "precision": 12,
+      "scale": 2
+    },
+    {
+      "column": "status",
+      "type": "text",
+      "udt": "text",
+      "nullable": "NO",
+      "default": "'draft'::text",
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "featured",
+      "type": "boolean",
+      "udt": "bool",
+      "nullable": "NO",
+      "default": "false",
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "created_by",
+      "type": "uuid",
+      "udt": "uuid",
+      "nullable": "YES",
+      "default": null,
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "created_at",
+      "type": "timestamp with time zone",
+      "udt": "timestamptz",
+      "nullable": "NO",
+      "default": "now()",
+      "precision": null,
+      "scale": null
+    },
+    {
+      "column": "updated_at",
+      "type": "timestamp with time zone",
+      "udt": "timestamptz",
+      "nullable": "NO",
+      "default": "now()",
+      "precision": null,
+      "scale": null
+    }
+  ],
+  "constraints": [
+    {
+      "table": "enquiries",
+      "name": "enquiries_property_id_fkey",
+      "definition": "FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE SET NULL"
+    },
+    {
+      "table": "properties",
+      "name": "properties_created_by_fkey",
+      "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)"
+    },
+    {
+      "table": "properties",
+      "name": "properties_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table": "properties",
+      "name": "properties_slug_key",
+      "definition": "UNIQUE (slug)"
+    },
+    {
+      "table": "properties",
+      "name": "properties_status_check",
+      "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'published'::text, 'sold'::text, 'rented'::text, 'archived'::text])))"
+    },
+    {
+      "table": "property_amenities",
+      "name": "property_amenities_property_id_fkey",
+      "definition": "FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE"
+    },
+    {
+      "table": "property_features",
+      "name": "property_features_property_id_fkey",
+      "definition": "FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE"
+    },
+    {
+      "table": "property_floor_plans",
+      "name": "property_floor_plans_property_id_fkey",
+      "definition": "FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE"
+    },
+    {
+      "table": "property_images",
+      "name": "property_images_property_id_fkey",
+      "definition": "FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE"
+    },
+    {
+      "table": "viewing_requests",
+      "name": "viewing_requests_property_id_fkey",
+      "definition": "FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE RESTRICT"
+    }
+  ],
+  "policies": [
+    {
+      "name": "Administrators can delete properties",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "using": "(get_user_role() = 'administrator'::text)",
+      "check": null
+    },
+    {
+      "name": "Property managers can create properties",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "using": null,
+      "check": "(get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text]))"
+    },
+    {
+      "name": "Property managers can update properties",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "using": "(get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text]))",
+      "check": "(get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text]))"
+    },
+    {
+      "name": "Property managers can view all properties",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text]))",
+      "check": null
+    },
+    {
+      "name": "Published properties are publicly viewable",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(status = 'published'::text)",
+      "check": null
+    }
+  ],
+  "triggers": [
+    {
+      "table": "enquiries",
+      "name": "enquiries_set_updated_at",
+      "function": "set_updated_at",
+      "definition_md5": "12a4155590dbd0dddc0d950df94b1ab7",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c"
+    },
+    {
+      "table": "properties",
+      "name": "properties_set_updated_at",
+      "function": "set_updated_at",
+      "definition_md5": "cbf55d258f09cc39c7f46caf6c78e916",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c"
+    },
+    {
+      "table": "viewing_requests",
+      "name": "viewing_requests_set_updated_at",
+      "function": "set_updated_at",
+      "definition_md5": "9ca817b031d82268e5e283a890659f89",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c"
+    }
+  ],
+  "grants": [
+    {
+      "role": "anon",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "anon",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "anon",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "anon",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "anon",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "anon",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "anon",
+      "privilege": "UPDATE"
+    },
+    {
+      "role": "authenticated",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "authenticated",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "authenticated",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "authenticated",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "authenticated",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "authenticated",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "authenticated",
+      "privilege": "UPDATE"
+    },
+    {
+      "role": "service_role",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "service_role",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "service_role",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "service_role",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "service_role",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "service_role",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "service_role",
+      "privilege": "UPDATE"
+    }
+  ],
+  "role_permissions": null,
+  "legacy_aggregates": {
+    "rented_rows_exist": false,
+    "negative_numeric_values_exist": false,
+    "title_max": 0,
+    "slug_max": 0,
+    "description_max": 0,
+    "property_type_max": 0,
+    "listing_type_max": 0,
+    "location_max": 0,
+    "address_max": 0,
+    "city_max": 0,
+    "region_max": 0
+  },
+  "last_migration": "20261026020000"
+}

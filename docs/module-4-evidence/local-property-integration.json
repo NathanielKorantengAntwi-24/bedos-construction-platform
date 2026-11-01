@@ -1,0 +1,235 @@
+{
+  "date": "2026-11-01T18:49:26.984Z",
+  "production_helper_local_assertions": 35,
+  "scope": "Local loopback Next/Auth/PostgREST/RLS/concurrency; no hosted credentials, no production changes",
+  "results": [
+    {
+      "name": "temporary functions absent before test",
+      "pass": true
+    },
+    {
+      "name": "local property API ready",
+      "pass": true
+    },
+    {
+      "name": "admin exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "admin actual backend login",
+      "pass": true
+    },
+    {
+      "name": "content exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "content actual backend login",
+      "pass": true
+    },
+    {
+      "name": "customer exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "customer actual backend login",
+      "pass": true
+    },
+    {
+      "name": "finance exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "finance actual backend login",
+      "pass": true
+    },
+    {
+      "name": "content manager creates draft",
+      "pass": true
+    },
+    {
+      "name": "public list hides draft and no-store",
+      "pass": true
+    },
+    {
+      "name": "anonymous draft detail hidden",
+      "pass": true
+    },
+    {
+      "name": "content manager draft preview",
+      "pass": true
+    },
+    {
+      "name": "customer management denied",
+      "pass": true
+    },
+    {
+      "name": "finance management denied",
+      "pass": true
+    },
+    {
+      "name": "anonymous management denied",
+      "pass": true
+    },
+    {
+      "name": "ordinary edit cannot publish",
+      "pass": true
+    },
+    {
+      "name": "explicit publication succeeds",
+      "pass": true
+    },
+    {
+      "name": "stale lifecycle denied",
+      "pass": true
+    },
+    {
+      "name": "public detail exact projection",
+      "pass": true
+    },
+    {
+      "name": "combined literal filters",
+      "pass": true
+    },
+    {
+      "name": "strict query limit=101",
+      "pass": true
+    },
+    {
+      "name": "strict query page=1&page=2",
+      "pass": true
+    },
+    {
+      "name": "strict query status=draft",
+      "pass": true
+    },
+    {
+      "name": "strict query min_price=101&max_price=100",
+      "pass": true
+    },
+    {
+      "name": "malformed JSON safe",
+      "pass": true
+    },
+    {
+      "name": "service direct writes denied",
+      "pass": true
+    },
+    {
+      "name": "anonymous privileged RPC denied",
+      "pass": true
+    },
+    {
+      "name": "one concurrent transition wins and one is stale",
+      "pass": true
+    },
+    {
+      "name": "unpublished after transition",
+      "pass": true
+    },
+    {
+      "name": "publication restored",
+      "pass": true
+    },
+    {
+      "name": "concurrent withdrawal lock established",
+      "pass": true
+    },
+    {
+      "name": "reference waits and rejects committed withdrawal",
+      "pass": true
+    },
+    {
+      "name": "withdrawn enquiry denied by guard",
+      "pass": true
+    },
+    {
+      "name": "publication restored after guard test",
+      "pass": true
+    },
+    {
+      "name": "content manager deletion denied",
+      "pass": true
+    },
+    {
+      "name": "media protects parent deletion",
+      "pass": true
+    },
+    {
+      "name": "administrator deletes exact property",
+      "pass": true
+    },
+    {
+      "name": "exact successful mutations audited",
+      "pass": true
+    },
+    {
+      "name": "production PowerShell workflow passes against guarded local origin",
+      "pass": true
+    },
+    {
+      "name": "PowerShell workflow removes both exact property fixtures",
+      "pass": true
+    },
+    {
+      "name": "PowerShell workflow signs administrator out",
+      "pass": true
+    },
+    {
+      "name": "administrator logout",
+      "pass": true
+    },
+    {
+      "name": "content_manager logout",
+      "pass": true
+    },
+    {
+      "name": "customer logout",
+      "pass": true
+    },
+    {
+      "name": "finance logout",
+      "pass": true
+    },
+    {
+      "name": "exact Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "local property fixtures absent",
+      "pass": true
+    },
+    {
+      "name": "temporary function bodies match installed source",
+      "pass": true
+    },
+    {
+      "name": "original grants restored",
+      "pass": true
+    },
+    {
+      "name": "original helper restored",
+      "pass": true
+    },
+    {
+      "name": "original permissions restored",
+      "pass": true
+    },
+    {
+      "name": "temporary functions removed",
+      "pass": true
+    }
+  ]
+}

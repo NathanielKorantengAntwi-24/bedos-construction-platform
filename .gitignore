@@ -53,3 +53,6 @@ next-env.d.ts
 /docs/module-2-evidence/private-user-role-fixture.json
 /docs/module-2-evidence/private-staff-resume-fixtures.json
 /docs/module-3-evidence/private-catalog-fixtures.json
+
+# Module 4 production fixture identities remain local
+docs/module-4-evidence/private-property-fixtures.json

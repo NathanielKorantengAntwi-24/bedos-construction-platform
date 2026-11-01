@@ -117,6 +117,7 @@ export async function createViewingRequest(
     .single();
 
   if (error) {
+    if (error.code === "P0409") throw new ApiError("Property is no longer available for this request", 409);
     throw new ApiError(error.message, 500);
   }
 

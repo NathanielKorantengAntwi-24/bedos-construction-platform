@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-01",
+  "scope": "Read-only production SQL dashboard compared with local catalog; no record contents",
+  "matches": {
+    "table": true,
+    "columns": true,
+    "constraints": true,
+    "policies": true,
+    "triggers": true,
+    "grants": true
+  },
+  "legacy_aggregates": {
+    "rented_rows_exist": false,
+    "negative_numeric_values_exist": false,
+    "title_max": 0,
+    "slug_max": 0,
+    "description_max": 0,
+    "property_type_max": 0,
+    "listing_type_max": 0,
+    "location_max": 0,
+    "address_max": 0,
+    "city_max": 0,
+    "region_max": 0
+  },
+  "role_permissions": [
+    [
+      "administrator",
+      "properties.manage"
+    ],
+    [
+      "administrator",
+      "properties.view"
+    ],
+    [
+      "content_manager",
+      "properties.manage"
+    ],
+    [
+      "content_manager",
+      "properties.view"
+    ],
+    [
+      "customer",
+      "properties.view"
+    ],
+    [
+      "sales_customer_service",
+      "properties.view"
+    ]
+  ],
+  "last_migration": "20261101050000"
+}

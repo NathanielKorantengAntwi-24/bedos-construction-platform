@@ -156,6 +156,7 @@ export async function createEnquiry(
       .insert(enquiryData);
 
     if (error) {
+    if (error.code === "P0409") throw new ApiError("Property is no longer available for this request", 409);
       throw new ApiError(error.message, 500);
     }
 
@@ -169,6 +170,7 @@ export async function createEnquiry(
     .single();
 
   if (error) {
+      if (error.code === "P0409") throw new ApiError("Property is no longer available for this request", 409);
     throw new ApiError(error.message, 500);
   }
 

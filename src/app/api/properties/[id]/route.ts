@@ -1,124 +1,34 @@
-import { NextResponse } from "next/server";
-import {
-  deleteProperty,
-  getPropertyById,
-  updateProperty,
-} from "@/features/properties/property.service";
-import { errorResponse } from "@/server/http/api-error";
+import { deleteProperty, getPropertyById, updateProperty } from "@/features/properties/property.service";
+import { parsePropertyInput, propertyId, noPropertyQuery } from "@/features/properties/property.validation";
+import { propertyResponse, propertyError } from "@/features/properties/property.http";
 import { requirePermission } from "@/server/auth/require-permission";
-import type { UpdatePropertyInput } from "@/features/properties/property.types";
-
-type RouteContext = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-
-const VALID_STATUSES = [
-  "draft",
-  "published",
-  "reserved",
-  "sold",
-  "unavailable",
-  "archived",
-] as const;
-
-function isValidUuid(value: string) {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
-    value,
-  );
-}
-
-export async function GET(
-  _request: Request,
-  context: RouteContext,
-) {
+import { getUserContext } from "@/server/auth/get-user-context";
+import { parseJson } from "@/server/http/parse-json";
+type RouteContext = { params: Promise<{ id: string }> };
+export async function GET(request: Request, context: RouteContext) {
   try {
-    const { id } = await context.params;
-
-    if (!isValidUuid(id)) {
-      return NextResponse.json(
-        { error: "Invalid property ID" },
-        { status: 400 },
-      );
-    }
-
-    const property = await getPropertyById(id);
-
-    return NextResponse.json({
-      property,
-    });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    noPropertyQuery(request);
+    const id = propertyId((await context.params).id);
+    const actor = await getUserContext();
+    const canPreview = actor?.profile.account_status === "active" && ["administrator", "content_manager"].includes(actor.role?.name ?? "");
+    return propertyResponse({ property: await getPropertyById(id, canPreview ? actor!.user.id : null) });
+  } catch (error) { return propertyError(error); }
 }
-
-export async function PATCH(
-  request: Request,
-  context: RouteContext,
-) {
+export async function PATCH(request: Request, context: RouteContext) {
   try {
-    await requirePermission("properties.manage");
-
-    const { id } = await context.params;
-
-    if (!isValidUuid(id)) {
-      return NextResponse.json(
-        { error: "Invalid property ID" },
-        { status: 400 },
-      );
-    }
-
-    const body = (await request.json()) as UpdatePropertyInput;
-
-    if (
-      body.status !== undefined &&
-      !VALID_STATUSES.includes(body.status)
-    ) {
-      return NextResponse.json(
-        {
-          error: "Invalid property status",
-        },
-        { status: 400 },
-      );
-    }
-
-    const property = await updateProperty(id, body);
-
-    return NextResponse.json({
-      property,
-      message: "Property updated successfully",
-    });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("properties.manage");
+    noPropertyQuery(request);
+    const id = propertyId((await context.params).id);
+    const property = await updateProperty(id, parsePropertyInput(await parseJson<unknown>(request), false), actor.user.id);
+    return propertyResponse({ property, message: "Property updated successfully" });
+  } catch (error) { return propertyError(error); }
 }
-
-export async function DELETE(
-  _request: Request,
-  context: RouteContext,
-) {
+export async function DELETE(request: Request, context: RouteContext) {
   try {
-    await requirePermission("properties.manage");
-
-    const { id } = await context.params;
-
-    if (!isValidUuid(id)) {
-      return NextResponse.json(
-        { error: "Invalid property ID" },
-        { status: 400 },
-      );
-    }
-
-    const property = await getPropertyById(id);
-
-    await deleteProperty(id);
-
-    return NextResponse.json({
-      property_id: property.id,
-      message: "Property deleted successfully",
-    });
-  } catch (error) {
-    return errorResponse(error);
-  }
+    const actor = await requirePermission("properties.manage");
+    noPropertyQuery(request);
+    const id = propertyId((await context.params).id);
+    await deleteProperty(id, actor.user.id);
+    return propertyResponse({ property_id: id, message: "Property deleted successfully" });
+  } catch (error) { return propertyError(error); }
 }

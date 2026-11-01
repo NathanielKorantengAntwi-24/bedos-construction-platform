@@ -1,0 +1,7 @@
+{
+  "date": "2026-11-01T18:49:32.982Z",
+  "scope": "Guarded local database; migration, fixtures and permissions rolled back",
+  "assertions": 114,
+  "phase_one_preserves_grants": true,
+  "status": "passed"
+}

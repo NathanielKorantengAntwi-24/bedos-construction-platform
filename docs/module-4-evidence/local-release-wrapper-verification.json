@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-01T18:53:58.544Z",
+  "scope": "Generated release wrappers and migration history tracking validated inside one local rollback transaction; no production calls",
+  "function_source_acl_owner_path_mismatches": 0,
+  "guarded_functions": 5,
+  "temporary_migration_rows": 2,
+  "production_safe_rollback_assertions": 114,
+  "original_state_restored": true,
+  "status": "passed"
+}

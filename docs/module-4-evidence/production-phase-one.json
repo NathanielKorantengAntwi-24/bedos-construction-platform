@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-01T19:11:28.952Z",
+  "scope": "Approved production phase one; read-only catalog preflight followed by guarded migration and metadata verification",
+  "preflight": {
+    "schema_policy_trigger_grants_match": true,
+    "legacy_rented_rows": false,
+    "property_function_collisions": 0,
+    "explicit_column_acls": 0,
+    "guard_name_collisions": 0,
+    "previous_migration": "20261101050000"
+  },
+  "migration": "20261101060000",
+  "function_count": 5,
+  "function_source_owner_path_acl_mismatches": 0,
+  "correct_status_constraint": true,
+  "enabled_reference_guards": 2,
+  "existing_table_write_privileges": 18,
+  "existing_column_write_privileges": 9,
+  "rls_enabled": true,
+  "synthetic_auth_fixtures": 0,
+  "synthetic_failure_triggers": 0,
+  "application_deployment": "pending",
+  "phase_two": "pending"
+}
