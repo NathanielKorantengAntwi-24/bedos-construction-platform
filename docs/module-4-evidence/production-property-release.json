@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-01T19:26:00.188Z",
+  "scope": "Approved Module 4 production release; rollback-only verification and independent post-release metadata/dependency comparison; no real administrator credentials used",
+  "application_commit": "1c888f0e795bc38e08185c88b184f39f7e6f5c49",
+  "deployment_environment": "Production",
+  "deployment_status": "success",
+  "deployment_url": "https://bedos-construction-platform-ntluxwugv.vercel.app",
+  "migrations": [
+    "20261101060000",
+    "20261101070000"
+  ],
+  "production_rollback_assertions": 114,
+  "fixture_transaction": "rolled_back",
+  "function_count": 5,
+  "function_source_owner_path_acl_mismatches": 0,
+  "effective_table_write_privileges": 0,
+  "effective_column_write_privileges": 0,
+  "correct_status_constraint": true,
+  "enabled_reference_guards": 2,
+  "rls_enabled": true,
+  "synthetic_auth_fixtures_remaining": 0,
+  "synthetic_failure_triggers_remaining": 0,
+  "post_release_dependencies": {
+    "table": true,
+    "columns": true,
+    "constraints": true,
+    "policies": true,
+    "original_related_triggers": true,
+    "select_only_application_grants": true,
+    "role_permissions_unchanged": true,
+    "legacy_aggregates_unchanged": true,
+    "last_migration": "20261101070000"
+  },
+  "public_anonymous_checks_before_restriction": 13,
+  "public_anonymous_checks_after_restriction": 13,
+  "administrator_http_acceptance": "pending_private_user_execution",
+  "module_status": "open"
+}

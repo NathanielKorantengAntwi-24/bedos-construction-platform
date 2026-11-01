@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-01T18:53:58.544Z",
+  "date": "2026-11-01T19:17:08.948Z",
   "scope": "Generated release wrappers and migration history tracking validated inside one local rollback transaction; no production calls",
   "function_source_acl_owner_path_mismatches": 0,
   "guarded_functions": 5,

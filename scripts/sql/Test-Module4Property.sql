@@ -33,10 +33,10 @@ BEGIN
     PERFORM pg_temp.check_property(role_name||' read ACL',has_function_privilege(role_name,'public.bedos_read_properties(uuid,uuid,jsonb)','EXECUTE')=(role_name='service_role'));
     PERFORM pg_temp.check_property(role_name||' validator private',NOT has_function_privilege(role_name,'public.bedos_validate_property_input(jsonb,boolean)','EXECUTE'));
   END LOOP;
-  input:=jsonb_build_object('title','Test %,(literal)','slug','property-'||actor,'property_type','house','listing_type','sale','price',250.25,'bedrooms',2,'bathrooms',1,'city','Accra');
+  input:=jsonb_build_object('title','Test %,(literal) '||actor,'slug','property-'||actor,'property_type','house','listing_type','sale','price',250.25,'bedrooms',2,'bathrooms',1,'city','Accra');
   v:=public.bedos_mutate_property(actor,'create',NULL,input);record_id:=(v->>'id')::uuid;
   PERFORM pg_temp.check_property('create draft default and actor',v->>'status'='draft' AND v->>'currency'='GHS' AND v->>'created_by'=actor::text AND v->>'price'='250.25');
-  PERFORM pg_temp.check_property('public draft invisible',public.bedos_read_properties(NULL,NULL,'{}')->'pagination'->>'total'='0');
+  PERFORM pg_temp.check_property('public draft invisible',public.bedos_read_properties(NULL,NULL,jsonb_build_object('search',actor::text))->'pagination'->>'total'='0');
   PERFORM pg_temp.check_property('content preview draft',public.bedos_read_properties(staff,record_id,'{}')->>'id'=record_id::text);
   PERFORM pg_temp.property_error('anonymous draft detail',format('SELECT public.bedos_read_properties(NULL,%L,''{}'')',record_id),'P0002');
   PERFORM pg_temp.property_error('customer preview denied',format('SELECT public.bedos_read_properties(%L,NULL,''{}'')',customer),'42501');
@@ -69,10 +69,10 @@ BEGIN
   PERFORM pg_temp.property_error('blank reason denied',format('SELECT public.bedos_mutate_property(%L,''status'',%L,''{"status":"archived","expected_status":"published","reason":" "}'')',actor,record_id),'22023');
   v:=public.bedos_read_properties(NULL,record_id,'{}');
   PERFORM pg_temp.check_property('public exact field count and private actor omitted',(SELECT count(*) FROM jsonb_object_keys(v))=20 AND NOT v ? 'created_by');
-  v:=public.bedos_read_properties(NULL,NULL,'{"search":"%,(literal)","city":"Accra","property_type":"house","listing_type":"sale","featured":true,"min_price":250,"max_price":251,"min_bedrooms":2,"max_bedrooms":2,"min_bathrooms":1,"max_bathrooms":1}');
+  v:=public.bedos_read_properties(NULL,NULL,jsonb_build_object('search','%,(literal) '||actor,'city','Accra','property_type','house','listing_type','sale','featured',true,'min_price',250,'max_price',251,'min_bedrooms',2,'max_bedrooms',2,'min_bathrooms',1,'max_bathrooms',1));
   PERFORM pg_temp.check_property('combined filters exact count',v->'pagination'->>'total'='1');
-  PERFORM pg_temp.check_property('literal wildcard not broad search',public.bedos_read_properties(NULL,NULL,'{"search":"x%"}')->'pagination'->>'total'='0');
-  v:=public.bedos_read_properties(NULL,NULL,'{"page":2,"limit":1}');
+  PERFORM pg_temp.check_property('literal wildcard not broad search',public.bedos_read_properties(NULL,NULL,jsonb_build_object('search','x%'||actor))->'pagination'->>'total'='0');
+  v:=public.bedos_read_properties(NULL,NULL,jsonb_build_object('page',2,'limit',1,'search',actor::text));
   PERFORM pg_temp.check_property('empty page retains count',v->'properties'='[]'::jsonb AND v->'pagination'->>'total'='1' AND v->'pagination'->>'total_pages'='1');
   FOR i IN 1..7 LOOP
     v:=CASE i WHEN 1 THEN '{"page":0}'::jsonb WHEN 2 THEN '{"limit":101}'::jsonb WHEN 3 THEN '{"min_price":2,"max_price":1}'::jsonb WHEN 4 THEN '{"status":"draft"}'::jsonb WHEN 5 THEN '{"search":1}'::jsonb WHEN 6 THEN '{"unknown":true}'::jsonb ELSE '{"min_bedrooms":1.2}'::jsonb END;

@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-01T19:23:09.822Z",
+  "scope": "Production public/anonymous checks only; no credentials, existing record contents or mutations",
+  "results": [
+    {
+      "name": "public bounded empty property list",
+      "pass": true,
+      "http_status": 200
+    },
+    {
+      "name": "public list not cacheable",
+      "pass": true
+    },
+    {
+      "name": "missing public property",
+      "pass": true,
+      "http_status": 404
+    },
+    {
+      "name": "public cannot select draft status",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "bounded page size",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "repeated query rejected",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "inverted price range rejected",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "invalid property ID",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "management anonymous denial",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "create anonymous denial",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "edit anonymous denial",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "lifecycle anonymous denial",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "delete anonymous denial",
+      "pass": true,
+      "http_status": 401
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Module 4 — property management
 
-1 November 2026. Backend implementation and local verification complete; production release and acceptance pending. This is not a module completion report.
+1 November 2026. Backend released and production database/public verification passed; private administrator HTTP acceptance and reconciliation pending. This is not a module completion report.
 
 ## 1. Module objective
 
@@ -119,18 +119,18 @@ Run Docker integration and database scripts sequentially because they use the sa
 - [x] Local implementation and relevant verification complete.
 - [x] Sanitized evidence and release procedure prepared.
 - [x] Separate approval for commit/push, production migrations/deployment and two disposable production properties.
-- [ ] Fresh production preflight and release metadata/rollback verification.
+- [x] Fresh production preflight and release metadata/rollback verification.
 - [ ] Private administrator production HTTP workflow.
 - [ ] Independent exact-fixture cleanup and retained-audit reconciliation.
 - [ ] Final completion recorded before starting Module 5.
 
 ## 8. Remaining risks or issues and release procedure
 
-Release approved. Fresh production preflight passed; migration 20261101060000 committed and all five function sources/owners/search paths/ACLs, both enabled guard bindings and the corrected status constraint verified. Existing write grants remain intact. Application deployment, phase two and production fixture acceptance are pending. See module-4-evidence/production-phase-one.json.
+Release approved and executed: both migrations committed, compatible application deployed, direct writes restricted, production rollback assertions and independent metadata/dependency checks passed. Private administrator fixture acceptance and reconciliation remain pending. See module-4-evidence/production-property-release.json.
 
 Prepare reviewable scripts with node scripts/Prepare-Module4Release.mjs; outputs are under ignored .next/module4-release. Before applying them, refresh catalog preflight and check for unexpected function-name collisions, policy/trigger/column grants and migration-history drift. Legacy rented records require a new explicit decision if any appear. The baseline expected previous migration is 20261101050000.
 
-After separate release approval:
+Release sequence (steps 1–3 verified; steps 4–5 remain):
 
 1. Apply 01-secure_property_management.sql before deployment; verify function source/ACL/owner/path, corrected constraint and guard trigger bindings while original write grants still exist.
 2. Commit/push only reviewed Module 4 paths and deploy. Verify public GET, staff route authorization and safe error behavior. If deployment fails, do not apply phase two.
@@ -145,3 +145,9 @@ After phase two, an old direct-writing application is incompatible. Prefer a com
 Finish Module 4 production acceptance and closure. Only then start Module 5 property media. Continue backend only.
 
 Independent final local cleanup passed: zero Module 4 Auth/property fixtures, temporary functions and triggers; original property constraints restored; test port 55330 free. Evidence: module-4-evidence/local-property-cleanup.json.
+
+## Production release — 1 November 2026
+
+User authorized commit/push, staged migration/deployment and two temporary production properties. Fresh read-only preflight matched all reviewed dependencies; new function/trigger-name collisions and explicit column ACLs were zero. Phase one 20261101060000 committed and five function sources/owners/search paths/ACLs, corrected status constraint and both enabled guard bindings verified before deployment. Application commit 1c888f0 deployed successfully to Production. All 13 anonymous/public checks passed before phase two 20261101070000 committed. Production rollback-only verification passed all 114 assertions. Independent final metadata confirms zero direct table/column writes, five matching functions, both guards, RLS retained, two migration rows and zero synthetic Auth fixtures/failure triggers. Post-release columns, constraints, policies, original trigger fingerprints, intended SELECT grants, role mappings and legacy aggregates matched. All 13 public/anonymous checks passed again. Sanitized report: module-4-evidence/production-property-release.json.
+
+The rollback test now scopes list counts to its unique fixture nonce so existing listings cannot affect assertions; the adjusted wrapper passed locally and in production. No application logic changed after the deployed commit. The final required step is private scripts/Test-ProductionPropertyManagement.ps1 execution with the existing administrator credentials, followed by independent exact-fixture deletion/audit reconciliation. Module 4 remains OPEN; Module 5/frontend deferred.
