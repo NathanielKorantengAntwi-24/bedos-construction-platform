@@ -8,7 +8,7 @@ $provider='https://zjdqomckldeipigqqfqm.supabase.co'
 $privatePath=Join-Path $root 'docs/module-2-evidence/private-user-status-fixture.json'
 if(Test-Path -LiteralPath $privatePath){
     $previous=Get-Content -Raw -LiteralPath $privatePath | ConvertFrom-Json
-    if($previous.state -ne 'deleted'){throw 'Previous dedicated fixture needs controlled cleanup. Do not create another test account.'}
+    if($previous.state -notin @('deleted','absent_verified')){throw 'Previous dedicated fixture needs controlled cleanup. Do not create another test account.'}
 }
 $config=@{}
 foreach($line in Get-Content -LiteralPath (Join-Path $root '.env.local')){
@@ -37,7 +37,12 @@ function Status-Request([string]$Base,[string]$Path,[string]$Method,[object]$Pay
     try{
         if($Base -ne $origin -and $Base -ne $provider){throw 'Request origin guard failed'}
         $parameters=@{Uri="$Base$Path";Method=$Method;WebSession=$Session;UseBasicParsing=$true;TimeoutSec=30;MaximumRedirection=0;ErrorAction='Stop'}
-        if($Base -eq $provider){$parameters.Headers=$serviceHeaders}
+        if($Base -eq $provider){
+            $parameters.Headers=$serviceHeaders
+            # PowerShell's default browser-like User-Agent is rejected by modern
+            # Supabase secret keys. This is a backend-only verification client.
+            $parameters.UserAgent='BedosBackendVerification/1.0'
+        }
         if($null -ne $Payload){$json=$Payload | ConvertTo-Json -Depth 6 -Compress;$bytes=[Text.Encoding]::UTF8.GetBytes($json);$parameters.ContentType='application/json; charset=utf-8';$parameters.Body=$bytes}
         $response=Invoke-WebRequest @parameters
         $script:lastStatus=[int]$response.StatusCode
@@ -70,6 +75,9 @@ try{
     $adminLoggedIn=$true; $actorId=$r.data.user.id
     $r=Status-Request $origin '/api/auth/me' 'GET' $null $adminSession
     Assert-StatusCheck 'Active administrator session' ($r.status -eq 200 -and $r.data.user.id -eq $actorId -and $r.data.role.name -eq 'administrator' -and $r.data.profile.account_status -eq 'active')
+    $stage='service authentication preflight'
+    $r=Status-Request $provider '/auth/v1/admin/users/00000000-0000-4000-8000-000000000000' 'GET' $null $providerSession
+    Assert-StatusCheck 'Backend fixture service authentication verified before creation' ($r.status -eq 404)
     $stage='disposable fixture setup'
     # Explicit confirmation is fixture setup only, not evidence of public signup.
     Save-PrivateFixture 'creation_requested'

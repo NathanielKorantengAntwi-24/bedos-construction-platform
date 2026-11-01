@@ -89,3 +89,9 @@ The real Auth integration exercises local provider, RPC and RLS behavior; it doe
 ## Next module
 
 Finish this status step's approved release/production checkpoint before beginning ordinary staff role changes. Overall Module 2 remains open; Module 3 stays deferred.
+
+## Fixture test-client correction, 1 November 2026
+
+User-run administrator login/role verification passed, but the privileged fixture creation request returned 401. Read-only probes using the same local credential returned 404 for a deliberately absent identity from Node, 401 from the original PowerShell helper and 404 after assigning an explicit backend-only User-Agent. Supabase secret keys reject browser-like User-Agent headers; provider documentation: https://github.com/supabase/supabase/blob/master/apps/docs/content/guides/getting-started/api-keys.mdx. This was a verification-client issue; no credential rotation, provider policy change or application permission change was needed.
+
+The helper now identifies provider requests as BedosBackendVerification/1.0 and tests service authentication with an absent-user GET before fixture creation. The actual helper passed that read-only probe in Windows PowerShell 5. Exact planned fixture lookup independently returned zero users; no account cleanup was needed. Its Git-ignored manifest is marked absent_verified, allowing a safe rerun. That state is accepted alongside deleted; other incomplete states still block reruns. Evidence: production-status-fixture-auth-fix.json. Production administrator/customer status workflow remains pending; do not mark the status step complete until its real test passes.

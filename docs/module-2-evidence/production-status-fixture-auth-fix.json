@@ -1,0 +1,12 @@
+﻿{
+    "date":  "2026-11-01T02:07:42.7230298Z",
+    "scope":  "Read-only helper diagnostics and exact planned-fixture count; no account data or credentials recorded",
+    "initial_powershell_probe":  401,
+    "node_probe":  404,
+    "fixed_windows_powershell_probe":  404,
+    "windows_powershell_major":  5,
+    "prior_planned_fixture_count":  0,
+    "private_manifest_state":  "absent_verified",
+    "production_application_changes":  false,
+    "administrator_http_workflow":  "pending rerun"
+}
