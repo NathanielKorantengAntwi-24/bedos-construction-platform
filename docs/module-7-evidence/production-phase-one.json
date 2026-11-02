@@ -1,0 +1,81 @@
+{
+  "observed_at": "2026-11-02T15:39:38.547Z",
+  "phase": 1,
+  "checks": {
+    "project bucket expected phase": true,
+    "six project tables retain RLS": true,
+    "migration registry exact phase": true,
+    "no content or operation fixtures": true,
+    "original Storage policies preserved": true,
+    "original project privileges expected phase": true,
+    "private added tables have no direct table grants": true,
+    "project restrictive Storage guard expected phase": true,
+    "seven functions exact source owner paths security and ACLs": true
+  },
+  "functions": [
+    {
+      "oid": "19486",
+      "name": "bedos_project_actor",
+      "acl_matches": true,
+      "path_matches": true,
+      "owner_matches": true,
+      "source_matches": true,
+      "definer_matches": true
+    },
+    {
+      "oid": "19487",
+      "name": "bedos_project_input",
+      "acl_matches": true,
+      "path_matches": true,
+      "owner_matches": true,
+      "source_matches": true,
+      "definer_matches": true
+    },
+    {
+      "oid": "19488",
+      "name": "bedos_project_lock",
+      "acl_matches": true,
+      "path_matches": true,
+      "owner_matches": true,
+      "source_matches": true,
+      "definer_matches": true
+    },
+    {
+      "oid": "19494",
+      "name": "bedos_project_media",
+      "acl_matches": true,
+      "path_matches": true,
+      "owner_matches": true,
+      "source_matches": true,
+      "definer_matches": true
+    },
+    {
+      "oid": "19492",
+      "name": "bedos_project_mutate",
+      "acl_matches": true,
+      "path_matches": true,
+      "owner_matches": true,
+      "source_matches": true,
+      "definer_matches": true
+    },
+    {
+      "oid": "19489",
+      "name": "bedos_project_projection",
+      "acl_matches": true,
+      "path_matches": true,
+      "owner_matches": true,
+      "source_matches": true,
+      "definer_matches": true
+    },
+    {
+      "oid": "19490",
+      "name": "bedos_project_read",
+      "acl_matches": true,
+      "path_matches": true,
+      "owner_matches": true,
+      "source_matches": true,
+      "definer_matches": true
+    }
+  ],
+  "all_passed": true
+}

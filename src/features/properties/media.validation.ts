@@ -1,9 +1,8 @@
-import sharp from "sharp";
-import { createHash } from "node:crypto";
 import { ApiError } from "@/server/http/api-error";
 
 export type MediaKind = "images" | "floor_plans" | "features" | "amenities";
-export const FILE_LIMIT = 3 * 1024 * 1024;
+import { FILE_LIMIT, normalizeImage } from "@/server/media/image";
+export { FILE_LIMIT, normalizeImage };
 const BODY_LIMIT = FILE_LIMIT + 64 * 1024;
 const fields: Record<MediaKind, string[]> = {
   images: ["alt_text", "display_order", "is_primary"],
@@ -77,24 +76,4 @@ export async function mediaForm(request: Request, kind: "images" | "floor_plans"
   if (file.size > FILE_LIMIT) throw new ApiError("Image must not exceed 3 MiB.", 413);
   const bytes = Buffer.from(await file.arrayBuffer());
   return { metadata, ...(await normalizeImage(bytes, file.type)) };
-}
-export async function normalizeImage(bytes: Buffer, declaredType: string) {
-  if (!bytes.length || bytes.length > FILE_LIMIT) invalid("Invalid image size.");
-  // Reject other decoder families before invoking native parsing; magic alone is not validation.
-  const signature = bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) ? "png"
-    : bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255 ? "jpeg"
-      : bytes.length >= 12 && bytes.toString("ascii", 0, 4) === "RIFF" && bytes.toString("ascii", 8, 12) === "WEBP" ? "webp" : null;
-  if (!signature) invalid("Unsupported image format.");
-  try {
-    const decoder = sharp(bytes, { limitInputPixels: 20000000, failOn: "warning" });
-    const info = await decoder.metadata();
-    const mime: Record<string, string> = { jpeg: "image/jpeg", png: "image/png", webp: "image/webp" };
-    if (!info.format || info.format !== signature || !mime[info.format] || !info.width || !info.height || info.width > 10000 || info.height > 10000 || info.width * info.height > 20000000 || (info.pages ?? 1) !== 1 || (declaredType && declaredType !== mime[info.format])) invalid("Unsupported or disguised image.");
-    const output = await decoder.rotate().toFormat(info.format).toBuffer();
-    if (output.length > FILE_LIMIT) throw new ApiError("Normalized image exceeds 3 MiB.", 413);
-    return { bytes: output, mime: mime[info.format], sha256: createHash("sha256").update(output).digest("hex") };
-  } catch (error) {
-    if (error instanceof ApiError) throw error;
-    invalid("Malformed or unsupported image.");
-  }
 }

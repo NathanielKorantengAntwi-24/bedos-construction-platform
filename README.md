@@ -1,6 +1,6 @@
 # Backend development status
 
-Modules 1–6 are complete for their agreed backend scope. Module 6 production acceptance, exact fixture/notification cleanup and retained event/audit history are independently verified: [completion report](docs/MODULE_6_COMPLETION_REPORT.md). Current project map and chronological register: [engineering baseline](docs/PROJECT_BASELINE.md). Next: Module 7 construction project management review. Frontend feature development remains deferred.
+Modules 1–6 are complete for their agreed backend scope. Module 6 production acceptance, exact fixture/notification cleanup and retained event/audit history are independently verified: [completion report](docs/MODULE_6_COMPLETION_REPORT.md). Current project map and chronological register: [engineering baseline](docs/PROJECT_BASELINE.md). Module 7 construction project management: [approved backend implementation](docs/MODULE_7_IMPLEMENTATION.md) is locally implemented; production release and acceptance remain pending. Frontend feature development remains deferred.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

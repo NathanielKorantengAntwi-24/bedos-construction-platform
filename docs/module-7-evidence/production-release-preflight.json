@@ -1,0 +1,787 @@
+{
+  "observed_at": "2026-11-02T04:15:49.708Z",
+  "scope": "Fresh read-only production release preflight before changes",
+  "all_passed": true,
+  "sections": [
+    {
+      "section": "buckets",
+      "evidence": [
+        {
+          "id": "project-images",
+          "public": false,
+          "file_size_limit": null,
+          "allowed_mime_types": null
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "columns",
+      "evidence": [
+        {
+          "data_type": "uuid",
+          "table_name": "project_images",
+          "column_name": "id",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "data_type": "uuid",
+          "table_name": "project_images",
+          "column_name": "project_id",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "project_images",
+          "column_name": "storage_path",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "project_images",
+          "column_name": "alt_text",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "integer",
+          "table_name": "project_images",
+          "column_name": "display_order",
+          "is_nullable": "NO",
+          "column_default": "0"
+        },
+        {
+          "data_type": "boolean",
+          "table_name": "project_images",
+          "column_name": "is_primary",
+          "is_nullable": "NO",
+          "column_default": "false"
+        },
+        {
+          "data_type": "timestamp with time zone",
+          "table_name": "project_images",
+          "column_name": "created_at",
+          "is_nullable": "NO",
+          "column_default": "now()"
+        },
+        {
+          "data_type": "uuid",
+          "table_name": "project_stages",
+          "column_name": "id",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "data_type": "uuid",
+          "table_name": "project_stages",
+          "column_name": "project_id",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "project_stages",
+          "column_name": "name",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "project_stages",
+          "column_name": "description",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "integer",
+          "table_name": "project_stages",
+          "column_name": "stage_order",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "project_stages",
+          "column_name": "status",
+          "is_nullable": "NO",
+          "column_default": "'pending'::text"
+        },
+        {
+          "data_type": "date",
+          "table_name": "project_stages",
+          "column_name": "start_date",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "date",
+          "table_name": "project_stages",
+          "column_name": "completion_date",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "timestamp with time zone",
+          "table_name": "project_stages",
+          "column_name": "created_at",
+          "is_nullable": "NO",
+          "column_default": "now()"
+        },
+        {
+          "data_type": "timestamp with time zone",
+          "table_name": "project_stages",
+          "column_name": "updated_at",
+          "is_nullable": "NO",
+          "column_default": "now()"
+        },
+        {
+          "data_type": "uuid",
+          "table_name": "projects",
+          "column_name": "id",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()"
+        },
+        {
+          "data_type": "text",
+          "table_name": "projects",
+          "column_name": "title",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "projects",
+          "column_name": "slug",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "projects",
+          "column_name": "description",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "projects",
+          "column_name": "project_type",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "projects",
+          "column_name": "location",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "projects",
+          "column_name": "client_name",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "date",
+          "table_name": "projects",
+          "column_name": "start_date",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "date",
+          "table_name": "projects",
+          "column_name": "completion_date",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "text",
+          "table_name": "projects",
+          "column_name": "status",
+          "is_nullable": "NO",
+          "column_default": "'draft'::text"
+        },
+        {
+          "data_type": "boolean",
+          "table_name": "projects",
+          "column_name": "featured",
+          "is_nullable": "NO",
+          "column_default": "false"
+        },
+        {
+          "data_type": "uuid",
+          "table_name": "projects",
+          "column_name": "created_by",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "data_type": "timestamp with time zone",
+          "table_name": "projects",
+          "column_name": "created_at",
+          "is_nullable": "NO",
+          "column_default": "now()"
+        },
+        {
+          "data_type": "timestamp with time zone",
+          "table_name": "projects",
+          "column_name": "updated_at",
+          "is_nullable": "NO",
+          "column_default": "now()"
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "constraints",
+      "evidence": [
+        {
+          "conname": "project_images_pkey",
+          "relation": "project_images",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "conname": "project_images_project_id_fkey",
+          "relation": "project_images",
+          "definition": "FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE"
+        },
+        {
+          "conname": "project_stages_pkey",
+          "relation": "project_stages",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "conname": "project_stages_project_id_fkey",
+          "relation": "project_stages",
+          "definition": "FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE"
+        },
+        {
+          "conname": "project_stages_status_check",
+          "relation": "project_stages",
+          "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'in_progress'::text, 'completed'::text])))"
+        },
+        {
+          "conname": "projects_created_by_fkey",
+          "relation": "projects",
+          "definition": "FOREIGN KEY (created_by) REFERENCES profiles(id)"
+        },
+        {
+          "conname": "projects_pkey",
+          "relation": "projects",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "conname": "projects_slug_key",
+          "relation": "projects",
+          "definition": "UNIQUE (slug)"
+        },
+        {
+          "conname": "projects_status_check",
+          "relation": "projects",
+          "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'ongoing'::text, 'completed'::text, 'archived'::text])))"
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "counts",
+      "evidence": {
+        "images": 0,
+        "stages": 0,
+        "projects": 0,
+        "project_storage_objects": 0
+      },
+      "matches": true
+    },
+    {
+      "section": "grants",
+      "evidence": [
+        {
+          "grantee": "anon",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "project_images"
+        },
+        {
+          "grantee": "authenticated",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "project_images"
+        },
+        {
+          "grantee": "service_role",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "project_images"
+        },
+        {
+          "grantee": "anon",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "project_stages"
+        },
+        {
+          "grantee": "authenticated",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "project_stages"
+        },
+        {
+          "grantee": "service_role",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "project_stages"
+        },
+        {
+          "grantee": "anon",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "projects"
+        },
+        {
+          "grantee": "authenticated",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "projects"
+        },
+        {
+          "grantee": "service_role",
+          "privileges": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE",
+          "table_name": "projects"
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "indexes",
+      "evidence": [
+        {
+          "indexdef": "CREATE INDEX project_images_display_order_idx ON public.project_images USING btree (project_id, display_order)",
+          "indexname": "project_images_display_order_idx",
+          "tablename": "project_images"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX project_images_pkey ON public.project_images USING btree (id)",
+          "indexname": "project_images_pkey",
+          "tablename": "project_images"
+        },
+        {
+          "indexdef": "CREATE INDEX project_images_project_id_idx ON public.project_images USING btree (project_id)",
+          "indexname": "project_images_project_id_idx",
+          "tablename": "project_images"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX project_stages_pkey ON public.project_stages USING btree (id)",
+          "indexname": "project_stages_pkey",
+          "tablename": "project_stages"
+        },
+        {
+          "indexdef": "CREATE INDEX project_stages_project_id_idx ON public.project_stages USING btree (project_id)",
+          "indexname": "project_stages_project_id_idx",
+          "tablename": "project_stages"
+        },
+        {
+          "indexdef": "CREATE INDEX project_stages_status_idx ON public.project_stages USING btree (status)",
+          "indexname": "project_stages_status_idx",
+          "tablename": "project_stages"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX projects_pkey ON public.projects USING btree (id)",
+          "indexname": "projects_pkey",
+          "tablename": "projects"
+        },
+        {
+          "indexdef": "CREATE INDEX projects_project_type_idx ON public.projects USING btree (project_type)",
+          "indexname": "projects_project_type_idx",
+          "tablename": "projects"
+        },
+        {
+          "indexdef": "CREATE INDEX projects_slug_idx ON public.projects USING btree (slug)",
+          "indexname": "projects_slug_idx",
+          "tablename": "projects"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX projects_slug_key ON public.projects USING btree (slug)",
+          "indexname": "projects_slug_key",
+          "tablename": "projects"
+        },
+        {
+          "indexdef": "CREATE INDEX projects_status_idx ON public.projects USING btree (status)",
+          "indexname": "projects_status_idx",
+          "tablename": "projects"
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "permissions",
+      "evidence": [
+        {
+          "role": "administrator",
+          "permission": "projects.manage"
+        },
+        {
+          "role": "content_manager",
+          "permission": "projects.manage"
+        },
+        {
+          "role": "administrator",
+          "permission": "projects.view"
+        },
+        {
+          "role": "content_manager",
+          "permission": "projects.view"
+        },
+        {
+          "role": "customer",
+          "permission": "projects.view"
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "policies",
+      "evidence": [],
+      "matches": true
+    },
+    {
+      "section": "security",
+      "evidence": [
+        {
+          "relname": "project_images",
+          "relrowsecurity": true,
+          "relforcerowsecurity": false
+        },
+        {
+          "relname": "project_stages",
+          "relrowsecurity": true,
+          "relforcerowsecurity": false
+        },
+        {
+          "relname": "projects",
+          "relrowsecurity": true,
+          "relforcerowsecurity": false
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "storage_policies",
+      "evidence": [
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = 'administrator'::text))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Administrators can delete property floor plans",
+          "with_check": null
+        },
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'property-images'::text) AND (get_user_role() = 'administrator'::text))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Administrators can delete property images",
+          "with_check": null
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can upload enquiry attachments",
+          "with_check": "(bucket_id = 'enquiry-attachments'::text)"
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(bucket_id = 'blog-images'::text)",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can view blog images",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(bucket_id = 'interior-project-images'::text)",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can view interior project images",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(bucket_id = 'media'::text)",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can view media",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(bucket_id = 'product-images'::text)",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can view product images",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(bucket_id = 'project-images'::text)",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can view project images",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(bucket_id = 'property-floor-plans'::text)",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can view property floor plans",
+          "with_check": null
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "(bucket_id = 'property-images'::text)",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authenticated users can view property images",
+          "with_check": null
+        },
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'blog-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can delete blog images",
+          "with_check": null
+        },
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'enquiry-attachments'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can delete enquiry attachments",
+          "with_check": null
+        },
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'interior-project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can delete interior project images",
+          "with_check": null
+        },
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'media'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can delete media",
+          "with_check": null
+        },
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'product-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can delete product images",
+          "with_check": null
+        },
+        {
+          "cmd": "DELETE",
+          "qual": "((bucket_id = 'project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can delete project images",
+          "with_check": null
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'blog-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update blog images",
+          "with_check": "((bucket_id = 'blog-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'enquiry-attachments'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update enquiry attachments",
+          "with_check": "((bucket_id = 'enquiry-attachments'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text])))"
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'interior-project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update interior project images",
+          "with_check": "((bucket_id = 'interior-project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'media'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update media",
+          "with_check": "((bucket_id = 'media'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'product-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update product images",
+          "with_check": "((bucket_id = 'product-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update project images",
+          "with_check": "((bucket_id = 'project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update property floor plans",
+          "with_check": "((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "UPDATE",
+          "qual": "((bucket_id = 'property-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can update property images",
+          "with_check": "((bucket_id = 'property-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can upload blog images",
+          "with_check": "((bucket_id = 'blog-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can upload interior project images",
+          "with_check": "((bucket_id = 'interior-project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can upload media",
+          "with_check": "((bucket_id = 'media'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can upload product images",
+          "with_check": "((bucket_id = 'product-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can upload project images",
+          "with_check": "((bucket_id = 'project-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can upload property floor plans",
+          "with_check": "((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "INSERT",
+          "qual": null,
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can upload property images",
+          "with_check": "((bucket_id = 'property-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+        },
+        {
+          "cmd": "SELECT",
+          "qual": "((bucket_id = 'enquiry-attachments'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text, 'finance'::text])))",
+          "roles": [
+            "authenticated"
+          ],
+          "policyname": "Authorized users can view enquiry attachments",
+          "with_check": null
+        },
+        {
+          "cmd": "ALL",
+          "qual": "(bucket_id <> ALL (ARRAY['property-images'::text, 'property-floor-plans'::text]))",
+          "roles": [
+            "anon",
+            "authenticated"
+          ],
+          "policyname": "bedos_property_storage_backend_only",
+          "with_check": "(bucket_id <> ALL (ARRAY['property-images'::text, 'property-floor-plans'::text]))"
+        }
+      ],
+      "matches": true
+    },
+    {
+      "section": "triggers",
+      "evidence": [
+        {
+          "tgname": "set_project_stages_updated_at",
+          "relname": "project_stages",
+          "definition": "CREATE TRIGGER set_project_stages_updated_at BEFORE UPDATE ON public.project_stages FOR EACH ROW EXECUTE FUNCTION set_updated_at()"
+        },
+        {
+          "tgname": "projects_set_updated_at",
+          "relname": "projects",
+          "definition": "CREATE TRIGGER projects_set_updated_at BEFORE UPDATE ON public.projects FOR EACH ROW EXECUTE FUNCTION set_updated_at()"
+        }
+      ],
+      "matches": true
+    }
+  ]
+}

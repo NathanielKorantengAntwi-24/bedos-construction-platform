@@ -62,3 +62,6 @@ docs/module-5-evidence/private-media-fixtures.json
 
 # Module 6 production customer/viewing/event fixture identities remain local
 docs/module-6-evidence/private-viewing-fixtures.json
+
+# Module 7 exact production fixture identities and owned file URLs remain local
+docs/module-7-evidence/private-project-fixtures.json

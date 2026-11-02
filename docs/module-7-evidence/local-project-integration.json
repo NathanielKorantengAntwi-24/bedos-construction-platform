@@ -1,0 +1,380 @@
+{
+  "date": "2026-11-02T04:08:13.974Z",
+  "scope": "Guarded local HTTP/Auth/PostgREST/Storage, concurrent edits and audit failure recovery; no hosted credentials",
+  "results": [
+    {
+      "name": "temporary functions absent",
+      "pass": true
+    },
+    {
+      "name": "local project baseline empty",
+      "pass": true
+    },
+    {
+      "name": "real project routes ready",
+      "pass": true
+    },
+    {
+      "name": "administrator fixture created",
+      "pass": true
+    },
+    {
+      "name": "administrator real password login",
+      "pass": true
+    },
+    {
+      "name": "administrator direct Auth session",
+      "pass": true
+    },
+    {
+      "name": "content_manager fixture created",
+      "pass": true
+    },
+    {
+      "name": "content_manager real password login",
+      "pass": true
+    },
+    {
+      "name": "content_manager direct Auth session",
+      "pass": true
+    },
+    {
+      "name": "customer fixture created",
+      "pass": true
+    },
+    {
+      "name": "customer real password login",
+      "pass": true
+    },
+    {
+      "name": "customer direct Auth session",
+      "pass": true
+    },
+    {
+      "name": "finance fixture created",
+      "pass": true
+    },
+    {
+      "name": "finance real password login",
+      "pass": true
+    },
+    {
+      "name": "finance direct Auth session",
+      "pass": true
+    },
+    {
+      "name": "customer management read denied",
+      "pass": true
+    },
+    {
+      "name": "finance management read denied",
+      "pass": true
+    },
+    {
+      "name": "category created",
+      "pass": true
+    },
+    {
+      "name": "content creates draft",
+      "pass": true
+    },
+    {
+      "name": "cross-parent draft created",
+      "pass": true
+    },
+    {
+      "name": "anonymous draft hidden",
+      "pass": true
+    },
+    {
+      "name": "draft category hidden",
+      "pass": true
+    },
+    {
+      "name": "direct customer project read denied",
+      "pass": true
+    },
+    {
+      "name": "direct content project write denied",
+      "pass": true
+    },
+    {
+      "name": "direct service write denied",
+      "pass": true
+    },
+    {
+      "name": "direct RPC actor spoof denied",
+      "pass": true
+    },
+    {
+      "name": "invalid public query page_size=101",
+      "pass": true
+    },
+    {
+      "name": "invalid public query page=1&page=2",
+      "pass": true
+    },
+    {
+      "name": "invalid public query status=draft",
+      "pass": true
+    },
+    {
+      "name": "invalid public query q=",
+      "pass": true
+    },
+    {
+      "name": "invalid public query unexpected=true",
+      "pass": true
+    },
+    {
+      "name": "expected version required",
+      "pass": true
+    },
+    {
+      "name": "protected status field rejected",
+      "pass": true
+    },
+    {
+      "name": "concurrent edit exactly one commit",
+      "pass": true
+    },
+    {
+      "name": "pending stage created",
+      "pass": true
+    },
+    {
+      "name": "cross-parent stage update denied",
+      "pass": true
+    },
+    {
+      "name": "completion requires start date",
+      "pass": true
+    },
+    {
+      "name": "stage starts",
+      "pass": true
+    },
+    {
+      "name": "completion requires date",
+      "pass": true
+    },
+    {
+      "name": "stage completes progress 100",
+      "pass": true
+    },
+    {
+      "name": "ongoing project published",
+      "pass": true
+    },
+    {
+      "name": "exact safe public detail",
+      "pass": true
+    },
+    {
+      "name": "category publication follows project",
+      "pass": true
+    },
+    {
+      "name": "empty filtered page retains count",
+      "pass": true
+    },
+    {
+      "name": "published service link",
+      "pass": true
+    },
+    {
+      "name": "Module 3 service deletion safely conflicts",
+      "pass": true
+    },
+    {
+      "name": "actual image upload ready",
+      "pass": true
+    },
+    {
+      "name": "image paths not exposed",
+      "pass": true
+    },
+    {
+      "name": "public actual file bytes protected headers",
+      "pass": true
+    },
+    {
+      "name": "ready replay same image no duplicate",
+      "pass": true
+    },
+    {
+      "name": "missing image idempotency key denied",
+      "pass": true
+    },
+    {
+      "name": "direct customer storage read denied",
+      "pass": true
+    },
+    {
+      "name": "direct content storage upload denied",
+      "pass": true
+    },
+    {
+      "name": "cross-parent image edit denied",
+      "pass": true
+    },
+    {
+      "name": "image phase and order edit",
+      "pass": true
+    },
+    {
+      "name": "parent deletion blocked by files",
+      "pass": true
+    },
+    {
+      "name": "failed finalize returns durable pending",
+      "pass": true
+    },
+    {
+      "name": "failed finalize has no visible second image",
+      "pass": true
+    },
+    {
+      "name": "content recovery list denied",
+      "pass": true
+    },
+    {
+      "name": "administrator recovery safe projection",
+      "pass": true
+    },
+    {
+      "name": "live upload lease not stolen",
+      "pass": true
+    },
+    {
+      "name": "expired pending upload cleaned through Storage",
+      "pass": true
+    },
+    {
+      "name": "project completion through API",
+      "pass": true
+    },
+    {
+      "name": "completed project stages frozen",
+      "pass": true
+    },
+    {
+      "name": "project withdrawal",
+      "pass": true
+    },
+    {
+      "name": "old file URL rechecks withdrawal",
+      "pass": true
+    },
+    {
+      "name": "active content preview still works",
+      "pass": true
+    },
+    {
+      "name": "stale suspended session management denied",
+      "pass": true
+    },
+    {
+      "name": "stale suspended preview blocked",
+      "pass": true
+    },
+    {
+      "name": "actual file removal",
+      "pass": true
+    },
+    {
+      "name": "removed file URL unavailable",
+      "pass": true
+    },
+    {
+      "name": "project removed after file cleanup",
+      "pass": true
+    },
+    {
+      "name": "exact objects removed",
+      "pass": true
+    },
+    {
+      "name": "terminal operation provenance retained",
+      "pass": true
+    },
+    {
+      "name": "actual PowerShell acceptance helper passes locally",
+      "pass": true
+    },
+    {
+      "name": "PowerShell journal proves five exact fixtures removed",
+      "pass": true
+    },
+    {
+      "name": "private independent fixture audit and operation reconciliation passes locally",
+      "pass": true
+    },
+    {
+      "name": "Independent fixture SQL assertion count",
+      "pass": true,
+      "assertions": 15
+    },
+    {
+      "name": "Actual Windows PowerShell helper assertion count",
+      "pass": true,
+      "assertions": 39
+    },
+    {
+      "name": "administrator backend logout",
+      "pass": true
+    },
+    {
+      "name": "content_manager backend logout",
+      "pass": true
+    },
+    {
+      "name": "customer backend logout",
+      "pass": true
+    },
+    {
+      "name": "finance backend logout",
+      "pass": true
+    },
+    {
+      "name": "exact local administrator fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local content_manager fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local customer fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local finance fixture removed",
+      "pass": true
+    },
+    {
+      "name": "local construction fixture rows absent",
+      "pass": true
+    },
+    {
+      "name": "original project catalog restored exactly",
+      "pass": true
+    },
+    {
+      "name": "temporary functions absent after restoration",
+      "pass": true
+    },
+    {
+      "name": "original grants restored",
+      "pass": true
+    },
+    {
+      "name": "original permission mappings restored",
+      "pass": true
+    },
+    {
+      "name": "original role helper restored",
+      "pass": true
+    }
+  ]
+}

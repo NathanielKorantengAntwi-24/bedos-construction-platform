@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-02T04:09:46.793Z",
+  "scope": "Independent read-only checks against persisted corrected-run baseline; historical helper restoration previously approved separately",
+  "results": [
+    {
+      "name": "Original columns restored",
+      "pass": true
+    },
+    {
+      "name": "Original constraints restored",
+      "pass": true
+    },
+    {
+      "name": "Original security restored",
+      "pass": true
+    },
+    {
+      "name": "Original policies restored",
+      "pass": true
+    },
+    {
+      "name": "Original grants restored",
+      "pass": true
+    },
+    {
+      "name": "Original indexes restored",
+      "pass": true
+    },
+    {
+      "name": "Original triggers restored",
+      "pass": true
+    },
+    {
+      "name": "Original permissions restored",
+      "pass": true
+    },
+    {
+      "name": "Original counts restored",
+      "pass": true
+    },
+    {
+      "name": "Original buckets restored",
+      "pass": true
+    },
+    {
+      "name": "Original storage_policies restored",
+      "pass": true
+    },
+    {
+      "name": "Original role helper restored",
+      "pass": true
+    },
+    {
+      "name": "Temporary construction and catalog functions absent",
+      "pass": true
+    },
+    {
+      "name": "Temporary project tables absent",
+      "pass": true
+    },
+    {
+      "name": "Temporary failure triggers absent",
+      "pass": true
+    },
+    {
+      "name": "Exact local Auth fixtures absent",
+      "pass": true
+    },
+    {
+      "name": "Temporary service fixtures absent",
+      "pass": true
+    },
+    {
+      "name": "Local test server stopped",
+      "pass": true
+    }
+  ]
+}

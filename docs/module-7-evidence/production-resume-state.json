@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-11-02T15:34:01.696Z",
+  "state": {
+    "images": 0,
+    "stages": 0,
+    "objects": 0,
+    "projects": 0,
+    "latest_migration": "20261102020000",
+    "project_functions": 0
+  }
+}

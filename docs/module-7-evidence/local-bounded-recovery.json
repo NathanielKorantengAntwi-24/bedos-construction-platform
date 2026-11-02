@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-02T03:50:20.644Z",
+  "checks": [
+    {
+      "section": "columns",
+      "pass": true
+    },
+    {
+      "section": "constraints",
+      "pass": true
+    },
+    {
+      "section": "security",
+      "pass": true
+    },
+    {
+      "section": "policies",
+      "pass": true
+    },
+    {
+      "section": "grants",
+      "pass": true
+    },
+    {
+      "section": "indexes",
+      "pass": true
+    },
+    {
+      "section": "triggers",
+      "pass": true
+    },
+    {
+      "section": "permissions",
+      "pass": true
+    },
+    {
+      "section": "counts",
+      "pass": true
+    },
+    {
+      "section": "buckets",
+      "pass": true
+    },
+    {
+      "section": "storage_policies",
+      "pass": true
+    }
+  ],
+  "helper_restoration": "Historical snapshot restoration separately approved and executed"
+}

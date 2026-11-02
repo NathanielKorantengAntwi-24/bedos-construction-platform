@@ -1,0 +1,49 @@
+{
+  "checked_at": "2026-11-02T03:25:02.421Z",
+  "comparison": [
+    {
+      "section": "columns",
+      "matches": true
+    },
+    {
+      "section": "constraints",
+      "matches": true
+    },
+    {
+      "section": "security",
+      "matches": true
+    },
+    {
+      "section": "policies",
+      "matches": true
+    },
+    {
+      "section": "grants",
+      "matches": true
+    },
+    {
+      "section": "indexes",
+      "matches": true
+    },
+    {
+      "section": "triggers",
+      "matches": true
+    },
+    {
+      "section": "permissions",
+      "matches": false
+    },
+    {
+      "section": "counts",
+      "matches": true
+    },
+    {
+      "section": "buckets",
+      "matches": false
+    },
+    {
+      "section": "storage_policies",
+      "matches": false
+    }
+  ]
+}
