@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-02T01:25:45.603Z",
+  "source": "Observed production SQL Editor result",
+  "applicationCommit": "817db9915d4e0cb688797f39a7d3610421b50d19",
+  "deploymentEnvironment": "Production",
+  "deploymentId": 7481967715,
+  "migrations": [
+    "20261101080000",
+    "20261101090000"
+  ],
+  "rollbackAssertions": 123,
+  "fixtureTransaction": "rolled_back",
+  "checks": {
+    "function_count": "9",
+    "migration_rows": "2",
+    "rls_enabled_tables": "5",
+    "function_mismatches": "0",
+    "rollback_auth_fixtures": "0",
+    "table_write_privileges": "0",
+    "column_write_privileges": "0",
+    "private_ledger_privileges": "0",
+    "restrictive_storage_guard": "1",
+    "rollback_failure_triggers": "0",
+    "configured_private_buckets": "2",
+    "existing_storage_policies_unchanged": "true"
+  },
+  "media_rows": 0,
+  "operations": 0,
+  "property_objects": 0,
+  "administratorAcceptance": "pending",
+  "moduleComplete": false
+}

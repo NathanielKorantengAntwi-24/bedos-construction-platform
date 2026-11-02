@@ -1,6 +1,6 @@
 # Module 5 — property media implementation
 
-2 November 2026. Implemented locally; production release and acceptance pending. **Module 5 remains OPEN.** Modules 1–4 remain complete; no Module 6 or frontend work has started.
+2 November 2026. Released to production; private administrator acceptance and final fixture reconciliation pending. **Module 5 remains OPEN.** Modules 1–4 remain complete; no Module 6 or frontend work has started.
 
 ## 1. Module objective
 
@@ -113,11 +113,11 @@ npx eslint src/features/properties src/app/api/properties src/app/api/property-m
 - [x] Regression/build/type/lint and prepared release checks.
 - [x] Independent local fixture/configuration restoration.
 - [x] Separate commit/push, hosted migration/bucket configuration/deployment and production fixture approval.
-- [ ] Fresh production preflight, staged release and post-release checks.
+- [x] Fresh production preflight, staged release and post-release checks.
 - [ ] Private administrator production acceptance.
 - [ ] Independent exact-file/metadata/operation/audit reconciliation and final completion report.
 
-Release approved. Fresh production preflight passed all 15 checks and phase one (20261101080000) committed with nine matching guarded functions and a private ledger. Existing grants and bucket limits remain unchanged pending healthy application deployment. No production upload/acceptance fixtures have been created.
+Release approved and deployed: application 817db99, followed by phase-two restrictions after the production deployment and anonymous checks passed. Both migrations are committed. All 123 production-safe rollback assertions passed; final definitions/owners/search paths/ACLs match, direct table/column writes are zero, ledger private, five RLS tables retained, two private buckets configured, restrictive guard present and all existing Storage policy fingerprints unchanged. Production rollback fixtures, media rows, objects and operations are absent. Private administrator upload acceptance remains pending.
 
 ## 8. Remaining risks or issues and release procedure
 
@@ -136,3 +136,9 @@ Finish Module 5 production acceptance and record closure before Module 6 propert
 ## Release attempt — 2 November 2026
 
 User separately approved the full documented release. No release mutation has executed: the Windows dashboard helper could not verify the URL on the first attempt, then timed out twice capturing the SQL Editor after user handoff. The browser connector exposes no Chrome tabs. Manual read-only preflight is prepared in MODULE_5_RELEASE_PREFLIGHT.sql; production result must be reviewed before phase one. No Git commit/push or production changes.
+
+## Production release verified — 2 November 2026
+
+The approved release completed after dashboard access recovered. Fresh preflight: 15/15 checks passed. Phase one 20261101080000 committed and nine function definitions/owners/paths/ACLs matched before deployment. GitHub application commit 817db9915d4e0cb688797f39a7d3610421b50d19 deployed successfully to Production (GitHub deployment 7481967715; Vercel DKa95SfNvfpMBNvuqKvkrfW7y6mH). All 23 credential-free API checks passed before phase two. Phase two 20261101090000 committed; all 23 checks passed again. Production SQL returned 123 assertions_verified and rolled_back. Final read-only reconciliation found zero direct table/column writes and ledger privileges, nine matching functions, five RLS tables, both migration rows, two capped private buckets, one restrictive guard, unchanged existing Storage policy fingerprints and zero synthetic Auth/failure triggers/media rows/property objects/operations.
+
+Sanitized release results: module-5-evidence/production-release-preflight.json, production-phase-one.json, production-release-verification.json and production-media-anonymous*.json. No real administrator credentials were used. Required next step is the user-run Test-ProductionPropertyMedia.ps1 administrator workflow, followed by independent physical-object/metadata/operation/audit reconciliation. Module 5 remains OPEN; Module 6 and frontend deferred.

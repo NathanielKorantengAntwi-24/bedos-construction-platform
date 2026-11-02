@@ -1,0 +1,121 @@
+{
+  "date": "2026-11-02T01:15:41.437Z",
+  "scope": "Production anonymous compatibility checks only; no credentials, real record contents or successful mutations",
+  "results": [
+    {
+      "name": "images missing public parent",
+      "pass": true,
+      "http_status": 404
+    },
+    {
+      "name": "images anonymous POST denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "images anonymous PATCH denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "images anonymous DELETE denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "floor-plans missing public parent",
+      "pass": true,
+      "http_status": 404
+    },
+    {
+      "name": "floor-plans anonymous POST denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "floor-plans anonymous PATCH denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "floor-plans anonymous DELETE denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "features missing public parent",
+      "pass": true,
+      "http_status": 404
+    },
+    {
+      "name": "features anonymous POST denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "features anonymous PATCH denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "features anonymous DELETE denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "amenities missing public parent",
+      "pass": true,
+      "http_status": 404
+    },
+    {
+      "name": "amenities anonymous POST denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "amenities anonymous PATCH denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "amenities anonymous DELETE denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "images missing file hidden",
+      "pass": true,
+      "http_status": 404
+    },
+    {
+      "name": "floor-plans missing file hidden",
+      "pass": true,
+      "http_status": 404
+    },
+    {
+      "name": "invalid parent ID rejected",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "oversized page rejected",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "repeated pagination rejected",
+      "pass": true,
+      "http_status": 400
+    },
+    {
+      "name": "recovery ledger anonymous denial",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "recovery retry anonymous denial",
+      "pass": true,
+      "http_status": 401
+    }
+  ]
+}
