@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-02T01:43:15.754Z",
+  "scope": "Read-only production schema and aggregate comparison; no record contents or identifiers",
+  "matches": {
+    "grants": true,
+    "tables": true,
+    "columns": true,
+    "indexes": true,
+    "policies": true,
+    "constraints": true,
+    "column_acl_count": true,
+    "referencing_constraints": true
+  },
+  "triggers": [
+    {
+      "name": "notifications_set_updated_at",
+      "table": "notifications",
+      "enabled": "O",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c",
+      "function": "set_updated_at",
+      "definition": "CREATE TRIGGER notifications_set_updated_at BEFORE UPDATE ON public.notifications FOR EACH ROW EXECUTE FUNCTION set_updated_at()"
+    },
+    {
+      "name": "viewing_property_publication_guard",
+      "table": "viewing_requests",
+      "enabled": "O",
+      "body_md5": "1e266db37460f75ed8d4c5b47ef758bf",
+      "function": "bedos_guard_property_reference",
+      "definition": "CREATE TRIGGER viewing_property_publication_guard BEFORE INSERT OR UPDATE OF property_id ON public.viewing_requests FOR EACH ROW EXECUTE FUNCTION bedos_guard_property_reference()"
+    },
+    {
+      "name": "viewing_requests_set_updated_at",
+      "table": "viewing_requests",
+      "enabled": "O",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c",
+      "function": "set_updated_at",
+      "definition": "CREATE TRIGGER viewing_requests_set_updated_at BEFORE UPDATE ON public.viewing_requests FOR EACH ROW EXECUTE FUNCTION set_updated_at()"
+    }
+  ],
+  "aggregates": {
+    "states": {},
+    "viewings": 0,
+    "viewing_audits": 0,
+    "invalid_assignees": 0,
+    "oversized_messages": 0,
+    "viewing_notifications": 0,
+    "scheduled_or_progress_unassigned": 0,
+    "scheduled_or_progress_missing_preferences": 0
+  },
+  "last_migration": "20261101090000",
+  "viewing_permissions": [
+    {
+      "role": "administrator",
+      "permission": "viewings.manage"
+    },
+    {
+      "role": "administrator",
+      "permission": "viewings.view"
+    },
+    {
+      "role": "sales_customer_service",
+      "permission": "viewings.manage"
+    },
+    {
+      "role": "sales_customer_service",
+      "permission": "viewings.view"
+    }
+  ],
+  "publication_guard_matches": true
+}

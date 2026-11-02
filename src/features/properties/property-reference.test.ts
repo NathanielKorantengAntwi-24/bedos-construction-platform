@@ -13,6 +13,7 @@ beforeEach(() => {
   mocks.client.mockResolvedValue({ from: (table: string) => table === "properties"
     ? { select: () => ({ eq: () => ({ single: async () => ({ data: { id: propertyId, status: "published" }, error: null }) }) }) }
     : { insert: () => inserted } });
+  mocks.admin.mockReturnValue({ rpc: vi.fn().mockResolvedValue(rejected) });
 });
 describe("property publication races", () => {
   const operations = [
@@ -22,6 +23,7 @@ describe("property publication races", () => {
   ];
   for (const operation of operations) it(`${operation.name} maps withdrawal after its initial read to safe 409`, async () => {
     await expect(operation.call()).rejects.toMatchObject({ status: 409, message: "Property is no longer available for this request" });
-    expect(mocks.admin).not.toHaveBeenCalled();expect(mocks.notify).not.toHaveBeenCalled();
+    if (operation.name !== "viewing") expect(mocks.admin).not.toHaveBeenCalled();
+    expect(mocks.notify).not.toHaveBeenCalled();
   });
 });

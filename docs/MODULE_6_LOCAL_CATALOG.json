@@ -1,0 +1,601 @@
+{
+  "date": "2026-11-02T01:39:26.536Z",
+  "scope": "Read-only isolated local catalog and aggregates",
+  "grants": [
+    {
+      "role": "anon",
+      "table": "notifications",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "anon",
+      "table": "notifications",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "anon",
+      "table": "notifications",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "anon",
+      "table": "notifications",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "anon",
+      "table": "notifications",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "anon",
+      "table": "notifications",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "anon",
+      "table": "notifications",
+      "privilege": "UPDATE"
+    },
+    {
+      "role": "authenticated",
+      "table": "notifications",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "authenticated",
+      "table": "notifications",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "authenticated",
+      "table": "notifications",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "authenticated",
+      "table": "notifications",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "authenticated",
+      "table": "notifications",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "authenticated",
+      "table": "notifications",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "authenticated",
+      "table": "notifications",
+      "privilege": "UPDATE"
+    },
+    {
+      "role": "service_role",
+      "table": "notifications",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "service_role",
+      "table": "notifications",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "service_role",
+      "table": "notifications",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "service_role",
+      "table": "notifications",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "service_role",
+      "table": "notifications",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "service_role",
+      "table": "notifications",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "service_role",
+      "table": "notifications",
+      "privilege": "UPDATE"
+    },
+    {
+      "role": "anon",
+      "table": "viewing_requests",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "anon",
+      "table": "viewing_requests",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "anon",
+      "table": "viewing_requests",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "anon",
+      "table": "viewing_requests",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "anon",
+      "table": "viewing_requests",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "anon",
+      "table": "viewing_requests",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "anon",
+      "table": "viewing_requests",
+      "privilege": "UPDATE"
+    },
+    {
+      "role": "authenticated",
+      "table": "viewing_requests",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "authenticated",
+      "table": "viewing_requests",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "authenticated",
+      "table": "viewing_requests",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "authenticated",
+      "table": "viewing_requests",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "authenticated",
+      "table": "viewing_requests",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "authenticated",
+      "table": "viewing_requests",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "authenticated",
+      "table": "viewing_requests",
+      "privilege": "UPDATE"
+    },
+    {
+      "role": "service_role",
+      "table": "viewing_requests",
+      "privilege": "DELETE"
+    },
+    {
+      "role": "service_role",
+      "table": "viewing_requests",
+      "privilege": "INSERT"
+    },
+    {
+      "role": "service_role",
+      "table": "viewing_requests",
+      "privilege": "REFERENCES"
+    },
+    {
+      "role": "service_role",
+      "table": "viewing_requests",
+      "privilege": "SELECT"
+    },
+    {
+      "role": "service_role",
+      "table": "viewing_requests",
+      "privilege": "TRIGGER"
+    },
+    {
+      "role": "service_role",
+      "table": "viewing_requests",
+      "privilege": "TRUNCATE"
+    },
+    {
+      "role": "service_role",
+      "table": "viewing_requests",
+      "privilege": "UPDATE"
+    }
+  ],
+  "tables": [
+    {
+      "rls": true,
+      "name": "notifications",
+      "owner": "postgres"
+    },
+    {
+      "rls": true,
+      "name": "viewing_requests",
+      "owner": "postgres"
+    }
+  ],
+  "columns": [
+    {
+      "type": "uuid",
+      "table": "notifications",
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "nullable": "NO"
+    },
+    {
+      "type": "uuid",
+      "table": "notifications",
+      "column": "recipient_id",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "text",
+      "table": "notifications",
+      "column": "notification_type",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "text",
+      "table": "notifications",
+      "column": "title",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "text",
+      "table": "notifications",
+      "column": "message",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "text",
+      "table": "notifications",
+      "column": "channel",
+      "default": "'in_app'::text",
+      "nullable": "NO"
+    },
+    {
+      "type": "text",
+      "table": "notifications",
+      "column": "status",
+      "default": "'pending'::text",
+      "nullable": "NO"
+    },
+    {
+      "type": "text",
+      "table": "notifications",
+      "column": "related_entity_type",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "uuid",
+      "table": "notifications",
+      "column": "related_entity_id",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "notifications",
+      "column": "sent_at",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "notifications",
+      "column": "read_at",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "jsonb",
+      "table": "notifications",
+      "column": "metadata",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "notifications",
+      "column": "created_at",
+      "default": "now()",
+      "nullable": "NO"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "notifications",
+      "column": "updated_at",
+      "default": "now()",
+      "nullable": "NO"
+    },
+    {
+      "type": "uuid",
+      "table": "viewing_requests",
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "nullable": "NO"
+    },
+    {
+      "type": "uuid",
+      "table": "viewing_requests",
+      "column": "property_id",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "uuid",
+      "table": "viewing_requests",
+      "column": "customer_id",
+      "default": null,
+      "nullable": "NO"
+    },
+    {
+      "type": "date",
+      "table": "viewing_requests",
+      "column": "preferred_date",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "time without time zone",
+      "table": "viewing_requests",
+      "column": "preferred_time",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "text",
+      "table": "viewing_requests",
+      "column": "message",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "text",
+      "table": "viewing_requests",
+      "column": "status",
+      "default": "'new'::text",
+      "nullable": "NO"
+    },
+    {
+      "type": "uuid",
+      "table": "viewing_requests",
+      "column": "assigned_to",
+      "default": null,
+      "nullable": "YES"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "viewing_requests",
+      "column": "created_at",
+      "default": "now()",
+      "nullable": "NO"
+    },
+    {
+      "type": "timestamp with time zone",
+      "table": "viewing_requests",
+      "column": "updated_at",
+      "default": "now()",
+      "nullable": "NO"
+    }
+  ],
+  "indexes": [
+    {
+      "name": "notifications_created_at_idx",
+      "table": "notifications",
+      "definition": "CREATE INDEX notifications_created_at_idx ON public.notifications USING btree (created_at)"
+    },
+    {
+      "name": "notifications_one_order_confirmed_per_order",
+      "table": "notifications",
+      "definition": "CREATE UNIQUE INDEX notifications_one_order_confirmed_per_order ON public.notifications USING btree (recipient_id, notification_type, related_entity_id) WHERE ((notification_type = 'order_confirmed'::text) AND (related_entity_type = 'order'::text))"
+    },
+    {
+      "name": "notifications_pkey",
+      "table": "notifications",
+      "definition": "CREATE UNIQUE INDEX notifications_pkey ON public.notifications USING btree (id)"
+    },
+    {
+      "name": "notifications_recipient_id_idx",
+      "table": "notifications",
+      "definition": "CREATE INDEX notifications_recipient_id_idx ON public.notifications USING btree (recipient_id)"
+    },
+    {
+      "name": "notifications_related_entity_idx",
+      "table": "notifications",
+      "definition": "CREATE INDEX notifications_related_entity_idx ON public.notifications USING btree (related_entity_type, related_entity_id)"
+    },
+    {
+      "name": "notifications_status_idx",
+      "table": "notifications",
+      "definition": "CREATE INDEX notifications_status_idx ON public.notifications USING btree (status)"
+    },
+    {
+      "name": "viewing_requests_customer_id_idx",
+      "table": "viewing_requests",
+      "definition": "CREATE INDEX viewing_requests_customer_id_idx ON public.viewing_requests USING btree (customer_id)"
+    },
+    {
+      "name": "viewing_requests_pkey",
+      "table": "viewing_requests",
+      "definition": "CREATE UNIQUE INDEX viewing_requests_pkey ON public.viewing_requests USING btree (id)"
+    },
+    {
+      "name": "viewing_requests_property_id_idx",
+      "table": "viewing_requests",
+      "definition": "CREATE INDEX viewing_requests_property_id_idx ON public.viewing_requests USING btree (property_id)"
+    },
+    {
+      "name": "viewing_requests_status_idx",
+      "table": "viewing_requests",
+      "definition": "CREATE INDEX viewing_requests_status_idx ON public.viewing_requests USING btree (status)"
+    }
+  ],
+  "policies": [
+    {
+      "name": "Users can update own notifications",
+      "check": "(recipient_id = auth.uid())",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "notifications",
+      "using": "(recipient_id = auth.uid())",
+      "command": "UPDATE"
+    },
+    {
+      "name": "Users can view own notifications",
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "notifications",
+      "using": "(recipient_id = auth.uid())",
+      "command": "SELECT"
+    },
+    {
+      "name": "Administrators can delete viewing requests",
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "viewing_requests",
+      "using": "(get_user_role() = 'administrator'::text)",
+      "command": "DELETE"
+    },
+    {
+      "name": "Customers can create their own viewing requests",
+      "check": "((customer_id = auth.uid()) AND (EXISTS ( SELECT 1\n   FROM properties p\n  WHERE ((p.id = viewing_requests.property_id) AND (p.status = 'published'::text)))))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "viewing_requests",
+      "using": null,
+      "command": "INSERT"
+    },
+    {
+      "name": "Customers can view their own viewing requests",
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "viewing_requests",
+      "using": "(customer_id = auth.uid())",
+      "command": "SELECT"
+    },
+    {
+      "name": "Sales staff can manage viewing requests",
+      "check": "(get_user_role() = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text]))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "viewing_requests",
+      "using": "(get_user_role() = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text]))",
+      "command": "UPDATE"
+    },
+    {
+      "name": "Sales staff can view viewing requests",
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "viewing_requests",
+      "using": "(get_user_role() = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text]))",
+      "command": "SELECT"
+    }
+  ],
+  "triggers": [
+    {
+      "name": "notifications_set_updated_at",
+      "table": "notifications",
+      "enabled": "O",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c",
+      "function": "set_updated_at",
+      "definition": "CREATE TRIGGER notifications_set_updated_at BEFORE UPDATE ON public.notifications FOR EACH ROW EXECUTE FUNCTION set_updated_at()"
+    },
+    {
+      "name": "viewing_requests_set_updated_at",
+      "table": "viewing_requests",
+      "enabled": "O",
+      "body_md5": "204b9b9355e61b7541bc0633bbc9294c",
+      "function": "set_updated_at",
+      "definition": "CREATE TRIGGER viewing_requests_set_updated_at BEFORE UPDATE ON public.viewing_requests FOR EACH ROW EXECUTE FUNCTION set_updated_at()"
+    }
+  ],
+  "aggregates": {
+    "states": {},
+    "viewings": 0,
+    "viewing_audits": 0,
+    "invalid_assignees": 0,
+    "oversized_messages": 0,
+    "viewing_notifications": 0,
+    "scheduled_or_progress_unassigned": 0,
+    "scheduled_or_progress_missing_preferences": 0
+  },
+  "constraints": [
+    {
+      "name": "notifications_channel_check",
+      "table": "notifications",
+      "definition": "CHECK ((channel = ANY (ARRAY['in_app'::text, 'email'::text, 'whatsapp'::text])))"
+    },
+    {
+      "name": "notifications_pkey",
+      "table": "notifications",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "notifications_recipient_id_fkey",
+      "table": "notifications",
+      "definition": "FOREIGN KEY (recipient_id) REFERENCES profiles(id) ON DELETE CASCADE"
+    },
+    {
+      "name": "notifications_status_check",
+      "table": "notifications",
+      "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'sent'::text, 'delivered'::text, 'failed'::text, 'read'::text])))"
+    },
+    {
+      "name": "viewing_requests_assigned_to_fkey",
+      "table": "viewing_requests",
+      "definition": "FOREIGN KEY (assigned_to) REFERENCES profiles(id)"
+    },
+    {
+      "name": "viewing_requests_customer_id_fkey",
+      "table": "viewing_requests",
+      "definition": "FOREIGN KEY (customer_id) REFERENCES profiles(id) ON DELETE RESTRICT"
+    },
+    {
+      "name": "viewing_requests_pkey",
+      "table": "viewing_requests",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "name": "viewing_requests_property_id_fkey",
+      "table": "viewing_requests",
+      "definition": "FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE RESTRICT"
+    },
+    {
+      "name": "viewing_requests_status_check",
+      "table": "viewing_requests",
+      "definition": "CHECK ((status = ANY (ARRAY['new'::text, 'contacted'::text, 'in_progress'::text, 'completed'::text, 'cancelled'::text])))"
+    }
+  ],
+  "last_migration": "20261026020000",
+  "column_acl_count": 0,
+  "viewing_permissions": null,
+  "referencing_constraints": null
+}

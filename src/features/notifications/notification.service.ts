@@ -127,3 +127,16 @@ export async function markNotificationAsRead(
 
   return data as Notification;
 }
+
+// Viewing-only durable event materialization. Other notification callers retain their existing behavior.
+export async function deliverViewingNotificationEvent(actor: string, event: string, retry = false): Promise<{
+  event: { id: string; state: "pending" | "processing" | "recorded" | "suppressed" } | null;
+  errorCode: string | null;
+}> {
+  try {
+    const client = createAdminClient((input, init) => fetch(input, { ...init, signal: init?.signal ? AbortSignal.any([init.signal, AbortSignal.timeout(10000)]) : AbortSignal.timeout(10000) }));
+    const { data, error } = await client.rpc("bedos_deliver_viewing_event", { p_actor: actor, p_event: event, p_retry: retry });
+    if (error || !data || data.id !== event || !["pending", "processing", "recorded", "suppressed"].includes(data.state)) return { event: null, errorCode: error?.code ?? "UNAVAILABLE" };
+    return { event: data, errorCode: null };
+  } catch { return { event: null, errorCode: "UNAVAILABLE" }; }
+}

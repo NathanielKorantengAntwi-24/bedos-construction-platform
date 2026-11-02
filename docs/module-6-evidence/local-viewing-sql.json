@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-02T02:36:39.676Z",
+  "scope": "Isolated local SQL assertions; all synthetic fixtures rolled back",
+  "passed": true,
+  "assertions": 140,
+  "active_read_policy": {
+    "hash": "150d87eb0ed1f68339f95dc84592648f",
+    "roles": [
+      "anon",
+      "authenticated"
+    ],
+    "command": "SELECT",
+    "definition": "(EXISTS ( SELECT 1\n   FROM (profiles p\n     JOIN roles r ON ((r.id = p.role_id)))\n  WHERE ((p.id = ( SELECT auth.uid() AS uid)) AND (p.account_status = 'active'::text) AND (((r.name = 'customer'::text) AND (viewing_requests.customer_id = p.id)) OR ((r.name = ANY (ARRAY['administrator'::text, 'sales_customer_service'::text])) AND (EXISTS ( SELECT 1\n           FROM (role_permissions rp\n             JOIN permissions pm ON ((pm.id = rp.permission_id)))\n          WHERE ((rp.role_id = p.role_id) AND (pm.name = 'viewings.view'::text)))))))))",
+    "permissive": "RESTRICTIVE"
+  },
+  "notification_event_index": {
+    "hash": "f1f20f4035dfef17b8877d266a566c5f",
+    "definition": "CREATE UNIQUE INDEX notifications_one_viewing_event_recipient ON public.notifications USING btree (((metadata ->> 'viewing_event_id'::text)), recipient_id) WHERE ((related_entity_type = 'viewing_request'::text) AND (metadata ? 'viewing_event_id'::text))"
+  }
+}

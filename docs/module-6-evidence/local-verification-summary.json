@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-02T02:41:17.520Z",
+  "module": 6,
+  "scope": "Local verification; separate production release/acceptance pending",
+  "application": {
+    "tests": 672,
+    "files": 49,
+    "passed": true
+  },
+  "localSqlAssertions": 140,
+  "realIntegrationChecks": 98,
+  "powerShellWorkflowChecks": 50,
+  "productionSafeRollbackAssertions": 139,
+  "releaseRefusalGuards": 3,
+  "independentRestorationChecks": 19,
+  "productionBuild": true,
+  "typeScript": true,
+  "focusedLint": true,
+  "module6ProductionChanged": false,
+  "moduleComplete": false
+}

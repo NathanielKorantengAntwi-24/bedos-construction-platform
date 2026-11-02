@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-02T02:36:57.382Z",
+  "scope": "Exact staged release wrappers executed only in one local rollback transaction; pre-existing/untracked/legacy viewing refusal tested",
+  "rollback_assertions": 139,
+  "compatibility_guards": 3,
+  "metadata": {
+    "rls_tables": "2",
+    "function_count": "9",
+    "migration_rows": "2",
+    "version_column": "1",
+    "version_trigger": "1",
+    "queue_privileges": "0",
+    "active_read_guard": "1",
+    "publication_guards": "2",
+    "direct_table_writes": "0",
+    "function_mismatches": "0",
+    "direct_column_writes": "0",
+    "rollback_auth_fixtures": "0",
+    "notification_dedup_index": "1",
+    "rollback_failure_triggers": "0",
+    "canonical_status_constraint": "1",
+    "existing_policies_unchanged": "true",
+    "publication_helper_unchanged": "1",
+    "notification_grants_unchanged": "true",
+    "original_notification_indexes_unchanged": "true"
+  },
+  "restored": true
+}

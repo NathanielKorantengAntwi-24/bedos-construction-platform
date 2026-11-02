@@ -1,495 +1,59 @@
-import { createClient } from "@/lib/supabase/server";
-import { ApiError } from "@/server/http/api-error";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { createNotification } from "@/features/notifications/notification.service";
-import type {
-  CreateViewingRequestInput,
-  UpdateViewingRequestInput,
-  ViewingRequest,
-  ViewingRequestStatus,
-} from "./viewing-request.types";
+import { ApiError } from "@/server/http/api-error";
+import { deliverViewingNotificationEvent } from "@/features/notifications/notification.service";
+import type { CreateViewingRequestInput, UpdateViewingRequestInput, ViewingPage, ViewingQuery, ViewingRequest } from "./viewing-request.types";
 
-const VIEWING_REQUEST_SELECT = `
-  id,
-  property_id,
-  customer_id,
-  preferred_date,
-  preferred_time,
-  message,
-  status,
-  assigned_to,
-  created_at,
-  updated_at
-`;
-
-const VALID_STATUSES: ViewingRequestStatus[] = [
-  "new",
-  "contacted",
-  "in_progress",
-  "completed",
-  "cancelled",
-];
-
-const ALLOWED_TRANSITIONS: Record<
-  ViewingRequestStatus,
-  ViewingRequestStatus[]
-> = {
-  new: ["contacted", "cancelled"],
-  contacted: ["in_progress", "cancelled"],
-  in_progress: ["completed", "cancelled"],
-  completed: [],
-  cancelled: [],
-};
-
-export async function listPropertyViewingRequests(
-  propertyId: string,
-) {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("viewing_requests")
-    .select(VIEWING_REQUEST_SELECT)
-    .eq("property_id", propertyId)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    throw new ApiError(error.message, 500);
-  }
-
-  return (data ?? []) as ViewingRequest[];
+type Json = Record<string, unknown>;
+function viewingFailure(code: string): never {
+  if (code === "42501") throw new ApiError("Forbidden", 403);
+  if (code.startsWith("22") || code === "23514") throw new ApiError("Invalid viewing request.", 400);
+  if (code === "P0002") throw new ApiError("Viewing request or property not found.", 404);
+  if (code === "P0409") throw new ApiError("Property is no longer available for this request", 409);
+  if (["P0001", "23503", "23505", "55P03", "40P01", "40001"].includes(code)) throw new ApiError("Viewing changed, is busy or cannot accept this operation.", 409);
+  throw new ApiError("Unable to complete viewing request.", 503);
 }
-
-export async function listCustomerViewingRequests(
-  customerId: string,
-) {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("viewing_requests")
-    .select(VIEWING_REQUEST_SELECT)
-    .eq("customer_id", customerId)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    throw new ApiError(error.message, 500);
-  }
-
-  return (data ?? []) as ViewingRequest[];
-}
-
-export async function createViewingRequest(
-  input: CreateViewingRequestInput,
-  customerId: string,
-) {
-  const supabase = await createClient();
-
-  const { data: property, error: propertyError } = await supabase
-    .from("properties")
-    .select("id, status")
-    .eq("id", input.property_id)
-    .single();
-
-  if (propertyError) {
-    if (propertyError.code === "PGRST116") {
-      throw new ApiError("Property not found", 404);
-    }
-
-    throw new ApiError(propertyError.message, 500);
-  }
-
-  if (property.status !== "published") {
-    throw new ApiError(
-      "Viewing requests are only available for published properties",
-      400,
-    );
-  }
-
-  const { data, error } = await supabase
-    .from("viewing_requests")
-    .insert({
-      property_id: input.property_id,
-      customer_id: customerId,
-      preferred_date: input.preferred_date ?? null,
-      preferred_time: input.preferred_time ?? null,
-      message: input.message ?? null,
-    })
-    .select(VIEWING_REQUEST_SELECT)
-    .single();
-
-  if (error) {
-    if (error.code === "P0409") throw new ApiError("Property is no longer available for this request", 409);
-    throw new ApiError(error.message, 500);
-  }
-
-  const viewingRequest = data as ViewingRequest;
-
+async function viewingRpc<T>(name: string, args: Json): Promise<T> {
   try {
-    await createNotification({
-      recipient_id: customerId,
-      notification_type: "viewing_created",
-      title: "Viewing request received",
-      message:
-        "Your property viewing request has been received and is awaiting processing.",
-      channel: "in_app",
-      related_entity_type: "viewing_request",
-      related_entity_id: viewingRequest.id,
-    });
-  } catch (notificationError) {
-    console.error(
-      "Failed to create viewing request notification:",
-      notificationError,
-    );
-  }
-
-  return viewingRequest;
-}
-
-export async function getViewingRequest(
-  propertyId: string,
-  viewingRequestId: string,
-) {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("viewing_requests")
-    .select(VIEWING_REQUEST_SELECT)
-    .eq("id", viewingRequestId)
-    .single();
-
-  if (error) {
-    if (error.code === "PGRST116") {
-      throw new ApiError("Viewing request not found", 404);
-    }
-
-    throw new ApiError(error.message, 500);
-  }
-
-  if (data.property_id !== propertyId) {
-    throw new ApiError(
-      "Viewing request does not belong to this property",
-      400,
-    );
-  }
-
-  return data as ViewingRequest;
-}
-
-type ViewingRequestUpdateActor = {
-  userId: string;
-  isStaff: boolean;
-};
-
-export async function updateViewingRequest(
-  propertyId: string,
-  viewingRequestId: string,
-  input: UpdateViewingRequestInput,
-  actor: ViewingRequestUpdateActor,
-) {
-  const supabase = await createClient();
-
-  const { data: existingRequest, error: existingError } =
-    await supabase
-      .from("viewing_requests")
-      .select(`
-  id,
-  property_id,
-  customer_id,
-  status,
-  assigned_to
-`)
-      .eq("id", viewingRequestId)
-      .single();
-
-  if (existingError) {
-    if (existingError.code === "PGRST116") {
-      throw new ApiError("Viewing request not found", 404);
-    }
-
-    throw new ApiError(existingError.message, 500);
-  }
-
-  if (existingRequest.property_id !== propertyId) {
-    throw new ApiError(
-      "Viewing request does not belong to this property",
-      400,
-    );
-  }
-
-  if (!actor.isStaff) {
-    if (existingRequest.customer_id !== actor.userId) {
-      throw new ApiError("Forbidden", 403);
-    }
-
-    if (existingRequest.status !== "new") {
-      throw new ApiError(
-        "Viewing requests can only be edited before staff processing begins",
-        403,
-      );
-    }
-
-    if (
-      input.status !== undefined ||
-      input.assigned_to !== undefined
-    ) {
-      throw new ApiError(
-        "Customers can only edit the preferred date, preferred time, and message",
-        403,
-      );
-    }
-  }
-
-  if (
-    input.status !== undefined &&
-    !VALID_STATUSES.includes(input.status)
-  ) {
-    throw new ApiError("Invalid viewing request status", 400);
-  }
-
-  if (
-    input.status !== undefined &&
-    input.status !== existingRequest.status &&
-    !ALLOWED_TRANSITIONS[
-      existingRequest.status as ViewingRequestStatus
-    ].includes(input.status)
-  ) {
-    throw new ApiError(
-      `Invalid status transition from ${existingRequest.status} to ${input.status}`,
-      400,
-    );
-  }
-
-  if (input.assigned_to !== undefined && input.assigned_to !== null) {
-    const adminSupabase = createAdminClient();
-
-    const { data: assignedProfile, error: assignedProfileError } =
-      await adminSupabase
-        .from("profiles")
-        .select(`
-          id,
-          account_status,
-          roles (
-            name
-          )
-        `)
-        .eq("id", input.assigned_to)
-        .single();
-
-    if (assignedProfileError) {
-      if (assignedProfileError.code === "PGRST116") {
-        throw new ApiError("Assigned staff member not found", 404);
-      }
-
-      throw new ApiError(assignedProfileError.message, 500);
-    }
-
-    const assignedRole = Array.isArray(assignedProfile.roles)
-      ? assignedProfile.roles[0]
-      : assignedProfile.roles;
-
-    if (
-      assignedProfile.account_status !== "active" ||
-      !assignedRole?.name ||
-      !["administrator", "sales_customer_service"].includes(
-        assignedRole.name,
-      )
-    ) {
-      throw new ApiError(
-        "Viewing requests can only be assigned to active sales staff or administrators",
-        400,
-      );
-    }
-  }
-
-  const updateData: UpdateViewingRequestInput = {};
-
-  if (input.preferred_date !== undefined) {
-    updateData.preferred_date = input.preferred_date;
-  }
-
-  if (input.preferred_time !== undefined) {
-    updateData.preferred_time = input.preferred_time;
-  }
-
-  if (input.message !== undefined) {
-    updateData.message = input.message;
-  }
-
-  if (input.status !== undefined) {
-    updateData.status = input.status;
-  }
-
-  if (input.assigned_to !== undefined) {
-    updateData.assigned_to = input.assigned_to;
-  }
-
-  if (Object.keys(updateData).length === 0) {
-    throw new ApiError("No fields provided for update", 400);
-  }
-
-  if (!actor.isStaff) {
-    /*
-     * Customers do not have a direct UPDATE RLS policy.
-     * Use the service-role client only after the ownership and
-     * status checks above have passed.
-     */
-    const adminSupabase = createAdminClient();
-
-    const { data, error } = await adminSupabase
-      .from("viewing_requests")
-      .update(updateData)
-      .eq("id", viewingRequestId)
-      .eq("property_id", propertyId)
-      .eq("customer_id", actor.userId)
-      .eq("status", "new")
-      .select(VIEWING_REQUEST_SELECT)
-      .single();
-
-    if (error) {
-      if (error.code === "PGRST116") {
-        throw new ApiError(
-          "Viewing request is no longer editable",
-          403,
-        );
-      }
-
-      throw new ApiError(error.message, 500);
-    }
-
-    return data as ViewingRequest;
-  }
-
-  const { data, error } = await supabase
-    .from("viewing_requests")
-    .update(updateData)
-    .eq("id", viewingRequestId)
-    .select(VIEWING_REQUEST_SELECT)
-    .single();
-
-  if (error) {
-    throw new ApiError(error.message, 500);
-  }
-
-  const updatedRequest = data as ViewingRequest;
-
-  const statusChanged =
-  input.status !== undefined &&
-  input.status !== existingRequest.status;
-
-  const assignmentChanged =
-  input.assigned_to !== undefined &&
-  input.assigned_to !== existingRequest.assigned_to;
-
-if (assignmentChanged && updatedRequest.assigned_to) {
-    try {
-      await createNotification({
-        recipient_id: updatedRequest.assigned_to,
-        notification_type: "viewing_assigned",
-        title: "Viewing request assigned",
-        message:
-          "A property viewing request has been assigned to you.",
-        channel: "in_app",
-        related_entity_type: "viewing_request",
-        related_entity_id: updatedRequest.id,
-      });
-    } catch (notificationError) {
-      console.error(
-        "Failed to create viewing assignment notification:",
-        notificationError,
-      );
-    }
-  }
-
-
-
-  if (statusChanged) {
-  try {
-    await createNotification({
-      recipient_id: updatedRequest.customer_id,
-      notification_type: "viewing_updated",
-      title: "Viewing request updated",
-      message: `Your property viewing request status has been updated to ${updatedRequest.status}.`,
-      channel: "in_app",
-      related_entity_type: "viewing_request",
-      related_entity_id: updatedRequest.id,
-    });
-  } catch (notificationError) {
-    console.error(
-      "Failed to create viewing status notification:",
-      notificationError,
-    );
+    const client = createAdminClient((input, init) => fetch(input, { ...init, signal: init?.signal ? AbortSignal.any([init.signal, AbortSignal.timeout(20000)]) : AbortSignal.timeout(20000) }));
+    const { data, error } = await client.rpc(name, args);
+    if (error) { console.error("Viewing database operation rejected", { operation: name, code: error.code }); viewingFailure(error.code); }
+    if (data === null || data === undefined) viewingFailure("UNAVAILABLE");
+    return data as T;
+  } catch (error) {
+    if (error instanceof ApiError) throw error;
+    throw new ApiError("Unable to complete viewing request.", 503);
   }
 }
-  if (
-    statusChanged &&
-    updatedRequest.status === "in_progress" &&
-    updatedRequest.preferred_date &&
-    updatedRequest.preferred_time
-  ) {
-    try {
-      await createNotification({
-        recipient_id: updatedRequest.customer_id,
-        notification_type: "viewing_scheduled",
-        title: "Viewing scheduled",
-        message: `Your property viewing has been scheduled for ${updatedRequest.preferred_date} at ${updatedRequest.preferred_time}.`,
-        channel: "in_app",
-        related_entity_type: "viewing_request",
-        related_entity_id: updatedRequest.id,
-      });
-    } catch (notificationError) {
-      console.error(
-        "Failed to create viewing scheduled notification:",
-        notificationError,
-      );
-    }
-  }
-
-  return updatedRequest;
+export async function listViewingRequests(actor: string, query: ViewingQuery, propertyList = false) {
+  return viewingRpc<ViewingPage>("bedos_read_viewings", { p_actor: actor, p_property: query.property_id ?? null, p_status: query.status ?? null, p_customer: query.customer_id ?? null, p_assigned: query.assigned_to ?? null, p_page: query.page, p_limit: query.limit, p_property_list: propertyList });
 }
-
-
-export async function deleteViewingRequest(
-  propertyId: string,
-  viewingRequestId: string,
-) {
-  const supabase = await createClient();
-
-  const { data: existingRequest, error: existingError } =
-    await supabase
-      .from("viewing_requests")
-      .select("id, property_id")
-      .eq("id", viewingRequestId)
-      .single();
-
-  if (existingError) {
-    if (existingError.code === "PGRST116") {
-      throw new ApiError("Viewing request not found", 404);
-    }
-
-    throw new ApiError(existingError.message, 500);
-  }
-
-  if (existingRequest.property_id !== propertyId) {
-    throw new ApiError(
-      "Viewing request does not belong to this property",
-      400,
-    );
-  }
-
-  const { data, error } = await supabase
-    .from("viewing_requests")
-    .delete()
-    .eq("id", viewingRequestId)
-    .select("id")
-    .single();
-
-  if (error) {
-    throw new ApiError(error.message, 500);
-  }
-
-  if (!data) {
-    throw new ApiError(
-      "Viewing request could not be deleted",
-      500,
-    );
-  }
+export async function getViewingRequest(property: string, id: string, actor: string) {
+  return viewingRpc<ViewingRequest>("bedos_read_viewings", { p_actor: actor, p_property: property, p_id: id });
+}
+async function mutation(actor: string, action: string, property: string, id: string | null, input: Json, version: number | null) {
+  const result = await viewingRpc<{ record: ViewingRequest; notification_events: string[] }>("bedos_mutate_viewing", { p_actor: actor, p_action: action, p_property: property, p_id: id, p_input: input, p_expected_version: version });
+  // Bounded post-commit work. Any failure or remaining fanout stays in the durable queue.
+  const immediate = result.notification_events.slice(0, 10);
+  const delivered = await Promise.all(immediate.map(event => deliverViewingNotificationEvent(actor, event)));
+  return { data: result.record, ...(result.notification_events.length > immediate.length || delivered.some(r => r.errorCode || r.event?.state === "pending" || r.event?.state === "processing") ? { notifications_pending: true } : {}) };
+}
+export function createViewingRequest(input: CreateViewingRequestInput, actor: string) {
+  const { property_id, ...fields } = input;
+  return mutation(actor, "create", property_id, null, fields, null);
+}
+export function updateViewingRequest(property: string, id: string, input: UpdateViewingRequestInput, actor: string) {
+  const { expected_version, ...fields } = input;
+  return mutation(actor, "update", property, id, fields, expected_version);
+}
+export function deleteViewingRequest(property: string, id: string, actor: string, version: number) {
+  return mutation(actor, "delete", property, id, {}, version);
+}
+export function listViewingNotificationEvents(actor: string, page: number, limit: number) {
+  return viewingRpc<Json>("bedos_viewing_events", { p_actor: actor, p_page: page, p_limit: limit });
+}
+export async function retryViewingNotificationEvent(actor: string, event: string) {
+  const result = await deliverViewingNotificationEvent(actor, event, true);
+  if (result.errorCode) viewingFailure(result.errorCode);
+  if (!result.event) viewingFailure("UNAVAILABLE");
+  return result.event;
 }

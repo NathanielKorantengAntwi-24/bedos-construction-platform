@@ -1,0 +1,399 @@
+{
+  "date": "2026-11-02T02:32:37.893Z",
+  "production_helper_local_assertions": 50,
+  "scope": "Real guarded loopback Next/Auth/PostgREST, concurrent state/account changes and notification failure recovery; no hosted credentials or production requests",
+  "results": [
+    {
+      "name": "temporary functions absent",
+      "pass": true
+    },
+    {
+      "name": "local viewing fixture baseline empty",
+      "pass": true
+    },
+    {
+      "name": "real Next viewing routes ready",
+      "pass": true
+    },
+    {
+      "name": "administrator exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "administrator actual backend login",
+      "pass": true
+    },
+    {
+      "name": "sales exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "sales actual backend login",
+      "pass": true
+    },
+    {
+      "name": "customer exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "customer actual backend login",
+      "pass": true
+    },
+    {
+      "name": "other exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "other actual backend login",
+      "pass": true
+    },
+    {
+      "name": "finance exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "finance actual backend login",
+      "pass": true
+    },
+    {
+      "name": "content exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "content actual backend login",
+      "pass": true
+    },
+    {
+      "name": "exact local property created",
+      "pass": true
+    },
+    {
+      "name": "exact property published",
+      "pass": true
+    },
+    {
+      "name": "customer creates viewing through real backend",
+      "pass": true
+    },
+    {
+      "name": "request actor and three durable event records bound",
+      "pass": true
+    },
+    {
+      "name": "central notifications materialize after business commit",
+      "pass": true
+    },
+    {
+      "name": "customer own bounded list and safe projection",
+      "pass": true
+    },
+    {
+      "name": "other customer list isolated",
+      "pass": true
+    },
+    {
+      "name": "foreign detail hidden",
+      "pass": true
+    },
+    {
+      "name": "finance viewing read denied",
+      "pass": true
+    },
+    {
+      "name": "content_manager viewing read denied",
+      "pass": true
+    },
+    {
+      "name": "property management list staff-only",
+      "pass": true
+    },
+    {
+      "name": "staff empty next page keeps exact count",
+      "pass": true
+    },
+    {
+      "name": "customer cannot choose foreign customer filter",
+      "pass": true
+    },
+    {
+      "name": "anonymous mutation rejected before malformed JSON",
+      "pass": true
+    },
+    {
+      "name": "strict malformed viewing fields rejected",
+      "pass": true
+    },
+    {
+      "name": "strict malformed viewing fields rejected",
+      "pass": true
+    },
+    {
+      "name": "strict malformed viewing fields rejected",
+      "pass": true
+    },
+    {
+      "name": "strict malformed viewing fields rejected",
+      "pass": true
+    },
+    {
+      "name": "streamed viewing JSON body capped",
+      "pass": true
+    },
+    {
+      "name": "edit requires version",
+      "pass": true
+    },
+    {
+      "name": "direct-client fixture authentication",
+      "pass": true
+    },
+    {
+      "name": "customer direct insert bypass denied",
+      "pass": true
+    },
+    {
+      "name": "sales direct immutable-field bypass denied",
+      "pass": true
+    },
+    {
+      "name": "privileged direct writes also denied",
+      "pass": true
+    },
+    {
+      "name": "customer own new edit succeeds",
+      "pass": true
+    },
+    {
+      "name": "stale edit produces conflict",
+      "pass": true
+    },
+    {
+      "name": "simultaneous staff writes commit only one expected version",
+      "pass": true
+    },
+    {
+      "name": "customer editing ends after staff processing",
+      "pass": true
+    },
+    {
+      "name": "scheduling requires complete confirmed preferences",
+      "pass": true
+    },
+    {
+      "name": "property deletion protects existing viewing",
+      "pass": true
+    },
+    {
+      "name": "property withdrawal succeeds",
+      "pass": true
+    },
+    {
+      "name": "withdrawn property refuses new viewing",
+      "pass": true
+    },
+    {
+      "name": "existing customer viewing survives withdrawal",
+      "pass": true
+    },
+    {
+      "name": "existing viewing schedules with active assignee and civil time",
+      "pass": true
+    },
+    {
+      "name": "assignment eligibility rechecked after concurrent suspension",
+      "pass": true
+    },
+    {
+      "name": "existing customer session denied after concurrent suspension",
+      "pass": true
+    },
+    {
+      "name": "direct PostgREST read blocks suspended customer session",
+      "pass": true
+    },
+    {
+      "name": "direct own read restored for active customer",
+      "pass": true
+    },
+    {
+      "name": "reschedule commits despite notification failure",
+      "pass": true
+    },
+    {
+      "name": "two failed schedule events remain durable",
+      "pass": true
+    },
+    {
+      "name": "second reschedule supersedes old pending confirmation",
+      "pass": true
+    },
+    {
+      "name": "manual retry respects cooldown",
+      "pass": true
+    },
+    {
+      "name": "obsolete schedule confirmation suppressed",
+      "pass": true
+    },
+    {
+      "name": "obsolete schedule confirmation suppressed",
+      "pass": true
+    },
+    {
+      "name": "current schedule retry records notification",
+      "pass": true
+    },
+    {
+      "name": "successful retry replay is idempotent",
+      "pass": true
+    },
+    {
+      "name": "current schedule retry records notification",
+      "pass": true
+    },
+    {
+      "name": "successful retry replay is idempotent",
+      "pass": true
+    },
+    {
+      "name": "recorded current events each have exactly one notification",
+      "pass": true
+    },
+    {
+      "name": "administrator bounded safe event queue",
+      "pass": true
+    },
+    {
+      "name": "ordinary sales denied recovery queue",
+      "pass": true
+    },
+    {
+      "name": "recovery cannot choose recipients",
+      "pass": true
+    },
+    {
+      "name": "staff cancellation succeeds",
+      "pass": true
+    },
+    {
+      "name": "terminal viewing immutable",
+      "pass": true
+    },
+    {
+      "name": "stale deletion rejected",
+      "pass": true
+    },
+    {
+      "name": "administrator exact versioned deletion",
+      "pass": true
+    },
+    {
+      "name": "deleted viewing hidden",
+      "pass": true
+    },
+    {
+      "name": "property can republish after existing workflow",
+      "pass": true
+    },
+    {
+      "name": "second customer viewing accepted",
+      "pass": true
+    },
+    {
+      "name": "owner cancels own new request",
+      "pass": true
+    },
+    {
+      "name": "second exact viewing deleted",
+      "pass": true
+    },
+    {
+      "name": "actual Windows PowerShell acceptance helper passes locally",
+      "pass": true
+    },
+    {
+      "name": "PowerShell journal proves six exact fixtures removed",
+      "pass": true
+    },
+    {
+      "name": "PowerShell helper reconciles terminal notification events",
+      "pass": true
+    },
+    {
+      "name": "administrator logout",
+      "pass": true
+    },
+    {
+      "name": "sales_customer_service logout",
+      "pass": true
+    },
+    {
+      "name": "customer logout",
+      "pass": true
+    },
+    {
+      "name": "customer logout",
+      "pass": true
+    },
+    {
+      "name": "finance logout",
+      "pass": true
+    },
+    {
+      "name": "content_manager logout",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local viewing fixtures absent",
+      "pass": true
+    },
+    {
+      "name": "installed temporary function sources match",
+      "pass": true
+    },
+    {
+      "name": "original grants restored",
+      "pass": true
+    },
+    {
+      "name": "original role helper restored",
+      "pass": true
+    },
+    {
+      "name": "original mappings restored",
+      "pass": true
+    },
+    {
+      "name": "temporary functions removed",
+      "pass": true
+    },
+    {
+      "name": "viewing notification catalog and aggregates restored exactly",
+      "pass": true
+    }
+  ]
+}

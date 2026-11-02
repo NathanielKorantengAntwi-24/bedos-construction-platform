@@ -59,3 +59,6 @@ docs/module-4-evidence/private-property-fixtures.json
 
 # Module 5 production media fixture identities remain local
 docs/module-5-evidence/private-media-fixtures.json
+
+# Module 6 production customer/viewing/event fixture identities remain local
+docs/module-6-evidence/private-viewing-fixtures.json

@@ -1,0 +1,16 @@
+// Independent read-only local lab restoration check; never reads hosted credentials.
+import fs from 'node:fs';import net from 'node:net';import {execFileSync} from 'node:child_process';import {isDeepStrictEqual} from 'node:util';
+const container='supabase_db_bedos-supabase-lab';const info=JSON.parse(execFileSync('docker',['inspect',container],{encoding:'utf8',windowsHide:true}))[0];if(info.Name!=='/'+container||!info.State.Running||!info.Config.Image.includes('supabase/postgres'))throw Error('Local database guard');
+const sql=input=>execFileSync('docker',['exec','-i',container,'psql','-U','postgres','-d','postgres','-X','-At','-v','ON_ERROR_STOP=1'],{input,encoding:'utf8',windowsHide:true,stdio:['pipe','pipe','pipe']}).trim();
+const expected=JSON.parse(fs.readFileSync('docs/MODULE_6_LOCAL_CATALOG.json','utf8')),actual=JSON.parse(sql(fs.readFileSync('docs/MODULE_6_CATALOG_PREFLIGHT.sql','utf8')).split('\n').find(l=>l.startsWith('{'))),results=[];
+const check=(name,pass)=>results.push({name,pass:!!pass});
+for(const key of Object.keys(actual))check('Original '+key+' restored',isDeepStrictEqual(actual[key],expected[key]));
+const names=['20261030010000_add_admin_user_reads.sql','20261101040000_secure_service_catalog.sql','20261101060000_secure_property_management.sql','20261102010000_secure_property_viewings.sql'].flatMap(n=>[...fs.readFileSync('supabase/migrations/'+n,'utf8').matchAll(/CREATE FUNCTION public\.(\w+)\(/g)].map(m=>"'"+m[1]+"'"));
+check('All temporary dependencies and viewing functions absent',sql(`SELECT count(*) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname IN(${names});`)==='0');
+check('Temporary event queue absent',sql("SELECT (to_regclass('public.viewing_notification_events') IS NULL)::text;")==='true');
+check('Temporary viewing version column absent',sql("SELECT count(*) FROM information_schema.columns WHERE table_schema='public' AND table_name='viewing_requests' AND column_name='version';")==='0');
+check('All local integration and rollback Auth fixtures absent',sql("SELECT count(*) FROM auth.users WHERE email LIKE '%@bedos-viewing-test.invalid' OR email LIKE '%@bedos-viewing-guard.invalid' OR email LIKE 'viewing-live-%@bedos-viewing-live.invalid' OR email LIKE 'bedos-viewing-%@bedos-production-viewing-test.invalid';")==='0');
+check('Temporary property fixtures absent',sql("SELECT count(*) FROM public.properties WHERE slug LIKE 'viewing-live-%' OR slug LIKE 'bedos-viewing-%' OR slug LIKE 'guard-%';")==='0');
+check('Failure triggers absent',sql("SELECT count(*) FROM pg_trigger WHERE tgname IN('bedos_viewing_local_notify_fail','bedos_viewing_test_audit','bedos_viewing_test_notification');")==='0');
+const free=await new Promise(resolve=>{const p=net.createServer();p.once('error',()=>resolve(false));p.listen(55330,'127.0.0.1',()=>p.close(()=>resolve(true)));});check('Local Next test port released',free);
+const report={date:new Date().toISOString(),scope:'Independent read-only lab catalog, fixture and process restoration checks; no production access',results};fs.writeFileSync('docs/module-6-evidence/local-viewing-cleanup.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({checks:results.length,failed:results.filter(r=>!r.pass).length,results}));if(results.some(r=>!r.pass))process.exitCode=1;

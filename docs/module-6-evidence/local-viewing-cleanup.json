@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-02T02:37:32.492Z",
+  "scope": "Independent read-only lab catalog, fixture and process restoration checks; no production access",
+  "results": [
+    {
+      "name": "Original grants restored",
+      "pass": true
+    },
+    {
+      "name": "Original tables restored",
+      "pass": true
+    },
+    {
+      "name": "Original columns restored",
+      "pass": true
+    },
+    {
+      "name": "Original indexes restored",
+      "pass": true
+    },
+    {
+      "name": "Original policies restored",
+      "pass": true
+    },
+    {
+      "name": "Original triggers restored",
+      "pass": true
+    },
+    {
+      "name": "Original aggregates restored",
+      "pass": true
+    },
+    {
+      "name": "Original constraints restored",
+      "pass": true
+    },
+    {
+      "name": "Original last_migration restored",
+      "pass": true
+    },
+    {
+      "name": "Original column_acl_count restored",
+      "pass": true
+    },
+    {
+      "name": "Original viewing_permissions restored",
+      "pass": true
+    },
+    {
+      "name": "Original referencing_constraints restored",
+      "pass": true
+    },
+    {
+      "name": "All temporary dependencies and viewing functions absent",
+      "pass": true
+    },
+    {
+      "name": "Temporary event queue absent",
+      "pass": true
+    },
+    {
+      "name": "Temporary viewing version column absent",
+      "pass": true
+    },
+    {
+      "name": "All local integration and rollback Auth fixtures absent",
+      "pass": true
+    },
+    {
+      "name": "Temporary property fixtures absent",
+      "pass": true
+    },
+    {
+      "name": "Failure triggers absent",
+      "pass": true
+    },
+    {
+      "name": "Local Next test port released",
+      "pass": true
+    }
+  ]
+}
