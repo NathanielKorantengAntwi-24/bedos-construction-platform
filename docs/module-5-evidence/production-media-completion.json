@@ -1,0 +1,330 @@
+{
+  "date": "2026-11-02T01:33:33.685Z",
+  "scope": "Independent exact-fixture metadata/provider absence, terminal operation provenance and retained audit-chain checks; status RPC only, no mutations; identities credentials object paths and audit images remain private",
+  "results": [
+    {
+      "name": "Saved administrator workflow has forty-nine passing checks",
+      "pass": true
+    },
+    {
+      "name": "Administrator workflow logout completed",
+      "pass": true
+    },
+    {
+      "name": "Private journal complete with seven distinct deleted fixtures",
+      "pass": true
+    },
+    {
+      "name": "Exact two-property fixture provenance",
+      "pass": true
+    },
+    {
+      "name": "Five expected children share only the gallery parent",
+      "pass": true
+    },
+    {
+      "name": "Expected production project and backend credential configured",
+      "pass": true
+    },
+    {
+      "name": "Independent production record reads succeed",
+      "pass": true
+    },
+    {
+      "name": "Both exact property IDs and shared nonce are absent",
+      "pass": true
+    },
+    {
+      "name": "Image exact IDs and parent references absent",
+      "pass": true
+    },
+    {
+      "name": "Floor plan exact IDs and parent references absent",
+      "pass": true
+    },
+    {
+      "name": "Feature exact IDs and parent references absent",
+      "pass": true
+    },
+    {
+      "name": "Amenity exact IDs and parent references absent",
+      "pass": true
+    },
+    {
+      "name": "Original administrator remains active with administrator role",
+      "pass": true
+    },
+    {
+      "name": "Twenty-two successful business audits retained",
+      "pass": true
+    },
+    {
+      "name": "gallery property exact creation and deletion audit boundaries",
+      "pass": true
+    },
+    {
+      "name": "gallery property creation binds exact fixture identity",
+      "pass": true
+    },
+    {
+      "name": "gallery property audit count excludes rejected or replayed mutations",
+      "pass": true
+    },
+    {
+      "name": "gallery property audit chain step 1",
+      "pass": true
+    },
+    {
+      "name": "gallery property audit chain step 2",
+      "pass": true
+    },
+    {
+      "name": "gallery property deletion continues exact final audited image",
+      "pass": true
+    },
+    {
+      "name": "gallery property deletion cascaded no remaining media metadata",
+      "pass": true
+    },
+    {
+      "name": "Gallery publication and withdrawal retain exact reasons",
+      "pass": true
+    },
+    {
+      "name": "cross-parent property exact creation and deletion audit boundaries",
+      "pass": true
+    },
+    {
+      "name": "cross-parent property creation binds exact fixture identity",
+      "pass": true
+    },
+    {
+      "name": "cross-parent property audit count excludes rejected or replayed mutations",
+      "pass": true
+    },
+    {
+      "name": "cross-parent property deletion continues exact final audited image",
+      "pass": true
+    },
+    {
+      "name": "cross-parent property deletion cascaded no remaining media metadata",
+      "pass": true
+    },
+    {
+      "name": "image-one exact creation and deletion audit boundaries",
+      "pass": true
+    },
+    {
+      "name": "image-one creation binds exact fixture identity",
+      "pass": true
+    },
+    {
+      "name": "image-one audit count excludes rejected or replayed mutations",
+      "pass": true
+    },
+    {
+      "name": "image-one audit chain step 1",
+      "pass": true
+    },
+    {
+      "name": "image-one audit chain step 2",
+      "pass": true
+    },
+    {
+      "name": "image-one deletion continues exact final audited image",
+      "pass": true
+    },
+    {
+      "name": "image-one final primary flag and order are correct",
+      "pass": true
+    },
+    {
+      "name": "image-two exact creation and deletion audit boundaries",
+      "pass": true
+    },
+    {
+      "name": "image-two creation binds exact fixture identity",
+      "pass": true
+    },
+    {
+      "name": "image-two audit count excludes rejected or replayed mutations",
+      "pass": true
+    },
+    {
+      "name": "image-two audit chain step 1",
+      "pass": true
+    },
+    {
+      "name": "image-two deletion continues exact final audited image",
+      "pass": true
+    },
+    {
+      "name": "image-two final primary flag and order are correct",
+      "pass": true
+    },
+    {
+      "name": "floor-plan exact creation and deletion audit boundaries",
+      "pass": true
+    },
+    {
+      "name": "floor-plan creation binds exact fixture identity",
+      "pass": true
+    },
+    {
+      "name": "floor-plan audit count excludes rejected or replayed mutations",
+      "pass": true
+    },
+    {
+      "name": "floor-plan audit chain step 1",
+      "pass": true
+    },
+    {
+      "name": "floor-plan deletion continues exact final audited image",
+      "pass": true
+    },
+    {
+      "name": "Floor plan final description is audited",
+      "pass": true
+    },
+    {
+      "name": "feature exact creation and deletion audit boundaries",
+      "pass": true
+    },
+    {
+      "name": "feature creation binds exact fixture identity",
+      "pass": true
+    },
+    {
+      "name": "feature audit count excludes rejected or replayed mutations",
+      "pass": true
+    },
+    {
+      "name": "feature audit chain step 1",
+      "pass": true
+    },
+    {
+      "name": "feature deletion continues exact final audited image",
+      "pass": true
+    },
+    {
+      "name": "Feature final value is audited",
+      "pass": true
+    },
+    {
+      "name": "amenity exact creation and deletion audit boundaries",
+      "pass": true
+    },
+    {
+      "name": "amenity creation binds exact fixture identity",
+      "pass": true
+    },
+    {
+      "name": "amenity audit count excludes rejected or replayed mutations",
+      "pass": true
+    },
+    {
+      "name": "amenity audit chain step 1",
+      "pass": true
+    },
+    {
+      "name": "amenity deletion continues exact final audited image",
+      "pass": true
+    },
+    {
+      "name": "Exactly three upload operations bind the created files",
+      "pass": true
+    },
+    {
+      "name": "Read-only operation status and audit requests succeed",
+      "pass": true
+    },
+    {
+      "name": "Nine exact operation audits retained",
+      "pass": true
+    },
+    {
+      "name": "image-one retained operation proves terminal exact ownership",
+      "pass": true
+    },
+    {
+      "name": "image-one retained file proof is bounded and valid",
+      "pass": true
+    },
+    {
+      "name": "image-one operation lifecycle audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "image-one immutable file provenance preserved across recovery",
+      "pass": true
+    },
+    {
+      "name": "image-one file creation and deletion bind the same operation",
+      "pass": true
+    },
+    {
+      "name": "image-one provider prefix has no remaining objects",
+      "pass": true
+    },
+    {
+      "name": "image-one exact provider object no longer downloadable",
+      "pass": true
+    },
+    {
+      "name": "image-two retained operation proves terminal exact ownership",
+      "pass": true
+    },
+    {
+      "name": "image-two retained file proof is bounded and valid",
+      "pass": true
+    },
+    {
+      "name": "image-two operation lifecycle audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "image-two immutable file provenance preserved across recovery",
+      "pass": true
+    },
+    {
+      "name": "image-two file creation and deletion bind the same operation",
+      "pass": true
+    },
+    {
+      "name": "image-two provider prefix has no remaining objects",
+      "pass": true
+    },
+    {
+      "name": "image-two exact provider object no longer downloadable",
+      "pass": true
+    },
+    {
+      "name": "floor-plan retained operation proves terminal exact ownership",
+      "pass": true
+    },
+    {
+      "name": "floor-plan retained file proof is bounded and valid",
+      "pass": true
+    },
+    {
+      "name": "floor-plan operation lifecycle audited exactly once",
+      "pass": true
+    },
+    {
+      "name": "floor-plan immutable file provenance preserved across recovery",
+      "pass": true
+    },
+    {
+      "name": "floor-plan file creation and deletion bind the same operation",
+      "pass": true
+    },
+    {
+      "name": "floor-plan provider prefix has no remaining objects",
+      "pass": true
+    },
+    {
+      "name": "floor-plan exact provider object no longer downloadable",
+      "pass": true
+    }
+  ]
+}

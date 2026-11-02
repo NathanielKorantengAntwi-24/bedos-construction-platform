@@ -1,0 +1,203 @@
+﻿{
+    "date":  "2026-11-02T01:30:28.4989791Z",
+    "scope":  "Production property-media workflow; fixture identities remain in ignored private journal",
+    "results":  [
+                    {
+                        "name":  "Administrator login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Expected active administrator session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated gallery property created as draft",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated cross-parent property created as draft",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated image-one fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated image-two fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated floor-plan fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated feature fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated amenity fixture created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator previews both draft images",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exactly one primary after replacement",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Gallery response no-store",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Metadata uses owned file URLs without storage paths",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous draft gallery hidden",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator previews draft file",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous draft file hidden",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Cross-property image edit denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Primary image and order edited atomically",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Floor plan description edited",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Feature value edited",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Amenity partial edit succeeds",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Idempotent replay returns original image",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid multipart metadata rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Disguised image bytes rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "File exceeding 3 MiB rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid media pagination rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid media pagination rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated gallery property published",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Published file available through guarded backend URL",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Published file available through guarded backend URL",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Published images metadata available",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Published floor-plans metadata available",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Published features metadata available",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Published amenities metadata available",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Empty gallery page retains exact count",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous image deletion denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous recovery ledger denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Parent deletion blocked while files remain",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated property withdrawn",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing file URL rechecks withdrawal",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing file URL rechecks withdrawal",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable media or metadata removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable media or metadata removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable media or metadata removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable media or metadata removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable media or metadata removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable property removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable property removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator logout",
+                        "pass":  true,
+                        "http_status":  200
+                    }
+                ]
+}
