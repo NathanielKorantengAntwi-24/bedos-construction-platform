@@ -1,0 +1,6 @@
+{
+  "date": "2026-11-02T00:29:52.448Z",
+  "scope": "Actual isolated local SQL; all migrations, metadata/Storage catalog fixtures, grants and policies rolled back",
+  "assertions": 125,
+  "status": "passed"
+}

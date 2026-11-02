@@ -1,0 +1,20 @@
+{
+  "module": 5,
+  "date": "2026-11-02",
+  "scope": "local verification; production release pending",
+  "application": {
+    "tests": 586,
+    "files": 45,
+    "passed": true
+  },
+  "sqlAssertions": 125,
+  "integrationChecks": 96,
+  "powerShellWorkflowChecks": 49,
+  "releaseRollbackAssertions": 123,
+  "independentRestorationChecks": 19,
+  "productionBuild": true,
+  "typeScript": true,
+  "focusedLint": true,
+  "runtimeAuditVulnerabilities": 0,
+  "productionChanged": false
+}

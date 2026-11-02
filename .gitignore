@@ -56,3 +56,6 @@ next-env.d.ts
 
 # Module 4 production fixture identities remain local
 docs/module-4-evidence/private-property-fixtures.json
+
+# Module 5 production media fixture identities remain local
+docs/module-5-evidence/private-media-fixtures.json

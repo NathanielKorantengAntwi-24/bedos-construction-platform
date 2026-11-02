@@ -1,6 +1,6 @@
 # Backend development status
 
-Modules 1–4 are complete for their agreed backend scope. Module 4 production acceptance, fixture cleanup and retained audits are independently verified: [completion report](docs/MODULE_4_COMPLETION_REPORT.md). Current project map and chronological register: [engineering baseline](docs/PROJECT_BASELINE.md). Next: Module 5 property media analysis. Frontend feature development remains deferred.
+Modules 1–4 are complete for their agreed backend scope. Module 4 production acceptance, fixture cleanup and retained audits are independently verified: [completion report](docs/MODULE_4_COMPLETION_REPORT.md). Current project map and chronological register: [engineering baseline](docs/PROJECT_BASELINE.md). Module 5 property media is implemented and verified locally; production release and acceptance remain pending: [implementation and release checklist](docs/MODULE_5_IMPLEMENTATION.md). Frontend feature development remains deferred.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

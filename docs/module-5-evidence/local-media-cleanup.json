@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-02T00:32:27.629Z",
+  "scope": "Independent local read-only schema/Storage configuration and fixture/port cleanup verification",
+  "results": [
+    {
+      "name": "original tables restored",
+      "pass": true
+    },
+    {
+      "name": "original columns restored",
+      "pass": true
+    },
+    {
+      "name": "original constraints restored",
+      "pass": true
+    },
+    {
+      "name": "original indexes restored",
+      "pass": true
+    },
+    {
+      "name": "original policies restored",
+      "pass": true
+    },
+    {
+      "name": "original grants restored",
+      "pass": true
+    },
+    {
+      "name": "original column_acl_count restored",
+      "pass": true
+    },
+    {
+      "name": "original triggers restored",
+      "pass": true
+    },
+    {
+      "name": "original storage_tables restored",
+      "pass": true
+    },
+    {
+      "name": "original storage_policies restored",
+      "pass": true
+    },
+    {
+      "name": "original buckets restored",
+      "pass": true
+    },
+    {
+      "name": "original aggregates restored",
+      "pass": true
+    },
+    {
+      "name": "original last_migration restored",
+      "pass": true
+    },
+    {
+      "name": "operation ledger absent",
+      "pass": true
+    },
+    {
+      "name": "zero remaining functions",
+      "pass": true
+    },
+    {
+      "name": "zero remaining auth_fixtures",
+      "pass": true
+    },
+    {
+      "name": "zero remaining properties",
+      "pass": true
+    },
+    {
+      "name": "zero remaining temporary_buckets",
+      "pass": true
+    },
+    {
+      "name": "test server port free",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,391 @@
+{
+  "date": "2026-11-02T00:26:27.136Z",
+  "production_helper_local_assertions": 49,
+  "scope": "Real local Next/Auth/Storage/RLS and controlled failure recovery only; no production credentials or requests",
+  "results": [
+    {
+      "name": "temporary functions and ledger absent",
+      "pass": true
+    },
+    {
+      "name": "local media buckets initially empty",
+      "pass": true
+    },
+    {
+      "name": "exact local private bucket created",
+      "pass": true
+    },
+    {
+      "name": "exact local private bucket created",
+      "pass": true
+    },
+    {
+      "name": "exact local private bucket created",
+      "pass": true
+    },
+    {
+      "name": "actual local media backend ready",
+      "pass": true
+    },
+    {
+      "name": "administrator exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "administrator actual backend login",
+      "pass": true
+    },
+    {
+      "name": "content exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "content actual backend login",
+      "pass": true
+    },
+    {
+      "name": "customer exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "customer actual backend login",
+      "pass": true
+    },
+    {
+      "name": "finance exact local Auth fixture",
+      "pass": true
+    },
+    {
+      "name": "finance actual backend login",
+      "pass": true
+    },
+    {
+      "name": "exact property fixture gallery",
+      "pass": true
+    },
+    {
+      "name": "exact property fixture other",
+      "pass": true
+    },
+    {
+      "name": "anonymous draft gallery hidden",
+      "pass": true
+    },
+    {
+      "name": "customer upload denied",
+      "pass": true
+    },
+    {
+      "name": "finance upload denied",
+      "pass": true
+    },
+    {
+      "name": "anonymous upload denied",
+      "pass": true
+    },
+    {
+      "name": "invalid metadata causes no storage side effect",
+      "pass": true
+    },
+    {
+      "name": "manager uploads real normalized image on draft",
+      "pass": true
+    },
+    {
+      "name": "same idempotency key returns exact existing image",
+      "pass": true
+    },
+    {
+      "name": "staff draft file preview returns validated bytes",
+      "pass": true
+    },
+    {
+      "name": "public draft file hidden",
+      "pass": true
+    },
+    {
+      "name": "concurrent primary uploads both finish",
+      "pass": true
+    },
+    {
+      "name": "exactly one primary after concurrent requests",
+      "pass": true
+    },
+    {
+      "name": "bounded draft gallery and owned URLs",
+      "pass": true
+    },
+    {
+      "name": "cross-property image edit denied",
+      "pass": true
+    },
+    {
+      "name": "real floor plan upload",
+      "pass": true
+    },
+    {
+      "name": "features creation",
+      "pass": true
+    },
+    {
+      "name": "features edit",
+      "pass": true
+    },
+    {
+      "name": "features manager delete denied",
+      "pass": true
+    },
+    {
+      "name": "amenities creation",
+      "pass": true
+    },
+    {
+      "name": "amenities edit",
+      "pass": true
+    },
+    {
+      "name": "amenities manager delete denied",
+      "pass": true
+    },
+    {
+      "name": "property publication",
+      "pass": true
+    },
+    {
+      "name": "published image public file access",
+      "pass": true
+    },
+    {
+      "name": "published floor plan public file access",
+      "pass": true
+    },
+    {
+      "name": "empty gallery page retains count",
+      "pass": true
+    },
+    {
+      "name": "local customer provider login",
+      "pass": true
+    },
+    {
+      "name": "direct property bucket listing exposes no files",
+      "pass": true
+    },
+    {
+      "name": "direct property upload denied",
+      "pass": true
+    },
+    {
+      "name": "direct property download denied",
+      "pass": true
+    },
+    {
+      "name": "direct property update denied",
+      "pass": true
+    },
+    {
+      "name": "direct property deletion does not remove object",
+      "pass": true
+    },
+    {
+      "name": "direct property bucket listing exposes no files",
+      "pass": true
+    },
+    {
+      "name": "direct property upload denied",
+      "pass": true
+    },
+    {
+      "name": "direct property download denied",
+      "pass": true
+    },
+    {
+      "name": "direct property update denied",
+      "pass": true
+    },
+    {
+      "name": "direct property deletion does not remove object",
+      "pass": true
+    },
+    {
+      "name": "unrelated bucket upload policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "unrelated bucket download unchanged",
+      "pass": true
+    },
+    {
+      "name": "unrelated bucket deletion unchanged",
+      "pass": true
+    },
+    {
+      "name": "property withdrawal",
+      "pass": true
+    },
+    {
+      "name": "previous owned URL rechecks withdrawn publication",
+      "pass": true
+    },
+    {
+      "name": "provider upload failure returns pending operation",
+      "pass": true
+    },
+    {
+      "name": "failed upload without object cleaned idempotently",
+      "pass": true
+    },
+    {
+      "name": "finalize failure leaves recoverable uploaded operation",
+      "pass": true
+    },
+    {
+      "name": "uploaded object retained after failed finalize",
+      "pass": true
+    },
+    {
+      "name": "failed finalize created no media row",
+      "pass": true
+    },
+    {
+      "name": "failed finalize object recovered and removed",
+      "pass": true
+    },
+    {
+      "name": "real Storage removal failure returns pending",
+      "pass": true
+    },
+    {
+      "name": "failed removal retains child and durable cleanup",
+      "pass": true
+    },
+    {
+      "name": "cleanup-pending file hidden even from preview",
+      "pass": true
+    },
+    {
+      "name": "failed removal retry completes physical and metadata deletion",
+      "pass": true
+    },
+    {
+      "name": "controlled late-write fixture created",
+      "pass": true
+    },
+    {
+      "name": "retained terminal operation safely rechecks late write",
+      "pass": true
+    },
+    {
+      "name": "late object removed without duplicate media deletion audit",
+      "pass": true
+    },
+    {
+      "name": "manager cannot inspect recovery ledger",
+      "pass": true
+    },
+    {
+      "name": "admin ledger has bounded safe fields",
+      "pass": true
+    },
+    {
+      "name": "exact file removed through API",
+      "pass": true
+    },
+    {
+      "name": "exact file removed through API",
+      "pass": true
+    },
+    {
+      "name": "exact file removed through API",
+      "pass": true
+    },
+    {
+      "name": "exact local property removed through API",
+      "pass": true
+    },
+    {
+      "name": "exact local property removed through API",
+      "pass": true
+    },
+    {
+      "name": "production PowerShell workflow passes against guarded local Storage",
+      "pass": true
+    },
+    {
+      "name": "PowerShell removes all seven exact fixtures",
+      "pass": true
+    },
+    {
+      "name": "PowerShell administrator logout succeeds",
+      "pass": true
+    },
+    {
+      "name": "administrator backend logout",
+      "pass": true
+    },
+    {
+      "name": "content_manager backend logout",
+      "pass": true
+    },
+    {
+      "name": "customer backend logout",
+      "pass": true
+    },
+    {
+      "name": "finance backend logout",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "exact local Auth fixture removed",
+      "pass": true
+    },
+    {
+      "name": "no property objects remain after exact cleanup",
+      "pass": true
+    },
+    {
+      "name": "exact created bucket removed",
+      "pass": true
+    },
+    {
+      "name": "exact created bucket removed",
+      "pass": true
+    },
+    {
+      "name": "exact created bucket removed",
+      "pass": true
+    },
+    {
+      "name": "temporary function bodies match installed source",
+      "pass": true
+    },
+    {
+      "name": "original grants restored",
+      "pass": true
+    },
+    {
+      "name": "original helper restored",
+      "pass": true
+    },
+    {
+      "name": "original permission mappings restored",
+      "pass": true
+    },
+    {
+      "name": "temporary functions removed",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-02T01:13:58.846Z",
+  "migration": "20261101080000",
+  "committed": true,
+  "verification": {
+    "function_count": 9,
+    "function_mismatches": 0,
+    "migration_rows": 1,
+    "private_ledger_privileges": 0,
+    "rls_enabled_tables": 5,
+    "existing_storage_policies_unchanged": true,
+    "rollback_auth_fixtures": 0,
+    "rollback_failure_triggers": 0,
+    "table_write_privileges": 72,
+    "column_write_privileges": 36,
+    "restrictive_storage_guard": 0,
+    "configured_private_buckets": 0
+  },
+  "note": "Original grants and bucket limits deliberately retained until compatible application deployment. Verification-only editor append caused the history guard to reject a replay without changes; corrected complete-selection read-only query verified installed source and privileges."
+}

@@ -1,0 +1,423 @@
+{
+  "date": "2026-11-01T19:46:27.379Z",
+  "scope": "Read-only production property-media schema comparison, storage configuration/fingerprints and aggregate counts; no object names or record contents",
+  "tables": true,
+  "columns": true,
+  "constraints": true,
+  "indexes": true,
+  "policies": true,
+  "grants": true,
+  "column_acl_count": true,
+  "triggers": true,
+  "buckets": [
+    {
+      "id": "property-floor-plans",
+      "public": false,
+      "file_size_limit": null,
+      "allowed_mime_types": null
+    },
+    {
+      "id": "property-images",
+      "public": false,
+      "file_size_limit": null,
+      "allowed_mime_types": null
+    }
+  ],
+  "storage_tables": [
+    {
+      "name": "buckets",
+      "rls": true
+    },
+    {
+      "name": "objects",
+      "rls": true
+    }
+  ],
+  "storage_policies": [
+    {
+      "table": "objects",
+      "name": "Administrators can delete property floor plans",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "0e639cd27897e2d9f05ba460f11b446d",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Administrators can delete property images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "469a81088f92e7a0d031ff3cba9559b5",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can upload enquiry attachments",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "295f5292a3fdf83b0494713682c8824e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can view blog images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "0ee26c87e75f2f4025703981f27a854d",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can view interior project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "1eb291663295dae8d38fbb200766d058",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can view media",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "14384159e1622443287a166b3721676a",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can view product images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "3cc9a4381d3e1f079c87f2a60751c69f",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can view project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "1ff6a6d69819c83a3c8f0385536b6a38",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can view property floor plans",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "7bd7b2ec551219f380970189b356d9b5",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authenticated users can view property images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "83d94b9834802f23349535c355c88936",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can delete blog images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "9682114ecbba3f73c36c9311d17d788f",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can delete enquiry attachments",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "04c21c893daf027c63f2756301e3e020",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can delete interior project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d0d8851db237e7c9d07e74a648cae683",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can delete media",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "3a9b9584630c72f4eaaa6070beeb5800",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can delete product images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "1403fe2ab2c0946b0c7fd7c48c2f0715",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can delete project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "DELETE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "eed661706591920a0f8aa27a652a1014",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update blog images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "9682114ecbba3f73c36c9311d17d788f",
+      "check_md5": "9682114ecbba3f73c36c9311d17d788f"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update enquiry attachments",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "04c21c893daf027c63f2756301e3e020",
+      "check_md5": "04c21c893daf027c63f2756301e3e020"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update interior project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d0d8851db237e7c9d07e74a648cae683",
+      "check_md5": "d0d8851db237e7c9d07e74a648cae683"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update media",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "3a9b9584630c72f4eaaa6070beeb5800",
+      "check_md5": "3a9b9584630c72f4eaaa6070beeb5800"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update product images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "1403fe2ab2c0946b0c7fd7c48c2f0715",
+      "check_md5": "1403fe2ab2c0946b0c7fd7c48c2f0715"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "eed661706591920a0f8aa27a652a1014",
+      "check_md5": "eed661706591920a0f8aa27a652a1014"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update property floor plans",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "720f6ac7fc8eb5ff85d2d16ec8e58353",
+      "check_md5": "720f6ac7fc8eb5ff85d2d16ec8e58353"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can update property images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "UPDATE",
+      "permissive": "PERMISSIVE",
+      "using_md5": "e1a71baa537fda515d06701b7cd346bb",
+      "check_md5": "e1a71baa537fda515d06701b7cd346bb"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can upload blog images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "9682114ecbba3f73c36c9311d17d788f"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can upload interior project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "d0d8851db237e7c9d07e74a648cae683"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can upload media",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "3a9b9584630c72f4eaaa6070beeb5800"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can upload product images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "1403fe2ab2c0946b0c7fd7c48c2f0715"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can upload project images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "eed661706591920a0f8aa27a652a1014"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can upload property floor plans",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "720f6ac7fc8eb5ff85d2d16ec8e58353"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can upload property images",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "INSERT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "check_md5": "e1a71baa537fda515d06701b7cd346bb"
+    },
+    {
+      "table": "objects",
+      "name": "Authorized users can view enquiry attachments",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "permissive": "PERMISSIVE",
+      "using_md5": "ceb63b2414a59e08b91796bd8f46e9e7",
+      "check_md5": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+  ],
+  "aggregates": {
+    "image_rows": 0,
+    "floor_plan_rows": 0,
+    "feature_rows": 0,
+    "amenity_rows": 0,
+    "image_objects": 0,
+    "floor_plan_objects": 0,
+    "multiple_primary_properties": 0,
+    "duplicate_image_paths": 0,
+    "duplicate_floor_plan_paths": 0,
+    "negative_orders": 0,
+    "image_metadata_without_object": 0,
+    "floor_plan_metadata_without_object": 0,
+    "image_objects_without_metadata": 0,
+    "floor_plan_objects_without_metadata": 0
+  },
+  "last_migration": "20261101070000",
+  "findings": {
+    "property_object_select_checks_only_bucket": true,
+    "property_client_upload_update_uses_manager_role": true,
+    "property_client_delete_uses_administrator_role": true,
+    "media_staff_preview_select_policy_absent": true
+  },
+  "property_storage_policy_predicates": [
+    "Administrators can delete property floor plans DELETE ((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = 'administrator'::text)) NULL",
+    "Administrators can delete property images DELETE ((bucket_id = 'property-images'::text) AND (get_user_role() = 'administrator'::text)) NULL",
+    "Authenticated users can view property floor plans SELECT (bucket_id = 'property-floor-plans'::text) NULL",
+    "Authenticated users can view property images SELECT (bucket_id = 'property-images'::text) NULL",
+    "Authorized users can update property floor plans UPDATE ((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text]))) ((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+    "Authorized users can update property images UPDATE ((bucket_id = 'property-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text]))) ((bucket_id = 'property-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+    "Authorized users can upload property floor plans INSERT NULL ((bucket_id = 'property-floor-plans'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))",
+    "Authorized users can upload property images INSERT NULL ((bucket_id = 'property-images'::text) AND (get_user_role() = ANY (ARRAY['administrator'::text, 'content_manager'::text])))"
+  ]
+}

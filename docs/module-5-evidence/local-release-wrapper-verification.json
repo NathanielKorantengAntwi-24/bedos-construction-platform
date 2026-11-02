@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-02T00:29:53.545Z",
+  "scope": "Generated release/history SQL and production-safe rollback tests validated locally; policy baseline adapted to empty lab only; no production calls",
+  "guarded_functions": 9,
+  "function_source_acl_owner_path_mismatches": 0,
+  "production_safe_rollback_assertions": 123,
+  "private_ledger_privileges": 0,
+  "configured_private_buckets": 2,
+  "restrictive_storage_guard_verified": true,
+  "original_state_restored": true,
+  "status": "passed"
+}
