@@ -1,0 +1,207 @@
+﻿{
+    "date":  "2026-11-02T02:59:39.8958673Z",
+    "scope":  "Production viewing workflow; exact identities and event IDs remain private",
+    "results":  [
+                    {
+                        "name":  "Administrator login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Expected active administrator session",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Backend fixture authentication verified before creation",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable customer created without email delivery",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Fixture is exact active ordinary customer",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated customer backend login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable customer created without email delivery",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Fixture is exact active ordinary customer",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated customer backend login",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated draft property created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated draft property created",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated property published",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Unpublished property rejects new viewing",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact new versioned viewing created for fixture customer",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact new versioned viewing created for fixture customer",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Customer scoped list and count",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Foreign customer detail hidden",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Cross-property detail hidden",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Anonymous viewing mutation denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Customer recovery queue denied",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Missing mutation version rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Invalid calendar date rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Excessive viewing page size rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Repeated viewing query rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Owner edits own new preferences",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Stale edit rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator contacts and assigns atomically",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Customer editing ends after staff processing",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Canonical scheduled status confirmed with date time and assignee",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Legacy in-progress status rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Scheduled viewing can be rescheduled by staff",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Property deletion blocked by viewing references",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated property withdrawn",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Withdrawal prevents new request",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing viewing stays visible after withdrawal",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Existing scheduled viewing can complete after withdrawal",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Completed viewing is immutable",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Owner cancels own new viewing",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Stale viewing deletion rejected",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable viewing removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable viewing removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact fixture notification events are terminal",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact fixture in-app notifications removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable property removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable property removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated customer logout",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Dedicated customer logout",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable customer removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Exact disposable customer removed",
+                        "pass":  true
+                    },
+                    {
+                        "name":  "Administrator logout",
+                        "pass":  true,
+                        "http_status":  200
+                    }
+                ]
+}

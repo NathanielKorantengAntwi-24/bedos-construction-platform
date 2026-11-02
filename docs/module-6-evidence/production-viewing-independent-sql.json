@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-02T03:13:04.686Z",
+  "scope": "Observed read-only production SQL result; private identities and raw audit images excluded",
+  "checks": {
+    "Every fixture event terminal and unique": true,
+    "Exact queue identities and terminal fields": true,
+    "Customer events bind exact deleted customer": true,
+    "Queue event counts match each business audit": true,
+    "Assigned staff events bind approved assignment": true,
+    "Exact customer Auth IDs and email addresses absent": true,
+    "Staff notice targets remain active authorized staff": true,
+    "Queue notification IDs and viewing references absent": true,
+    "Queue immutable creator and request version match audit": true,
+    "Queue recorded notification proof matches terminal audit": true,
+    "Queue immutable status assignment and schedule match audit": true,
+    "Queue materialization actor and deleted-customer retention": true,
+    "Existing actor foreign key uses SET NULL on profile deletion": true,
+    "Exactly one initial customer and original administrator notice": true,
+    "Expected customer audit headers cleared and administrator retained": true
+  },
+  "all_passed": true,
+  "queue_count": 16,
+  "recorded_count": 16,
+  "suppressed_count": 0,
+  "nulled_customer_audit_headers": 9
+}

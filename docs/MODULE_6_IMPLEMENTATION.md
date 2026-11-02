@@ -1,6 +1,6 @@
 # Module 6 — property viewing implementation
 
-2 November 2026. **Released and verified in production; Module 6 remains OPEN pending private administrator acceptance and independent reconciliation.** Modules 1–5 remain complete. Module 7 and frontend work have not started.
+2 November 2026. **COMPLETE for the agreed backend scope.** Production administrator acceptance and independent reconciliation passed. Modules 1–6 are closed; Module 7 and frontend work have not started. Authoritative closure: [MODULE_6_COMPLETION_REPORT.md](MODULE_6_COMPLETION_REPORT.md).
 
 ## 1. Module objective
 
@@ -105,10 +105,10 @@ npx eslint src/features/properties/viewing-request* src/features/properties/prop
 - [x] Private acceptance script executed against local-only credentials/configuration and sanitized evidence saved.
 - [x] Separate commit/push, production migrations/deployment and fixture/notification-audience approval.
 - [x] Fresh production preflight, staged release and post-release verification.
-- [ ] Private administrator production acceptance.
-- [ ] Independent exact fixture/notification removal, terminal queue/audit reconciliation and final closure.
+- [x] Private administrator production acceptance.
+- [x] Independent exact fixture/notification removal, terminal queue/audit reconciliation and final closure.
 
-The approved release is deployed: application 672d0d7 and both migrations 20261102010000/20261102020000. All 19 final metadata results match and all 139 SQL assertions passed with a rolled-back synthetic transaction. Ten anonymous/compatibility checks passed before and after phase two. No durable production viewing/notification/event fixtures remain. Private administrator acceptance is next.
+The approved release is deployed: application 672d0d7 and both migrations 20261102010000/20261102020000. All 19 final metadata results match and all 139 SQL assertions passed with a rolled-back synthetic transaction. Ten anonymous/compatibility checks passed before and after phase two. No durable production viewing/notification/event fixtures remain. Private administrator acceptance passed all 50 saved checks; independent reconciliation passed 107 API plus 15 SQL checks. Six fixtures and their notifications are absent; sixteen terminal events and thirty-two audit rows remain.
 
 ## 8. Remaining risks or issues and release procedure
 
@@ -122,10 +122,14 @@ That workflow creates **two disposable confirmed customer accounts, two clearly 
 
 ## 9. Next module
 
-Finish Module 6's separate production release/acceptance/reconciliation and record closure before Module 7 construction project management. Frontend remains deferred.
+Module 6 production acceptance, reconciliation and closure are verified. Next is Module 7 construction project management review and acceptance definition. Frontend remains deferred.
 
 ## Production release verified — 2 November 2026
 
 Fresh production comparison matched all eight structural sections, permission mappings, property guard and zero viewing aggregates. Phase one committed and its 19 intended metadata results matched before application 672d0d7ec69de6a576ef786108fdb7205151a5ef deployed successfully to Production (GitHub deployment 7483073728; Vercel 2WkuxMgYGfiLgaPE9GhKDoNYRmLL). Ten credential-free production checks passed before phase two committed and again after restrictions. Production SQL returned 139 assertions_verified and rolled_back. Final metadata confirms nine matching function sources/owners/search paths/ACLs, zero direct table/column writes and queue privileges, two RLS tables, version column/trigger, canonical status and restrictive read guard, viewing deduplication, unchanged original policies/notification grants/indexes and property-publication helper/guards, both migration rows and no synthetic Auth fixtures/failure triggers. Viewing, notification and event aggregates are zero.
 
 Sanitized results are under module-6-evidence/production-release-preflight.json, production-phase-one.json, production-release-verification.json and production-viewing-anonymous*.json. No real administrator credentials were used for release verification. The user must next run Test-ProductionViewingManagement.ps1 privately; independent exact fixture/notification/queue/audit reconciliation follows. Module 6 remains OPEN; Module 7/frontend deferred.
+
+## Verified closure — 2 November 2026
+
+The administrator completed all 50 production workflow checks, including exact cleanup and logout HTTP 200. Independent reconciliation passed all 122 checks (107 API plus 15 SQL): both properties, both viewings, both disposable Auth users/profiles and all sixteen generated notifications absent; sixteen terminal recorded queue events and thirty-two audit rows retain exact request/version/creator/recipient/schedule/count/notification proof. The administrator remains active with administrator role. Existing audit actor FK behavior cleared nine deleted-customer actor headers; retained viewing customer IDs and immutable queue created_by links were independently verified. No claim is made that those headers survived profile deletion; general identity-retention review remains Module 22. The private fixture journal is complete and ignored. MODULE_6_COMPLETION_REPORT.md supersedes earlier open/pending entries. Module 6 COMPLETE; Module 7 not started; frontend deferred.
