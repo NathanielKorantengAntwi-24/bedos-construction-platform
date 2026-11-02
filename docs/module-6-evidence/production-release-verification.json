@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-02T02:55:56.371Z",
+  "source": "Observed production SQL Editor verification",
+  "applicationCommit": "672d0d7ec69de6a576ef786108fdb7205151a5ef",
+  "deploymentEnvironment": "Production",
+  "deploymentId": 7483073728,
+  "vercelDeployment": "2WkuxMgYGfiLgaPE9GhKDoNYRmLL",
+  "migrations": [
+    "20261102010000",
+    "20261102020000"
+  ],
+  "rollbackAssertions": 139,
+  "fixtureTransaction": "rolled_back",
+  "checks": {
+    "rls_tables": "2",
+    "function_count": "9",
+    "migration_rows": "2",
+    "version_column": "1",
+    "version_trigger": "1",
+    "queue_privileges": "0",
+    "active_read_guard": "1",
+    "publication_guards": "2",
+    "direct_table_writes": "0",
+    "function_mismatches": "0",
+    "direct_column_writes": "0",
+    "rollback_auth_fixtures": "0",
+    "notification_dedup_index": "1",
+    "rollback_failure_triggers": "0",
+    "canonical_status_constraint": "1",
+    "existing_policies_unchanged": "true",
+    "publication_helper_unchanged": "1",
+    "notification_grants_unchanged": "true",
+    "original_notification_indexes_unchanged": "true"
+  },
+  "events": 0,
+  "viewings": 0,
+  "viewing_notifications": 0,
+  "administratorAcceptance": "pending",
+  "moduleComplete": false
+}

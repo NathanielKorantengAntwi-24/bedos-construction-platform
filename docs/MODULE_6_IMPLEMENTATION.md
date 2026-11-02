@@ -1,6 +1,6 @@
 # Module 6 — property viewing implementation
 
-2 November 2026. **Implemented and verified locally; Module 6 remains OPEN pending separate production release, acceptance and reconciliation.** Modules 1–5 remain complete. Module 7 and frontend work have not started.
+2 November 2026. **Released and verified in production; Module 6 remains OPEN pending private administrator acceptance and independent reconciliation.** Modules 1–5 remain complete. Module 7 and frontend work have not started.
 
 ## 1. Module objective
 
@@ -104,11 +104,11 @@ npx eslint src/features/properties/viewing-request* src/features/properties/prop
 - [x] Build/type/lint, exact release wrapper/refusal checks and independent lab restoration.
 - [x] Private acceptance script executed against local-only credentials/configuration and sanitized evidence saved.
 - [x] Separate commit/push, production migrations/deployment and fixture/notification-audience approval.
-- [ ] Fresh production preflight, staged release and post-release verification.
+- [x] Fresh production preflight, staged release and post-release verification.
 - [ ] Private administrator production acceptance.
 - [ ] Independent exact fixture/notification removal, terminal queue/audit reconciliation and final closure.
 
-Fresh production preflight matches the reviewed baseline. Phase one 20261102010000 committed; all 19 metadata checks match the staged state. Git publication/deployment and phase two are next; no Module 6 production test fixture or notification has been created.
+The approved release is deployed: application 672d0d7 and both migrations 20261102010000/20261102020000. All 19 final metadata results match and all 139 SQL assertions passed with a rolled-back synthetic transaction. Ten anonymous/compatibility checks passed before and after phase two. No durable production viewing/notification/event fixtures remain. Private administrator acceptance is next.
 
 ## 8. Remaining risks or issues and release procedure
 
@@ -123,3 +123,9 @@ That workflow creates **two disposable confirmed customer accounts, two clearly 
 ## 9. Next module
 
 Finish Module 6's separate production release/acceptance/reconciliation and record closure before Module 7 construction project management. Frontend remains deferred.
+
+## Production release verified — 2 November 2026
+
+Fresh production comparison matched all eight structural sections, permission mappings, property guard and zero viewing aggregates. Phase one committed and its 19 intended metadata results matched before application 672d0d7ec69de6a576ef786108fdb7205151a5ef deployed successfully to Production (GitHub deployment 7483073728; Vercel 2WkuxMgYGfiLgaPE9GhKDoNYRmLL). Ten credential-free production checks passed before phase two committed and again after restrictions. Production SQL returned 139 assertions_verified and rolled_back. Final metadata confirms nine matching function sources/owners/search paths/ACLs, zero direct table/column writes and queue privileges, two RLS tables, version column/trigger, canonical status and restrictive read guard, viewing deduplication, unchanged original policies/notification grants/indexes and property-publication helper/guards, both migration rows and no synthetic Auth fixtures/failure triggers. Viewing, notification and event aggregates are zero.
+
+Sanitized results are under module-6-evidence/production-release-preflight.json, production-phase-one.json, production-release-verification.json and production-viewing-anonymous*.json. No real administrator credentials were used for release verification. The user must next run Test-ProductionViewingManagement.ps1 privately; independent exact fixture/notification/queue/audit reconciliation follows. Module 6 remains OPEN; Module 7/frontend deferred.

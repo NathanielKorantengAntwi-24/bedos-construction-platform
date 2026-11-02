@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-02T02:49:45.996Z",
+  "scope": "Credential-free production compatibility checks only; no successful writes or private record contents",
+  "results": [
+    {
+      "name": "Anonymous root viewing list denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Anonymous staff property list denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Anonymous viewing submission denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Anonymous viewing detail denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Anonymous viewing edit denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Anonymous viewing deletion denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Anonymous viewing event queue denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Anonymous event retry denied",
+      "pass": true,
+      "http_status": 401
+    },
+    {
+      "name": "Existing public property catalog compatible",
+      "pass": true,
+      "http_status": 200
+    },
+    {
+      "name": "Existing guarded missing property image hidden",
+      "pass": true,
+      "http_status": 404
+    }
+  ]
+}
